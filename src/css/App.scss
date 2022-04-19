@@ -13,7 +13,10 @@ body {
     --navbar-color: #151619f5;
     --background-color: #151a22;
     --button-color: #3096ff;
-    --button-text-color: #e2edf8;
+    --button-color-hover: #30ff75;
+    --button-text-color: #9fa7af;
+    --button-hover-underline-color: #fff;
+    --slide-bg-color: #212630;
     --thin-border-color: #4d4d56;
     --general-text-color: #bcc3cc;
 
@@ -21,4 +24,49 @@ body {
     width: 100%;
     min-height: 100vh;
     color: var(--general-text-color);
+}
+
+li.selected button {
+    color: white !important;
+    border-bottom: 1px solid var(--button-hover-underline-color) !important;
+}
+
+.slideContainer {
+    position: relative;
+    width: calc(100% - 50px);
+    height: 80%;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    overflow-x: auto;
+    z-index: 1;
+
+    &.query-slide {
+        background: var(--slide-bg-color);
+
+        .input-place {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+
+            input[type="text"] {
+                margin: 0;
+                outline: none;
+                border: none;
+                width: 30%;
+            }
+        }
+    }
+}
+.slide-selected {
+    z-index: 10;
 }
