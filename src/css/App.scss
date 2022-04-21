@@ -48,7 +48,7 @@ li.selected button {
     overflow-x: auto;
     z-index: 1;
 
-    &.query-slide {
+    &.Query {
         background: var(--slide-bg-color);
 
         .input-place {
@@ -57,13 +57,43 @@ li.selected button {
             justify-content: space-around;
             align-items: center;
             flex-direction: row;
+            margin: 10px 0;
+            padding: 10px 0;
 
             input[type="text"] {
                 margin: 0;
                 outline: none;
                 border: none;
                 width: 30%;
+                background: transparent;
+                border-bottom: 2px solid var(--thin-border-color);
+                font-size: 15px;
+                color: var(--general-text-color);
             }
+
+            button {
+                background: transparent;
+                font-size: 20px;
+                margin: 0;
+                padding: 0 5px;
+                cursor: pointer;
+                color: var(--button-text-color);
+                border: none;
+                outline: none;
+            }
+        }
+
+        .add-row-button {
+            background: transparent;
+            font-size: 15px;
+            color: var(--button-text-color);
+            border: 1px solid var(--thin-border-color);
+            outline: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            display: block;
+            margin: auto;
+            cursor: pointer;
         }
     }
 }

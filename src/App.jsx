@@ -1,14 +1,16 @@
 import "./css/App.scss";
 import styles from "./css/App.module.scss";
-import request from "./utils";
 import { Nav, Config, Results } from "./components/index";
+import { test } from "./utils/utils";
 function App() {
-    request(
-        "https://jsonplaceholder.typicode.com/todos/1",
-        "get",
-        { hello: "world" },
-        { name: "shuvro" }
-    ).then((res) => console.log(res));
+    test(
+        "https://jsonplaceholder.typicode.com/posts/1",
+        "post",
+        {},
+        { foo: "bar", hello: "world" }
+    ).then((res) => {
+        console.log(res);
+    });
     return (
         <div>
             <Nav />

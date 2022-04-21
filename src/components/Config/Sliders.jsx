@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import styles from "../../css/App.module.scss";
+import { ParamContext } from "../../utils/Params";
+import QuerySlide from "./QuerySlide";
 
 export default function Sliders() {
     let slides = useRef(null);
@@ -16,39 +18,29 @@ export default function Sliders() {
         });
     }, []);
     return (
-        <div className={styles.sliders} ref={slides}>
-            <ul>
-                <li>
-                    <button>Query</button>
-                </li>
-                <li>
-                    <button>Header</button>
-                </li>
-                <li>
-                    <button>Auth</button>
-                </li>
-                <li>
-                    <button>Body</button>
-                </li>
-                <li>
-                    <button>Test</button>
-                </li>
-            </ul>
-            <div className="slideContainer">
-                <QuerySlide />
+        <ParamContext>
+            <div className={styles.sliders} ref={slides}>
+                <ul>
+                    <li>
+                        <button>Query</button>
+                    </li>
+                    <li>
+                        <button>Header</button>
+                    </li>
+                    <li>
+                        <button>Auth</button>
+                    </li>
+                    <li>
+                        <button>Body</button>
+                    </li>
+                    <li>
+                        <button>Test</button>
+                    </li>
+                </ul>
+                <div className="slideContainer">
+                    <QuerySlide />
+                </div>
             </div>
-        </div>
-    );
-}
-
-function QuerySlide() {
-    return (
-        <form className="slide query-slide" frame="hsides">
-            <div className="input-place">
-                <input type="checkbox" />
-                <input type="text" />
-                <input type="text" />
-            </div>
-        </form>
+        </ParamContext>
     );
 }
