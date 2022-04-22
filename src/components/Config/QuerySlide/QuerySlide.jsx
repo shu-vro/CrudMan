@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
-import { useParams } from "../../utils/Params";
-import InputPlace from "./InputPlace";
+import { useParams } from "../../../utils/Params";
+import InputPlace from "../InputPlace";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
@@ -19,10 +19,6 @@ export default function QuerySlide() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        console.log(p);
-    }, [p]);
     const [fields, setFields] = useState([v4()]);
 
     const addField = () => {
@@ -34,35 +30,37 @@ export default function QuerySlide() {
             return prev;
         });
     };
-    const enableField = (key, value) => {
-        p.setObject((prev) => {
-            return { ...prev, [key]: value };
-        });
-    };
     const removeField = (fieldId, key) => {
         disableField(key);
         setFields(fields.filter((field) => field !== fieldId));
     };
 
     return (
-        <form className="slide Query" id="config-query-slide" ref={formRef}>
-            {fields.map((field) => (
-                <InputPlace
-                    key={field}
-                    k={field}
-                    removeField={removeField}
-                    enableField={enableField}
-                    disableField={disableField}
-                />
-            ))}
-
-            <button
-                type="button"
-                className="add-row-button"
-                onClick={() => addField()}
+        <>
+            <form
+                className="slide Query slide-selected"
+                id="config-query-slide"
+                ref={formRef}
             >
-                + Add Row
-            </button>
-        </form>
+                <h2>Query Parameters</h2>
+                {fields.map((field) => (
+                    <InputPlace
+                        key={field}
+                        k={field}
+                        removeField={removeField}
+                        parentForm="config-query-slide"
+                        placeHolderNames={["parameter", "value"]}
+                    />
+                ))}
+
+                <button
+                    type="button"
+                    className="add-row-button"
+                    onClick={() => addField()}
+                >
+                    + Add Row
+                </button>
+            </form>
+        </>
     );
 }

@@ -1,12 +1,17 @@
 import { useEffect, useRef } from "react";
 import styles from "../../css/App.module.scss";
-import { ParamContext } from "../../utils/Params";
-import QuerySlide from "./QuerySlide";
+import { QuerySlide, HeaderSlide, BodySlide } from ".";
+import Wrapper from "./Wrapper";
 
 export default function Sliders() {
-    let slides = useRef(null);
+    let slidesRef = useRef(null);
     useEffect(() => {
-        let listsEl = slides.current.querySelectorAll("ul li");
+        /**
+         * @type {HTMLDivElement}
+         */
+        const slides = slidesRef.current;
+        const listsEl = slides.querySelectorAll("ul li");
+        const slideContainer = slides.querySelector(".slideContainer");
 
         listsEl.forEach((list) => {
             list.addEventListener("click", () => {
@@ -14,33 +19,36 @@ export default function Sliders() {
                     list.classList.remove("selected");
                 });
                 list.classList.add("selected");
+                slideContainer.querySelectorAll(".slide").forEach((child) => {
+                    child.classList.remove("slide-selected");
+                });
+                slideContainer
+                    .querySelector(`.${list.textContent}`)
+                    .classList.add("slide-selected");
             });
         });
     }, []);
+    let lists = ["Query", "Header", "Body", "Test"];
     return (
-        <ParamContext>
-            <div className={styles.sliders} ref={slides}>
+        <Wrapper>
+            <div className={styles.sliders} ref={slidesRef}>
                 <ul>
-                    <li>
-                        <button>Query</button>
-                    </li>
-                    <li>
-                        <button>Header</button>
-                    </li>
-                    <li>
-                        <button>Auth</button>
-                    </li>
-                    <li>
-                        <button>Body</button>
-                    </li>
-                    <li>
-                        <button>Test</button>
-                    </li>
+                    {lists.map((li) => (
+                        <li
+                            className={li === "Query" ? "selected" : ""}
+                            key={li}
+                        >
+                            <button>{li}</button>
+                        </li>
+                    ))}
                 </ul>
+                <form id="noId"></form>
                 <div className="slideContainer">
                     <QuerySlide />
+                    <HeaderSlide />
+                    <BodySlide />
                 </div>
             </div>
-        </ParamContext>
+        </Wrapper>
     );
 }

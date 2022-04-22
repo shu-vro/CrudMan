@@ -3,11 +3,10 @@ import { useState } from "react";
 export default function InputPlace({
     k,
     removeField,
-    enableField,
-    disableField,
+    parentForm,
+    placeHolderNames,
 }) {
     const [key, setKey] = useState("");
-    const [value, setValue] = useState("");
     const [stop, setStop] = useState(false);
 
     return (
@@ -16,29 +15,23 @@ export default function InputPlace({
                 type="checkbox"
                 defaultChecked
                 onChange={(e) => {
-                    e.stopPropagation();
-                    if (!e.target.checked) disableField(key);
-                    else enableField(key, value);
                     setStop(!e.target.checked);
-                    console.log(e.target.checked, stop);
                 }}
             />
             <input
                 type="text"
-                placeholder="key"
+                placeholder={placeHolderNames[0]}
                 onInput={(e) => {
                     setKey(e.target.value);
                 }}
                 name={key}
-                disabled={stop}
+                form={stop ? "noId" : parentForm}
             />
             <input
                 type="text"
                 name={key}
-                placeholder="value"
-                onInput={(e) => {
-                    setValue(e.target.value);
-                }}
+                placeholder={placeHolderNames[1]}
+                form={stop ? "noId" : "config-query-slide"}
             />
             <button
                 type="button"
