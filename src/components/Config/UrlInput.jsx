@@ -1,7 +1,25 @@
-import React from "react";
+import { useEffect } from "react";
 import styles from "../../css/App.module.scss";
+import { useApiData } from "../../utils/ApiData";
+import { request } from "../../utils/utils";
 
 export default function UrlInput() {
+    let apiData = useApiData();
+    let { setObject } = apiData;
+
+    useEffect(() => {
+        request(
+            "https://jsonplaceholder.typicode.com/posts/1",
+            "get",
+            {},
+            {},
+            {}
+        ).then((res) => {
+            setObject({ ...res, setObject });
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <form className={styles.UrlInput}>
             <select>

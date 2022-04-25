@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import styles from "../../css/App.module.scss";
-import { QuerySlide, HeaderSlide, BodySlide } from ".";
+import { QuerySlide, HeaderSlide, BodySlide, TestSlide } from ".";
 import Wrapper from "./Wrapper";
 
 export default function Sliders() {
@@ -47,6 +47,7 @@ export default function Sliders() {
                     <QuerySlide />
                     <HeaderSlide />
                     <BodySlide />
+                    <TestSlide />
                 </div>
             </div>
         </Wrapper>
