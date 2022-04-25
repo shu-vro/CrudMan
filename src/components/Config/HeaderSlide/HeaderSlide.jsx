@@ -5,7 +5,7 @@ import { useHeaders } from "../../../utils/Headers";
 
 export default function HeaderSlide() {
     const formRef = useRef(null);
-    let p = useHeaders();
+    let headers = useHeaders();
     useEffect(() => {
         /**
          * @type {HTMLFormElement}
@@ -14,14 +14,11 @@ export default function HeaderSlide() {
         form.addEventListener("input", () => {
             let formData = new FormData(form);
             let entries = Object.fromEntries(formData.entries());
-            let setObject = p.setObject;
+            let setObject = headers.setObject;
             setObject({ setObject, ...entries });
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    useEffect(() => {
-        console.log(p);
-    }, [p]);
 
     const [fields, setFields] = useState([v4()]);
 
@@ -29,7 +26,7 @@ export default function HeaderSlide() {
         setFields([...fields, v4()]);
     };
     const disableField = (key) => {
-        p.setObject((prev) => {
+        headers.setObject((prev) => {
             delete prev[key];
             return prev;
         });
