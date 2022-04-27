@@ -11,17 +11,18 @@ export default function TextArea() {
     let postBody = usePostBody();
 
     return (
-        <div>
+        <>
             <AceEditor
                 placeholder="Type code."
                 mode="json"
                 theme="dracula"
                 fontSize={14}
                 width="100%"
-                height="350px"
+                height="calc(100% - 100px)"
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
+                wrapEnabled={true}
                 onChange={(value, event) => {
                     const { row, column } = event.start;
                     try {
@@ -57,6 +58,6 @@ export default function TextArea() {
     "bool": true
 }`}
             />
-        </div>
+        </>
     );
 }
