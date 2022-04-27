@@ -13,12 +13,14 @@ body {
     --navbar-color: #151619f5;
     --background-color: #151a22;
     --button-color: #3096ff;
-    --button-color-hover: #30ff75;
+    --button-color-hover: #3045ff;
     --button-text-color: #9fa7af;
     --button-hover-underline-color: #fff;
     --slide-bg-color: #212630;
     --thin-border-color: #4d4d56;
     --general-text-color: #bcc3cc;
+    --theme: #fff;
+    --input-bg: #000;
 
     background: var(--background-color);
     width: 100%;
@@ -103,3 +105,26 @@ li.selected button {
 .ace_search.right {
     background: var(--general-text-color);
 }
+
+.statusBar {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+
+    li {
+        display: inline-block;
+        padding: 0 10px;
+
+        span.status {
+            color: lime;
+
+            &:where(.error) {
+                color: red;
+            }
+        }
+    }
+}
+
+// * {
+//     border: 1px solid red;
+// }

@@ -5,7 +5,8 @@ import InputPlace from "../InputPlace";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
-    let p = useParams();
+    let param = useParams();
+
     useEffect(() => {
         /**
          * @type {HTMLFormElement}
@@ -14,7 +15,7 @@ export default function QuerySlide() {
         form.addEventListener("input", () => {
             let formData = new FormData(form);
             let entries = Object.fromEntries(formData.entries());
-            let setObject = p.setObject;
+            let setObject = param.setObject;
             setObject({ setObject, ...entries });
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,7 +26,7 @@ export default function QuerySlide() {
         setFields([...fields, v4()]);
     };
     const disableField = (key) => {
-        p.setObject((prev) => {
+        param.setObject((prev) => {
             delete prev[key];
             return prev;
         });

@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
-import styles from "../../css/App.module.scss";
-import { QuerySlide, HeaderSlide, BodySlide, TestSlide } from ".";
-import Wrapper from "./Wrapper";
+import styles from "../css/App.module.scss";
 
-export default function Sliders() {
+export default function CommonSliderAssets({ children, lists, defaultCheck }) {
     let slidesRef = useRef(null);
     useEffect(() => {
         /**
@@ -28,28 +26,28 @@ export default function Sliders() {
             });
         });
     }, []);
-    let lists = ["Query", "Header", "Body", "Test"];
     return (
-        <Wrapper>
-            <div className={styles.sliders} ref={slidesRef}>
-                <ul>
-                    {lists.map((li) => (
-                        <li
-                            className={li === "Query" ? "selected" : ""}
-                            key={li}
-                        >
-                            <button>{li}</button>
-                        </li>
-                    ))}
-                </ul>
-                <form id="noId"></form>
-                <div className="slideContainer">
+        <div className={styles.sliders} ref={slidesRef}>
+            <ul>
+                {lists.map((li) => (
+                    <li
+                        className={li === defaultCheck ? "selected" : ""}
+                        key={li}
+                    >
+                        <button>{li}</button>
+                    </li>
+                ))}
+            </ul>
+            <form id="noId"></form>
+            <div className="slideContainer">
+                {/* <Wrapper>
                     <QuerySlide />
                     <HeaderSlide />
                     <BodySlide />
                     <TestSlide />
-                </div>
+                </Wrapper> */}
+                {children}
             </div>
-        </Wrapper>
+        </div>
     );
 }

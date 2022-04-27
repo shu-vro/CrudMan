@@ -4,7 +4,8 @@
     background: var(--navbar-color);
     color: white;
     display: grid;
-    place-items: center;
+    align-items: center;
+    justify-items: center;
 
     h1 {
         margin: 0;
@@ -32,6 +33,12 @@
             border-right: 2px solid var(--thin-border-color);
         }
     }
+
+    @media screen and (max-width: 786px) {
+        & {
+            flex-direction: column;
+        }
+    }
 }
 
 .config {
@@ -56,11 +63,11 @@
     }
 
     & > input {
-        background: #000;
+        background: var(--input-bg);
         font-family: "Montserrat", "Gill Sans", "Gill Sans MT", Calibri,
             "Trebuchet MS", sans-serif;
         width: calc(100% - 135px);
-        color: white;
+        color: var(--theme);
         outline: none;
         border: none;
         padding: 0 10px;
@@ -68,7 +75,7 @@
 
     & > button {
         background: var(--button-color);
-        color: white;
+        color: var(--theme);
         border: none;
         outline: none;
         height: 40px;
@@ -79,15 +86,14 @@
         transition: 0.25s;
 
         &:hover {
-            color: #000;
             background: var(--button-color-hover);
         }
     }
 
     & > select {
-        background: #000;
+        background: var(--input-bg);
         height: 35px;
-        color: white;
+        color: var(--theme);
         outline: none;
         border: none;
         border-right: 1px solid var(--thin-border-color);
@@ -106,6 +112,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: row;
+        padding: 0;
 
         li {
             list-style: none;
@@ -129,7 +136,8 @@
 }
 
 .table {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
 
     td,
     th {

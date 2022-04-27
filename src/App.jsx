@@ -1,11 +1,11 @@
 import "./css/App.scss";
 import styles from "./css/App.module.scss";
 import { Nav, Config, Results } from "./components/index";
-import { ApiDataContext } from "./utils/ApiData";
+import Wrapper from "./components/Wrapper";
 
 function App() {
     return (
-        <ApiDataContext>
+        <Wrapper>
             <div>
                 <Nav />
                 <div className={styles.container}>
@@ -13,7 +13,7 @@ function App() {
                     <Results />
                 </div>
             </div>
-        </ApiDataContext>
+        </Wrapper>
     );
 }
 

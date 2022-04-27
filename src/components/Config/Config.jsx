@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "../../css/App.module.scss";
 import UrlInput from "./UrlInput";
-import Sliders from "./Sliders";
+import { QuerySlide, HeaderSlide, BodySlide, TestSlide } from ".";
+import CommonSliderAssets from "../CommonSliderAssets";
 
 export default function Config() {
     return (
@@ -9,5 +10,19 @@ export default function Config() {
             <UrlInput />
             <Sliders />
         </div>
+    );
+}
+
+function Sliders() {
+    return (
+        <CommonSliderAssets
+            lists={["Query", "Header", "Body", "Test"]}
+            defaultCheck="Query"
+        >
+            <QuerySlide />
+            <HeaderSlide />
+            <BodySlide />
+            <TestSlide />
+        </CommonSliderAssets>
     );
 }

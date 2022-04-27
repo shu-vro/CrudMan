@@ -11,12 +11,16 @@ export default function UrlInput() {
         request(
             "https://jsonplaceholder.typicode.com/posts/1",
             "get",
-            {},
+            { "Timing-Allow-Origin": "*" },
             {},
             {}
         ).then((res) => {
+            console.log(res);
             setObject({ ...res, setObject });
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
