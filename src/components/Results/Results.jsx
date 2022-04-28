@@ -10,7 +10,7 @@ export default function Results() {
     let apiData = useApiData();
 
     useEffect(() => {
-        console.log(JSON.stringify(apiData?.data || {}, null, 0));
+        // console.log(JSON.stringify(apiData?.data || {}, null, 0));
     }, [apiData]);
     return (
         <div className={styles.results}>
