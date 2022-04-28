@@ -22,9 +22,8 @@ export async function request(
             method,
             headers,
             params,
-            data,
         });
-        const response = await instance.request();
+        const response = await instance.request({ data });
         return response;
     } catch (error) {
         return {

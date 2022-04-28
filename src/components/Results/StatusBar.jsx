@@ -5,17 +5,22 @@ export default function StatusBar({ status, size, time }) {
         <>
             <ul className="statusBar">
                 <li>
-                    Status{" "}
-                    <span className={`status`}>{`${status || "-"}`}</span>
-                </li>
-                <li>
-                    Size{" "}
-                    <span className={`status`}>{`${
-                        numeral(size).format("0.0b") || "-"
+                    Status:{" "}
+                    <span className={`status ${status >= 400 && "error"}`}>{`${
+                        status || "-"
                     }`}</span>
                 </li>
                 <li>
-                    Time <span className={`status`}>{`${time || "-"}s`}</span>
+                    {/* numeral(size).format("0.0b") || "-" */}
+                    Size:{" "}
+                    <span className={`status ${status >= 400 && "error"}`}>{`${
+                        (status >= 400 && "Error") ||
+                        numeral(size).format("0.0b") ||
+                        "-"
+                    }`}</span>
+                </li>
+                <li>
+                    Time: <span className={`status`}>{`${time || "-"}ms`}</span>
                 </li>
             </ul>
         </>
