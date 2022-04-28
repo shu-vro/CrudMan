@@ -2,6 +2,7 @@ import { ParamContext } from "../utils/Params";
 import { HeaderContext } from "../utils/Headers";
 import { PostBodyContext } from "../utils/Body";
 import { ApiDataContext } from "../utils/ApiData";
+import { UrlDataContext } from "../utils/UrlData";
 import React from "react";
 
 export default function Wrapper({ children }) {
@@ -9,7 +10,9 @@ export default function Wrapper({ children }) {
         <ApiDataContext>
             <ParamContext>
                 <HeaderContext>
-                    <PostBodyContext>{children}</PostBodyContext>
+                    <PostBodyContext>
+                        <UrlDataContext>{children}</UrlDataContext>
+                    </PostBodyContext>
                 </HeaderContext>
             </ParamContext>
         </ApiDataContext>

@@ -4,6 +4,7 @@ import { useApiData } from "../../utils/ApiData";
 import { useHeaders } from "../../utils/Headers";
 import { useParams } from "../../utils/Params";
 import { usePostBody } from "../../utils/Body";
+import { useUrlData } from "../../utils/UrlData";
 import { request } from "../../utils/utils";
 
 export default function UrlInput() {
@@ -11,6 +12,8 @@ export default function UrlInput() {
     let headers = useHeaders();
     let params = useParams();
     let postbody = usePostBody();
+    let urlData = useUrlData();
+    let setObjectUrl = urlData.setObject;
     const [headerCopy, setHeaderCopy] = useState({});
     const [paramsCopy, setParamsCopy] = useState({});
     const [postBodyCopy, setPostBodyCopy] = useState({});
@@ -40,8 +43,8 @@ export default function UrlInput() {
     }, [headers, params, postbody]);
 
     async function handleSubmit(e) {
-        let form = formRef.current;
         e.preventDefault();
+        let form = formRef.current;
         let formData = new FormData(form);
         let entries = Object.fromEntries(formData.entries());
         let start = Date.now();
@@ -56,12 +59,24 @@ export default function UrlInput() {
         setObject({ ...res, elapsedTime: diff, setObject });
     }
 
+    function handleInput() {
+        let form = formRef.current;
+        let formData = new FormData(form);
+        let { baseURL } = Object.fromEntries(formData.entries());
+        let url = new URL(
+            "https://example.com/?product=shirt&color=blue&newuser&size=m"
+        );
+        let urlParams = Object.fromEntries(url.searchParams.entries());
+        setObjectUrl({ ...urlParams, setObjectUrl });
+    }
+
     return (
         <form
             className={styles.UrlInput}
             onSubmit={handleSubmit}
             ref={formRef}
             autoComplete={true}
+            onChange={handleInput}
         >
             <select name="method">
                 <option value="Get" defaultChecked>
@@ -76,7 +91,7 @@ export default function UrlInput() {
                 type="text"
                 placeholder="Enter a URL"
                 name="baseURL"
-                defaultValue="https://jsonplaceholder.typicode.com/posts/1"
+                defaultValue="https://jsonplaceholder.typicode.com/comments?postId=1"
             />
             <button type="submit">Send</button>
         </form>

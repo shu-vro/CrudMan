@@ -1,11 +1,27 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useParams } from "../../../utils/Params";
+import { useUrlData } from "../../../utils/UrlData";
 import InputPlace from "../InputPlace";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
     let param = useParams();
+    let urlData = useUrlData();
+    const [urlDataCopy, setUrlDataCopy] = useState();
+
+    useEffect(() => {
+        setUrlDataCopy(() => {
+            let u = { ...urlData };
+            delete u["setObject"];
+            delete u["setObjectUrl"];
+            return Object.entries(u);
+        });
+    }, [urlData]);
+
+    useEffect(() => {
+        console.log(urlDataCopy);
+    }, [urlDataCopy]);
 
     useEffect(() => {
         /**
