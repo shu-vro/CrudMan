@@ -24,10 +24,7 @@ export default function Results() {
                 defaultCheck="Response"
             >
                 <Response data={apiData?.data || {}} />
-                <div className="slide Headers">
-                    <h2>Headers</h2>
-                    <Table header={{}} content={apiData?.headers || {}} />
-                </div>
+                <Headers headers={apiData?.headers || {}} />
                 <div className="slide Cookies">
                     <h2>Cookies</h2>
                     <p>No cookies found</p>
@@ -37,6 +34,15 @@ export default function Results() {
                     <p>Will be available soon!</p>
                 </div>
             </CommonSliderAssets>
+        </div>
+    );
+}
+
+function Headers({ headers }) {
+    return (
+        <div className="slide Headers">
+            <h2>Headers</h2>
+            <Table content={headers} />
         </div>
     );
 }

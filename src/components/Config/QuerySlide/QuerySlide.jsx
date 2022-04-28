@@ -22,6 +22,10 @@ export default function QuerySlide() {
     }, []);
     const [fields, setFields] = useState([v4()]);
 
+    // useEffect(() => {
+    //     console.log(param);
+    // }, [param]);
+
     const addField = () => {
         setFields([...fields, v4()]);
     };

@@ -1,11 +1,12 @@
-import { useRef, useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
-import InputPlace from "../InputPlace";
 import { useHeaders } from "../../../utils/Headers";
+import InputPlace from "../InputPlace";
 
-export default function HeaderSlide() {
+export default function QuerySlide() {
     const formRef = useRef(null);
     let headers = useHeaders();
+
     useEffect(() => {
         /**
          * @type {HTMLFormElement}
@@ -19,8 +20,11 @@ export default function HeaderSlide() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     const [fields, setFields] = useState([v4()]);
+
+    // useEffect(() => {
+    //     console.log(headers);
+    // }, [headers]);
 
     const addField = () => {
         setFields([...fields, v4()]);
@@ -43,7 +47,7 @@ export default function HeaderSlide() {
                 id="config-header-slide"
                 ref={formRef}
             >
-                <h2>Http Headers</h2>
+                <h2>HTTP Headers</h2>
                 {fields.map((field) => (
                     <InputPlace
                         key={field}

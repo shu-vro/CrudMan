@@ -1,6 +1,6 @@
 import styles from "../../css/App.module.scss";
 
-export default function Table({ header, content }) {
+export default function Table({ content }) {
     let object2Array = Object.entries(content);
     return (
         <table rules="all" frame="none" className={styles.table}>

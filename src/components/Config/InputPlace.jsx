@@ -31,7 +31,7 @@ export default function InputPlace({
                 type="text"
                 name={key}
                 placeholder={placeHolderNames[1]}
-                form={stop ? "noId" : "config-query-slide"}
+                form={stop ? "noId" : parentForm}
             />
             <button
                 type="button"
