@@ -16,6 +16,7 @@ export default function Results() {
         <div className={styles.results}>
             <StatusBar
                 status={apiData.status}
+                statusText={apiData.statusText}
                 size={JSON.stringify(apiData?.data || {}, null, 0).length}
                 time={apiData.elapsedTime}
             />

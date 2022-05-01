@@ -35,6 +35,11 @@ export default function BodySlide() {
                 showGutter={true}
                 highlightActiveLine={true}
                 wrapEnabled={true}
+                onLoad={(editor) => {
+                    let result = JSON.parse(editor.getValue());
+                    let setObject = postBody.setObject;
+                    setObject({ setObject, ...result });
+                }}
                 onChange={(value, event) => {
                     const { row, column } = event.start;
                     try {

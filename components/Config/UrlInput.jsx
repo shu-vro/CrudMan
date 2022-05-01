@@ -6,6 +6,7 @@ import { useParams } from "../../utils/Params";
 import { usePostBody } from "../../utils/Body";
 import { useUrlData } from "../../utils/UrlData";
 import { request } from "../../utils/utils";
+import axios from "axios";
 
 export default function UrlInput() {
     let apiData = useApiData();
@@ -47,19 +48,24 @@ export default function UrlInput() {
         let form = formRef.current;
         let formData = new FormData(form);
         let entries = Object.fromEntries(formData.entries());
+
         let start = Date.now();
-        let res = await request(
-            entries.baseURL,
-            entries.method,
-            headerCopy,
-            paramsCopy,
-            postBodyCopy
-        );
+        let res = await axios.get("/api/headerParser", {
+            params: {
+                params: paramsCopy,
+                headers: headerCopy,
+                body: postBodyCopy,
+                url: entries.baseURL,
+                method: entries.method,
+            },
+        });
+
+        res = res.data;
         let diff = Date.now() - start;
         setObject({ ...res, elapsedTime: diff, setObject });
     }
 
-    function handleInput() {
+    async function handleInput() {
         let form = formRef.current;
         let formData = new FormData(form);
         let { baseURL } = Object.fromEntries(formData.entries());

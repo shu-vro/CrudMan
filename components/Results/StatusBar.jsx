@@ -1,6 +1,6 @@
 import numeral from "numeral";
 
-export default function StatusBar({ status, size, time }) {
+export default function StatusBar({ status, statusText, size, time }) {
     return (
         <>
             <ul className="statusBar">
@@ -9,7 +9,7 @@ export default function StatusBar({ status, size, time }) {
                     Status:{" "}
                     <span className={`status ${status >= 400 && "error"}`}>{`${
                         status || "-"
-                    }`}</span>
+                    } ${statusText}`}</span>
                 </li>
                 <li>
                     {/* numeral(size).format("0.0b") || "-" */}
