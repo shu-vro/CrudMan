@@ -1,11 +1,22 @@
 import React from "react";
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-json";
-import "ace-builds/src-noconflict/theme-dracula";
-import "ace-builds/src-noconflict/keybinding-vscode";
-import "ace-builds/src-noconflict/ext-searchbox";
 import { useState } from "react";
 import { usePostBody } from "../../../utils/Body";
+import dynamic from "next/dynamic";
+
+const AceEditor = dynamic(
+    async () => {
+        let ace = await import("react-ace");
+        require("ace-builds/src-noconflict/mode-json");
+        require("ace-builds/src-noconflict/theme-dracula");
+        require("ace-builds/src-noconflict/ext-searchbox");
+        require("ace-builds/src-noconflict/keybinding-vscode");
+        return ace;
+    },
+    {
+        ssr: false,
+        loading: () => <div>Loading editor...</div>,
+    }
+);
 
 export default function BodySlide() {
     const [annotations, setAnnotations] = useState([]);
@@ -46,9 +57,6 @@ export default function BodySlide() {
                 }}
                 annotations={annotations}
                 setOptions={{
-                    enableBasicAutocompletion: true,
-                    enableLiveAutocompletion: true,
-                    enableSnippets: true,
                     showLineNumbers: true,
                     useWorker: true,
                     tabSize: 4,

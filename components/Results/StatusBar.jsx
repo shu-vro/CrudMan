@@ -4,6 +4,7 @@ export default function StatusBar({ status, size, time }) {
     return (
         <>
             <ul className="statusBar">
+                <form id="noId"></form>
                 <li>
                     Status:{" "}
                     <span className={`status ${status >= 400 && "error"}`}>{`${

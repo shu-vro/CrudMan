@@ -1,7 +1,18 @@
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-json";
-import "ace-builds/src-noconflict/theme-dracula";
-import "ace-builds/src-noconflict/ext-searchbox";
+import dynamic from "next/dynamic";
+
+const AceEditor = dynamic(
+    async () => {
+        let ace = await import("react-ace");
+        require("ace-builds/src-noconflict/mode-json");
+        require("ace-builds/src-noconflict/theme-dracula");
+        require("ace-builds/src-noconflict/ext-searchbox");
+        return ace;
+    },
+    {
+        ssr: false,
+        loading: () => <div>Loading editor...</div>,
+    }
+);
 
 export default function Response({ data }) {
     return (
@@ -20,9 +31,6 @@ export default function Response({ data }) {
                 readOnly={true}
                 wrapEnabled={true}
                 setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    enableSnippets: false,
                     showLineNumbers: true,
                     useWorker: true,
                     tabSize: 4,

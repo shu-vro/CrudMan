@@ -75,7 +75,7 @@ export default function UrlInput() {
             className={styles.UrlInput}
             onSubmit={handleSubmit}
             ref={formRef}
-            autoComplete={true}
+            autoComplete="on"
             onChange={handleInput}
         >
             <select name="method">

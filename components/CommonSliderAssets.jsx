@@ -34,20 +34,11 @@ export default function CommonSliderAssets({ children, lists, defaultCheck }) {
                         className={li === defaultCheck ? "selected" : ""}
                         key={li}
                     >
-                        <button>{li}</button>
+                        <button type="button">{li}</button>
                     </li>
                 ))}
             </ul>
-            <form id="noId"></form>
-            <div className="slideContainer">
-                {/* <Wrapper>
-                    <QuerySlide />
-                    <HeaderSlide />
-                    <BodySlide />
-                    <TestSlide />
-                </Wrapper> */}
-                {children}
-            </div>
+            <div className="slideContainer">{children}</div>
         </div>
     );
 }

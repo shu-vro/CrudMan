@@ -4,10 +4,6 @@ export default function Table({ content }) {
     let object2Array = Object.entries(content);
     return (
         <table rules="all" frame="none" className={styles.table}>
-            <tr>
-                <th>Header 1</th>
-                <th>Header 2</th>
-            </tr>
             {object2Array.map(([key, value]) => {
                 return (
                     <tr key={key}>
