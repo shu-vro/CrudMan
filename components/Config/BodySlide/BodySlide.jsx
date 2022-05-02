@@ -1,13 +1,14 @@
-import React from "react";
 import { useState } from "react";
 import { usePostBody } from "../../../utils/Body";
 import dynamic from "next/dynamic";
+import { useTheme } from "../../../utils/Theme";
 
 const AceEditor = dynamic(
     async () => {
         let ace = await import("react-ace");
         require("ace-builds/src-noconflict/mode-json");
         require("ace-builds/src-noconflict/theme-dracula");
+        require("ace-builds/src-noconflict/theme-github");
         require("ace-builds/src-noconflict/ext-searchbox");
         require("ace-builds/src-noconflict/keybinding-vscode");
         return ace;
@@ -19,6 +20,7 @@ const AceEditor = dynamic(
 );
 
 export default function BodySlide() {
+    const { value: theme } = useTheme();
     const [annotations, setAnnotations] = useState([]);
     let postBody = usePostBody();
     return (
@@ -27,7 +29,7 @@ export default function BodySlide() {
             <AceEditor
                 placeholder="Type code."
                 mode="json"
-                theme="dracula"
+                theme={theme === "dark" ? "dracula" : "github"}
                 fontSize={14}
                 width="100%"
                 height="calc(100% - 100px)"

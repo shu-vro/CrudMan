@@ -8,6 +8,11 @@ function App() {
         <Wrapper>
             <Head>
                 <title>CrudMan</title>
+                <link
+                    rel="shortcut icon"
+                    href="favicon.ico"
+                    type="image/x-icon"
+                />
             </Head>
             <Nav />
             <div className={styles.container}>

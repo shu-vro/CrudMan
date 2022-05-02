@@ -5,7 +5,6 @@ import { useHeaders } from "../../utils/Headers";
 import { useParams } from "../../utils/Params";
 import { usePostBody } from "../../utils/Body";
 import { useUrlData } from "../../utils/UrlData";
-import { request } from "../../utils/utils";
 import axios from "axios";
 
 export default function UrlInput() {
@@ -20,8 +19,13 @@ export default function UrlInput() {
     const [postBodyCopy, setPostBodyCopy] = useState({});
     let { setObject } = apiData;
     const formRef = useRef(null);
+
+    // useEffect(() => {
+    //     console.log(apiData);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [apiData]);
     useEffect(() => {
-        console.log(apiData);
+        handleInput();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiData]);
 
@@ -69,11 +73,10 @@ export default function UrlInput() {
         let form = formRef.current;
         let formData = new FormData(form);
         let { baseURL } = Object.fromEntries(formData.entries());
-        let url = new URL(
-            "https://example.com/?product=shirt&color=blue&newuser&size=m"
-        );
-        let urlParams = Object.fromEntries(url.searchParams.entries());
-        setObjectUrl({ ...urlParams, setObjectUrl });
+        let url = baseURL.split("?");
+        baseURL = url[0];
+        let urlParams = Object.fromEntries(new URLSearchParams(url[1]));
+        setObjectUrl({ urlParams, baseURL, setObjectUrl });
     }
 
     return (

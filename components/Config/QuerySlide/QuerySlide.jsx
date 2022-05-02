@@ -8,20 +8,10 @@ export default function QuerySlide() {
     const formRef = useRef(null);
     let param = useParams();
     let urlData = useUrlData();
-    const [urlDataCopy, setUrlDataCopy] = useState();
 
     useEffect(() => {
-        setUrlDataCopy(() => {
-            let u = { ...urlData };
-            delete u["setObject"];
-            delete u["setObjectUrl"];
-            return Object.entries(u);
-        });
+        console.log(urlData);
     }, [urlData]);
-
-    useEffect(() => {
-        console.log(urlDataCopy);
-    }, [urlDataCopy]);
 
     useEffect(() => {
         /**
@@ -31,6 +21,10 @@ export default function QuerySlide() {
         form.addEventListener("input", () => {
             let formData = new FormData(form);
             let entries = Object.fromEntries(formData.entries());
+            let search = `${urlData.baseURL}?${new URLSearchParams(
+                entries
+            ).toString()}`;
+            console.log(urlData, search);
             let setObject = param.setObject;
             setObject({ setObject, ...entries });
         });

@@ -3,9 +3,18 @@
     height: 60px;
     background: var(--navbar-color);
     color: white;
-    display: grid;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-items: center;
+    flex-direction: row;
+    user-select: none;
+
+    svg {
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
 
     h1 {
         margin: 0;

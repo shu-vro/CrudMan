@@ -9,10 +9,9 @@ export default function StatusBar({ status, statusText, size, time }) {
                     Status:{" "}
                     <span className={`status ${status >= 400 && "error"}`}>{`${
                         status || "-"
-                    } ${statusText}`}</span>
+                    } ${statusText || ""}`}</span>
                 </li>
                 <li>
-                    {/* numeral(size).format("0.0b") || "-" */}
                     Size:{" "}
                     <span className={`status ${status >= 400 && "error"}`}>{`${
                         (status >= 400 && "Error") ||

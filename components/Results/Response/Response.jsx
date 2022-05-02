@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { useTheme } from "../../../utils/Theme";
 
 const AceEditor = dynamic(
     async () => {
@@ -15,13 +16,14 @@ const AceEditor = dynamic(
 );
 
 export default function Response({ data }) {
+    const { value: theme } = useTheme();
     return (
         <div className="slide Response slide-selected">
             <h2>Response</h2>
             <AceEditor
                 placeholder="Type code."
                 mode="json"
-                theme="dracula"
+                theme={theme === "dark" ? "dracula" : "github"}
                 fontSize={14}
                 width="100%"
                 height="calc(100% - 100px)"
