@@ -132,7 +132,7 @@ li.selected button {
         padding: 0 10px;
 
         span.status {
-            color: lime;
+            color: #00cd00;
 
             &:where(.error) {
                 color: red;

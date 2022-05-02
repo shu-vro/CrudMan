@@ -12,11 +12,21 @@ export default async function handler(req, res) {
         headers: JSON.parse(headers),
     });
     body = JSON.parse(body);
-    let response = await instance.request({ data: { ...body } });
-    res.status(200).json({
-        data: response.data,
-        headers: response.headers,
-        status: response.status,
-        statusText: response.statusText,
-    });
+    try {
+        let response = await instance.request({ data: { ...body } });
+        res.status(200).json({
+            data: response.data,
+            headers: response.headers,
+            status: response.status,
+            statusText: response.statusText,
+        });
+    } catch (error) {
+        res.status(200).json({
+            data: error.response.data,
+            headers: error.response.headers,
+            status: error.response.status,
+            statusText: error.response.statusText,
+        });
+        console.log(error.response.data);
+    }
 }
