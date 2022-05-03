@@ -65,7 +65,7 @@ export default function BodySlide() {
                 annotations={annotations}
                 setOptions={{
                     showLineNumbers: true,
-                    useWorker: true,
+                    useWorker: false,
                     tabSize: 4,
                 }}
                 keyboardHandler="vscode"

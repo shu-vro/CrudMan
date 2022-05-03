@@ -34,7 +34,7 @@ export default function Response({ data }) {
                 wrapEnabled={true}
                 setOptions={{
                     showLineNumbers: true,
-                    useWorker: true,
+                    useWorker: false,
                     tabSize: 4,
                 }}
                 value={`${JSON.stringify(data, null, 4)}`}

@@ -25,7 +25,6 @@ export default function UrlInput() {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [apiData]);
     useEffect(() => {
-        handleInput();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiData]);
 
@@ -69,14 +68,24 @@ export default function UrlInput() {
         setObject({ ...res, elapsedTime: diff, setObject });
     }
 
+    useEffect(() => {
+        handleInput();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     async function handleInput() {
         let form = formRef.current;
         let formData = new FormData(form);
         let { baseURL } = Object.fromEntries(formData.entries());
         let url = baseURL.split("?");
-        baseURL = url[0];
+        let baseURLCopy = url[0];
         let urlParams = Object.fromEntries(new URLSearchParams(url[1]));
-        setObjectUrl({ urlParams, baseURL, setObjectUrl });
+        setObjectUrl({
+            urlParams,
+            baseURL: baseURLCopy,
+            url: baseURL,
+            setObjectUrl,
+        });
     }
 
     return (
@@ -100,7 +109,8 @@ export default function UrlInput() {
                 type="text"
                 placeholder="Enter a URL"
                 name="baseURL"
-                defaultValue="https://jsonplaceholder.typicode.com/comments?postId=1"
+                value={urlData.url}
+                onChange={() => true}
             />
             <button type="submit">Send</button>
         </form>
