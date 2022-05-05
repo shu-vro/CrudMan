@@ -13,6 +13,9 @@ export default function SelectButton({ allHeaders, ...rest }) {
 
         input.addEventListener("blur", () => {
             td.style.display = "none";
+            setTimeout(() => {
+                options.style.display = "none";
+            }, 500);
         });
 
         input.addEventListener("input", (e) => {

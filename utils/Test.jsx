@@ -7,7 +7,7 @@ export function useTest() {
 }
 
 export function TestContext({ children }) {
-    const [object, setObject] = useState({});
+    const [object, setObject] = useState({ props: [] });
     return (
         <Context.Provider value={{ ...object, setObject }}>
             {children}

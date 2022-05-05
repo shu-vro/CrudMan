@@ -7,13 +7,17 @@ import allHeaders from "../../../utils/data.json";
 export default function QuerySlide() {
     const formRef = useRef(null);
     let test = useTest();
-    const [testCopy, setTestCopy] = useState({});
+    let setObject = test.setObject;
+    const [props, setProps] = useState([]);
+    const [fields, setFields] = useState([v4()]);
 
     useEffect(() => {
-        let t = { ...test };
-        delete t["setObject"];
-        console.log(t);
+        console.log(test);
     }, [test]);
+
+    useEffect(() => {
+        setObject({ props, setObject });
+    }, [props, setObject]);
 
     useEffect(() => {
         /**
@@ -21,13 +25,16 @@ export default function QuerySlide() {
          */
         let form = formRef.current;
         form.addEventListener("input", () => {
-            // let formData = new FormData(form);
-            // let entries = Object.fromEntries(formData.entries());
-            // let setObject = test.setObject;
-            // setObject({ setObject, ...entries });
-            let inputPlace = form.querySelectorAll(".input-place");
+            let inputPlaces = form.querySelectorAll(".input-place");
+            setProps([]);
 
-            inputPlace.forEach((place) => {
+            for (let i = 0; i < inputPlaces.length; i++) {
+                const place = inputPlaces[i];
+                console.log(place);
+                let isPresent = place.childNodes[0].checked;
+
+                if (!isPresent) continue;
+
                 let key = place.childNodes[1].querySelector("input").value;
                 let operation = place.childNodes[2].value;
                 let value = place.childNodes[3].value;
@@ -37,13 +44,13 @@ export default function QuerySlide() {
                     operation,
                     value,
                 };
-                console.log(o);
-                let setObject = test.setObject;
-            });
+                setProps((prop) => {
+                    return [...prop, o];
+                });
+            }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const [fields, setFields] = useState([v4()]);
 
     const addField = () => {
         setFields([...fields, v4()]);
@@ -68,8 +75,8 @@ export default function QuerySlide() {
                         key={field}
                         k={field}
                         removeField={removeField}
-                        parentForm="config-test-slide"
-                        placeHolderNames={["test", "value"]}
+                        formRef={formRef}
+                        placeHolderNames={["Test Header", "value"]}
                         allHeaders={allHeaders}
                     />
                 ))}
