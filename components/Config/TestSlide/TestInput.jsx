@@ -1,16 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SelectButton from "./SelectButton";
 
-export default function TestInput({
-    k,
-    removeField,
-    formRef,
-    placeHolderNames,
-    allHeaders,
-}) {
+export default function TestInput({ formRef, placeHolderNames, allHeaders }) {
     const [key, setKey] = useState({ label: "", value: "" });
+    const inputPlaceRef = useRef(null);
     return (
-        <div className="input-place">
+        <div className="input-place" ref={inputPlaceRef}>
             <input type="checkbox" defaultChecked />
             <SelectButton
                 allHeaders={allHeaders}
@@ -32,7 +27,7 @@ export default function TestInput({
             <button
                 type="button"
                 onClick={(e) => {
-                    removeField(k, key);
+                    inputPlaceRef.current.remove();
                     setTimeout(() => {
                         formRef.current.dispatchEvent(
                             new Event("input", {

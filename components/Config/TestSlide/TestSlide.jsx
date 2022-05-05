@@ -30,7 +30,6 @@ export default function QuerySlide() {
 
             for (let i = 0; i < inputPlaces.length; i++) {
                 const place = inputPlaces[i];
-                console.log(place);
                 let isPresent = place.childNodes[0].checked;
 
                 if (!isPresent) continue;
@@ -55,16 +54,6 @@ export default function QuerySlide() {
     const addField = () => {
         setFields([...fields, v4()]);
     };
-    const disableField = (key) => {
-        test.setObject((prev) => {
-            delete prev[key];
-            return prev;
-        });
-    };
-    const removeField = (fieldId, key) => {
-        disableField(key);
-        setFields(fields.filter((field) => field !== fieldId));
-    };
 
     return (
         <>
@@ -73,8 +62,6 @@ export default function QuerySlide() {
                 {fields.map((field) => (
                     <TestInput
                         key={field}
-                        k={field}
-                        removeField={removeField}
                         formRef={formRef}
                         placeHolderNames={["Test Header", "value"]}
                         allHeaders={allHeaders}

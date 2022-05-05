@@ -44,16 +44,6 @@ export default function QuerySlide() {
     const addField = () => {
         setFields([...fields, v4()]);
     };
-    const disableField = (key) => {
-        headers.setObject((prev) => {
-            delete prev[key];
-            return prev;
-        });
-    };
-    const removeField = (fieldId, key) => {
-        disableField(key);
-        setFields(fields.filter((field) => field !== fieldId));
-    };
 
     return (
         <>
@@ -66,8 +56,6 @@ export default function QuerySlide() {
                 {fields.map((field) => (
                     <HeaderInput
                         key={field}
-                        k={field}
-                        removeField={removeField}
                         formRef={formRef}
                         placeHolderNames={["header", "value"]}
                     />

@@ -1,17 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SelectButton from "../TestSlide/SelectButton";
 import allHeaders from "../../../utils/data.json";
 
-export default function HeaderInput({
-    k,
-    removeField,
-    formRef,
-    placeHolderNames,
-}) {
+export default function HeaderInput({ formRef, placeHolderNames }) {
     const [key, setKey] = useState("");
+    const inputPlaceRef = useRef(null);
 
     return (
-        <div className="input-place">
+        <div className="input-place" ref={inputPlaceRef}>
             <input type="checkbox" defaultChecked />
             <SelectButton
                 allHeaders={allHeaders}
@@ -24,8 +20,7 @@ export default function HeaderInput({
             <button
                 type="button"
                 onClick={() => {
-                    removeField(k, key);
-
+                    inputPlaceRef.current.remove();
                     setTimeout(() => {
                         formRef.current.dispatchEvent(
                             new Event("input", {

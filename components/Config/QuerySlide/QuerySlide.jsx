@@ -10,13 +10,25 @@ export default function QuerySlide() {
     let urlData = useUrlData();
     const setObject = param.setObject;
     const [props, setProps] = useState({});
+    const [urlDataParams, setUrlDataParams] = useState([]);
 
     useEffect(() => {
         console.log(urlData);
+        setUrlDataParams(Object.entries(urlData.urlParams));
     }, [urlData]);
+
+    useEffect(() => {
+        console.log(urlDataParams);
+    }, [urlDataParams]);
+
     useEffect(() => {
         setObject(props);
-    }, [props, setObject]);
+        let search = `${urlData.baseURL}?${new URLSearchParams(
+            props
+        ).toString()}`;
+        urlData.setObject((prev) => ({ ...prev, url: search }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props]);
 
     useEffect(() => {
         /**
@@ -24,13 +36,6 @@ export default function QuerySlide() {
          */
         let form = formRef.current;
         form.addEventListener("input", () => {
-            // let formData = new FormData(form);
-            // let entries = Object.fromEntries(formData.entries());
-            // let search = `${urlData.baseURL}?${new URLSearchParams(
-            //     entries
-            // ).toString()}`;
-            // let setObject = param.setObject;
-            // setObject({ setObject, ...entries });
             let inputPlace = form.querySelectorAll(".input-place");
             setProps({});
             for (let i = 0; i < inputPlace.length; i++) {
@@ -49,23 +54,13 @@ export default function QuerySlide() {
     }, []);
     const [fields, setFields] = useState([v4()]);
 
-    useEffect(() => {
-        console.log(param);
-    }, [param]);
+    // useEffect(() => {
+    //     console.log(param);
+    // }, [param]);
 
-    const addField = () => {
+    function addField() {
         setFields([...fields, v4()]);
-    };
-    const disableField = (key) => {
-        param.setObject((prev) => {
-            delete prev[key];
-            return prev;
-        });
-    };
-    const removeField = (fieldId, key) => {
-        disableField(key);
-        setFields(fields.filter((field) => field !== fieldId));
-    };
+    }
 
     return (
         <>
@@ -75,13 +70,20 @@ export default function QuerySlide() {
                 ref={formRef}
             >
                 <h2>Query Parameters</h2>
+                {urlDataParams.map((data) => (
+                    <InputPlace
+                        key={data[0]}
+                        formRef={formRef}
+                        placeHolderNames={["parameter", "value"]}
+                        defaultValue={[data[0], data[1]]}
+                    />
+                ))}
                 {fields.map((field) => (
                     <InputPlace
                         key={field}
-                        k={field}
-                        removeField={removeField}
                         formRef={formRef}
                         placeHolderNames={["parameter", "value"]}
+                        defaultValue={[]}
                     />
                 ))}
 

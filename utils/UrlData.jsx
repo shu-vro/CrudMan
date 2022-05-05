@@ -10,7 +10,7 @@ export function UrlDataContext({ children }) {
     const [object, setObject] = useState({
         urlParams: {},
         baseURL: "",
-        url: "https://jsonplaceholder.typicode.com/comments?postId=1",
+        url: "",
     });
     return (
         <Context.Provider value={{ ...object, setObject }}>
