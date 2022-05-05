@@ -57,86 +57,14 @@ export default function Nav() {
                     }
                 }}
             >
-                <g transform="translate(.000002 0)">
-                    <rect
-                        width="504.478449"
-                        height="512"
-                        rx="55"
-                        ry="55"
-                        transform="matrix(1.014909 0 0 1 0.000141 1.880388)"
-                        fill="#5a5a5a"
-                        strokeWidth="0"
-                    />
-                    <rect
-                        width="508.239225"
-                        height="110"
-                        rx="55"
-                        ry="55"
-                        transform="matrix(0 1-1 0 511.999859 3.760775)"
-                        fill="var(--blue-color)"
-                        strokeWidth="0"
-                    />
-                    <rect
-                        width="508.239225"
-                        height="110"
-                        rx="55"
-                        ry="55"
-                        transform="translate(103.24479 201)"
-                        fill="var(--blue-color)"
-                        strokeWidth="0"
-                    />
-                    <rect
-                        width="88.12"
-                        height="88.115954"
-                        rx="0"
-                        ry="0"
-                        transform="matrix(1.160002 0 0 1.193168 310.119225 101.634755)"
-                        fill="var(--blue-color)"
-                        strokeWidth="0"
-                    />
-                    <rect
-                        width="88.12"
-                        height="88.115954"
-                        rx="0"
-                        ry="0"
-                        transform="matrix(1.160002 0 0 1.143712 310.119225 304.54834)"
-                        fill="var(--blue-color)"
-                        strokeWidth="0"
-                    />
-                    <rect
-                        width="508.239225"
-                        height="110"
-                        rx="55"
-                        ry="55"
-                        transform="translate(-.000002 402)"
-                        fill="var(--blue-color)"
-                        strokeWidth="0"
-                    />
-                    <rect
-                        width="508.239225"
-                        height="110"
-                        rx="55"
-                        ry="55"
-                        transform="translate(.000001 2.884046)"
-                        fill="var(--blue-color)"
-                        strokeWidth="0"
-                    />
-                </g>
-                <ellipse
-                    rx="60.517953"
-                    ry="54.931842"
-                    transform="matrix(.743581 0 0 0.819197 310.119227 356)"
-                    fill="#5a5a5a"
-                    strokeWidth="0"
-                />
-                <ellipse
-                    rx="59.17311"
-                    ry="53.711134"
-                    transform="matrix(.743581 0 0 0.819197 310.119227 157)"
-                    fill="#5a5a5a"
-                    strokeWidth="0"
+                <path
+                    d="M54.999602,1.880388L456.999861,0q53.630787,1.880388,53.630787,56.879989q0,34.355429,0,393.636192Q510.630648,512,456.999861,512q-8.393102,0-412.564452,1.880388Q-0.00051,503.920834,0.000139,457q0-46.194972,44.43527-55.999999h265.683816q40.754822-.115995,44-45t-44.000088-44.884006L158.244392,311q-55.00011-2.121744-55.00011-53.119612t55.00011-56.880386l151.874833-.115997q41.836547-.277112,44-37.931344c2.163453-37.654232-12.503243-48.13152-44.000088-49.952661h-265.683728Q0.000139,99.962557,-0.00051,58.760377Q0.000139,13.693501,54.999602,1.880388Z"
+                    transform="translate(.000002 0)"
+                    fill="#3096ff"
+                    strokeWidth="1.024"
                 />
             </svg>
+
             <h1>
                 CRUD<span>MAN</span>
             </h1>
