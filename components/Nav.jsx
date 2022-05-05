@@ -7,7 +7,6 @@ export default function Nav() {
     let themeManager = useTheme();
     useEffect(() => {
         function handleClick() {
-            console.log("hi ");
             if (!localStorage.getItem("theme")) {
                 localStorage.setItem(
                     "theme",
@@ -17,7 +16,6 @@ export default function Nav() {
                 );
             } else {
                 let theme = localStorage.getItem("theme");
-                console.log("theme: ", theme);
                 theme === "dark"
                     ? localStorage.setItem("theme", "light")
                     : localStorage.setItem("theme", "dark");
@@ -40,7 +38,6 @@ export default function Nav() {
                 height="512"
                 ref={logoRef}
                 onClick={() => {
-                    console.log("hi ");
                     if (!localStorage.getItem("theme")) {
                         localStorage.setItem(
                             "theme",

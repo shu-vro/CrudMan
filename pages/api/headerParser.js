@@ -27,6 +27,5 @@ export default async function handler(req, res) {
             status: error.response.status,
             statusText: error.response.statusText,
         });
-        console.log(error.response.data);
     }
 }

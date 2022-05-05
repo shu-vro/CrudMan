@@ -2,16 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useParams } from "../../../utils/Params";
 import { useUrlData } from "../../../utils/UrlData";
-import InputPlace from "../InputPlace";
+import InputPlace from "./InputPlace";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
     let param = useParams();
     let urlData = useUrlData();
+    const setObject = param.setObject;
+    const [props, setProps] = useState({});
 
     useEffect(() => {
         console.log(urlData);
     }, [urlData]);
+    useEffect(() => {
+        Object.keys(props).length > 0 && setObject(props);
+    }, [props, setObject]);
 
     useEffect(() => {
         /**
@@ -19,22 +24,35 @@ export default function QuerySlide() {
          */
         let form = formRef.current;
         form.addEventListener("input", () => {
-            let formData = new FormData(form);
-            let entries = Object.fromEntries(formData.entries());
-            let search = `${urlData.baseURL}?${new URLSearchParams(
-                entries
-            ).toString()}`;
-            console.log(urlData, search);
-            let setObject = param.setObject;
-            setObject({ setObject, ...entries });
+            // let formData = new FormData(form);
+            // let entries = Object.fromEntries(formData.entries());
+            // let search = `${urlData.baseURL}?${new URLSearchParams(
+            //     entries
+            // ).toString()}`;
+            // let setObject = param.setObject;
+            // setObject({ setObject, ...entries });
+            let inputPlace = form.querySelectorAll(".input-place");
+            setProps({});
+            for (let i = 0; i < inputPlace.length; i++) {
+                const place = inputPlace[i];
+                console.log(place.childNodes);
+                let isChecked = place.childNodes[0].checked;
+                if (isChecked !== true) continue;
+                let key = place.childNodes[1].value;
+                let value = place.childNodes[2].value;
+                let o = {
+                    [key]: value,
+                };
+                setProps((prop) => ({ ...prop, ...o }));
+            }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const [fields, setFields] = useState([v4()]);
 
-    // useEffect(() => {
-    //     console.log(param);
-    // }, [param]);
+    useEffect(() => {
+        console.log(param);
+    }, [param]);
 
     const addField = () => {
         setFields([...fields, v4()]);
@@ -63,7 +81,7 @@ export default function QuerySlide() {
                         key={field}
                         k={field}
                         removeField={removeField}
-                        parentForm="config-query-slide"
+                        formRef={formRef}
                         placeHolderNames={["parameter", "value"]}
                     />
                 ))}

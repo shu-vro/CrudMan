@@ -1,11 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useHeaders } from "../../../utils/Headers";
-import InputPlace from "../InputPlace";
+import HeaderInput from "./HeaderInput";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
     let headers = useHeaders();
+    let setObject = headers.setObject;
+    const [props, setProps] = useState({});
+
+    useEffect(() => {
+        Object.keys(props).length > 0 && setObject({ ...props, setObject });
+    }, [props, setObject]);
 
     useEffect(() => {
         /**
@@ -13,10 +19,19 @@ export default function QuerySlide() {
          */
         let form = formRef.current;
         form.addEventListener("input", () => {
-            let formData = new FormData(form);
-            let entries = Object.fromEntries(formData.entries());
-            let setObject = headers.setObject;
-            setObject({ setObject, ...entries });
+            let inputPlace = form.querySelectorAll(".input-place");
+            setProps({});
+            for (let i = 0; i < inputPlace.length; i++) {
+                const place = inputPlace[i];
+                let isChecked = place.childNodes[0].checked;
+                if (isChecked !== true) continue;
+                let key = place.childNodes[1].querySelector("input").value;
+                let value = place.childNodes[2].value;
+                let o = {
+                    [key]: value,
+                };
+                setProps((prop) => ({ ...prop, ...o }));
+            }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -49,11 +64,11 @@ export default function QuerySlide() {
             >
                 <h2>HTTP Headers</h2>
                 {fields.map((field) => (
-                    <InputPlace
+                    <HeaderInput
                         key={field}
                         k={field}
                         removeField={removeField}
-                        parentForm="config-header-slide"
+                        formRef={formRef}
                         placeHolderNames={["header", "value"]}
                     />
                 ))}

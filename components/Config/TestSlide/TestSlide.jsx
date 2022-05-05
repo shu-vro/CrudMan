@@ -11,12 +11,12 @@ export default function QuerySlide() {
     const [props, setProps] = useState([]);
     const [fields, setFields] = useState([v4()]);
 
-    useEffect(() => {
-        console.log(test);
-    }, [test]);
+    // useEffect(() => {
+    //     console.log(test);
+    // }, [test]);
 
     useEffect(() => {
-        setObject({ props, setObject });
+        props.length > 0 && setObject({ props, setObject });
     }, [props, setObject]);
 
     useEffect(() => {

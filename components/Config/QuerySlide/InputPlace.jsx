@@ -3,11 +3,10 @@ import { useState } from "react";
 export default function InputPlace({
     k,
     removeField,
-    parentForm,
+    formRef,
     placeHolderNames,
 }) {
     const [key, setKey] = useState("");
-    const [stop, setStop] = useState(false);
 
     return (
         <div className="input-place">
@@ -25,18 +24,20 @@ export default function InputPlace({
                     setKey(e.target.value);
                 }}
                 name={key}
-                form={stop ? "noId" : parentForm}
             />
-            <input
-                type="text"
-                name={key}
-                placeholder={placeHolderNames[1]}
-                form={stop ? "noId" : parentForm}
-            />
+            <input type="text" name={key} placeholder={placeHolderNames[1]} />
             <button
                 type="button"
                 onClick={() => {
                     removeField(k, key);
+
+                    setTimeout(() => {
+                        formRef.current.dispatchEvent(
+                            new Event("input", {
+                                bubbles: true,
+                            })
+                        );
+                    }, 500);
                 }}
             >
                 &times;
