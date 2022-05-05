@@ -15,7 +15,7 @@ export default function QuerySlide() {
         console.log(urlData);
     }, [urlData]);
     useEffect(() => {
-        Object.keys(props).length > 0 && setObject(props);
+        setObject(props);
     }, [props, setObject]);
 
     useEffect(() => {
@@ -35,7 +35,6 @@ export default function QuerySlide() {
             setProps({});
             for (let i = 0; i < inputPlace.length; i++) {
                 const place = inputPlace[i];
-                console.log(place.childNodes);
                 let isChecked = place.childNodes[0].checked;
                 if (isChecked !== true) continue;
                 let key = place.childNodes[1].value;

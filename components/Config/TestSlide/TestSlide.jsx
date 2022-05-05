@@ -16,7 +16,7 @@ export default function QuerySlide() {
     // }, [test]);
 
     useEffect(() => {
-        props.length > 0 && setObject({ props, setObject });
+        setObject({ props, setObject });
     }, [props, setObject]);
 
     useEffect(() => {

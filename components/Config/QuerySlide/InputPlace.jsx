@@ -10,13 +10,7 @@ export default function InputPlace({
 
     return (
         <div className="input-place">
-            <input
-                type="checkbox"
-                defaultChecked
-                onChange={(e) => {
-                    setStop(!e.target.checked);
-                }}
-            />
+            <input type="checkbox" defaultChecked />
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}
