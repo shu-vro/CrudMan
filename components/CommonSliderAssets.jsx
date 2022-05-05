@@ -8,7 +8,7 @@ export default function CommonSliderAssets({ children, lists, defaultCheck }) {
          * @type {HTMLDivElement}
          */
         const slides = slidesRef.current;
-        const listsEl = slides.querySelectorAll("ul li");
+        const listsEl = slides.querySelectorAll("ul.list-ul li");
         const slideContainer = slides.querySelector(".slideContainer");
 
         listsEl.forEach((list) => {
@@ -28,7 +28,7 @@ export default function CommonSliderAssets({ children, lists, defaultCheck }) {
     }, []);
     return (
         <div className={styles.sliders} ref={slidesRef}>
-            <ul>
+            <ul className="list-ul">
                 {lists.map((li) => (
                     <li
                         className={li === defaultCheck ? "selected" : ""}

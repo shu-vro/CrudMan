@@ -97,6 +97,19 @@ li.selected button {
             border: none;
             outline: none;
         }
+
+        select {
+            background: transparent;
+            outline: none;
+            border: none;
+            border-bottom: 2px solid var(--thin-border-color);
+            color: inherit;
+            text-align: center;
+
+            option {
+                background: var(--thin-border-color);
+            }
+        }
     }
 
     .add-row-button {
@@ -141,6 +154,45 @@ li.selected button {
     }
 }
 
-// * {
-//     border: 1px solid red;
-// }
+.select-container {
+    position: relative;
+
+    input {
+        width: 100% !important;
+    }
+
+    .tooltip-description {
+        position: absolute;
+        top: 100%;
+        left: 00%;
+        overflow: auto;
+        max-height: 100px;
+        padding: 5px 10px;
+        background: var(--thin-border-color);
+        display: none;
+        border-radius: 0 0 7px 7px;
+    }
+
+    .options {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        overflow-y: auto;
+        height: calc(30px * 5);
+        background: var(--slide-bg-color);
+        display: none;
+
+        .option {
+            cursor: pointer;
+            border-bottom: 1px solid var(--thin-border-color);
+
+            &.block {
+                display: block;
+            } 
+
+            &.none {
+                display: none;
+            }
+        }
+    }    
+}
