@@ -5,26 +5,16 @@ import { useTheme } from "../utils/Theme";
 export default function Nav() {
     let logoRef = useRef();
     let themeManager = useTheme();
-    useEffect(() => {
-        function handleClick() {
-            if (!localStorage.getItem("theme")) {
-                localStorage.setItem(
-                    "theme",
-                    !window.matchMedia("(prefers-color-scheme: dark)").matches
-                        ? "light"
-                        : "dark"
-                );
-            } else {
-                let theme = localStorage.getItem("theme");
-                theme === "dark"
-                    ? localStorage.setItem("theme", "light")
-                    : localStorage.setItem("theme", "dark");
 
-                document.body.className = localStorage.getItem("theme");
-            }
-        }
-        // logoRef.current.addEventListener("click", handleClick);
+    useEffect(() => {
+        themeManager.setValue(localStorage.getItem("theme"));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    useEffect(() => {
+        console.log(themeManager);
+        document.body.className = themeManager.value;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [themeManager]);
 
     return (
         <nav className={styles.nav}>

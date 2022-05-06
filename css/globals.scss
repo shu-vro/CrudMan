@@ -10,7 +10,7 @@ body {
     font-family: "Montserrat", "Gill Sans", "Gill Sans MT", Calibri,
         "Trebuchet MS", sans-serif;
 
-    --navbar-color: #151619f5;
+    --navbar-color: #151619;
     --background-color: #151a22;
     --button-color: #0071e2;
     --blue-color: #3096ff;
@@ -168,7 +168,7 @@ li.selected button {
         overflow: auto;
         max-height: 100px;
         padding: 5px 10px;
-        background: var(--thin-border-color);
+        background: var(--navbar-color);
         display: none;
         border-radius: 0 0 7px 7px;
     }
@@ -188,11 +188,11 @@ li.selected button {
 
             &.block {
                 display: block;
-            } 
+            }
 
             &.none {
                 display: none;
             }
         }
-    }    
+    }
 }

@@ -1,7 +1,7 @@
 {
     "name": "CrudMan - an online version of PostMan",
     "short_name": "CrudMan",
-    "theme_color": "#0071e2",
+    "theme_color": "#151619",
     "background_color": "#0071e2",
     "display": "fullscreen",
     "orientation": "portrait",
