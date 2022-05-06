@@ -22,6 +22,7 @@ export default function Results() {
             />
             <CommonSliderAssets
                 lists={["Response", "Headers", "Cookies", "Results"]}
+                listBullets={[1, 3, 5, 6]}
                 defaultCheck="Response"
             >
                 <Response data={apiData?.data || {}} />

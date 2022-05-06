@@ -125,9 +125,25 @@
         padding: 0;
 
         li {
+            position: relative;
             list-style: none;
             margin: 0 10px;
             color: var(--button-text-color);
+
+            span {
+                position: absolute;
+                $r: 15px;
+                top: 0;
+                right: 0;
+                width: $r;
+                height: $r;
+                border-radius: $r;
+                line-height: $r;
+                font-size: 12px;
+                background: var(--blue-color);
+                color: white;
+                text-align: center;
+            }
 
             button {
                 background: none;

@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 import styles from "../css/App.module.scss";
 
-export default function CommonSliderAssets({ children, lists, defaultCheck }) {
+export default function CommonSliderAssets({
+    children,
+    lists,
+    listBullets,
+    defaultCheck,
+}) {
     let slidesRef = useRef(null);
     useEffect(() => {
         /**
@@ -13,15 +18,15 @@ export default function CommonSliderAssets({ children, lists, defaultCheck }) {
 
         listsEl.forEach((list) => {
             list.addEventListener("click", () => {
-                listsEl.forEach((list) => {
-                    list.classList.remove("selected");
+                listsEl.forEach((l) => {
+                    l.classList.remove("selected");
                 });
                 list.classList.add("selected");
                 slideContainer.querySelectorAll(".slide").forEach((child) => {
                     child.classList.remove("slide-selected");
                 });
                 slideContainer
-                    .querySelector(`.${list.textContent}`)
+                    .querySelector(`.${list.dataset.text}`)
                     .classList.add("slide-selected");
             });
         });
@@ -29,12 +34,14 @@ export default function CommonSliderAssets({ children, lists, defaultCheck }) {
     return (
         <div className={styles.sliders} ref={slidesRef}>
             <ul className="list-ul">
-                {lists.map((li) => (
+                {lists.map((li, i) => (
                     <li
                         className={li === defaultCheck ? "selected" : ""}
-                        key={li}
+                        key={i}
+                        data-text={li}
                     >
                         <button type="button">{li}</button>
+                        <span className="countItems">{1}</span>
                     </li>
                 ))}
             </ul>
