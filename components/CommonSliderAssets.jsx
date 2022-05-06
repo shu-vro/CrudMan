@@ -4,7 +4,7 @@ import styles from "../css/App.module.scss";
 export default function CommonSliderAssets({
     children,
     lists,
-    listBullets,
+    listBullets = [],
     defaultCheck,
 }) {
     let slidesRef = useRef(null);
@@ -41,7 +41,7 @@ export default function CommonSliderAssets({
                         data-text={li}
                     >
                         <button type="button">{li}</button>
-                        <span className="countItems">{1}</span>
+                        {listBullets[i] > 0 && <span>{listBullets[i]}</span>}
                     </li>
                 ))}
             </ul>

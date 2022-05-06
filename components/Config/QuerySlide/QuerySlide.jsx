@@ -13,13 +13,8 @@ export default function QuerySlide() {
     const [urlDataParams, setUrlDataParams] = useState([]);
 
     useEffect(() => {
-        console.log(urlData);
         setUrlDataParams(Object.entries(urlData.urlParams));
     }, [urlData]);
-
-    useEffect(() => {
-        console.log(urlDataParams);
-    }, [urlDataParams]);
 
     useEffect(() => {
         setObject(props);

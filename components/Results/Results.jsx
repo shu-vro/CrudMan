@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useApiData } from "../../utils/ApiData";
 import CommonSliderAssets from "../CommonSliderAssets";
 import Table from "./Table";
@@ -8,9 +8,15 @@ import { Response } from "./index";
 
 export default function Results() {
     let apiData = useApiData();
+    const [listBullets, setListBullets] = useState([]);
 
     useEffect(() => {
-        // console.log(JSON.stringify(apiData?.data || {}, null, 0));
+        console.log(apiData);
+        let responseNum = 0;
+        let headersNum = Object.keys(apiData.headers || {}).length;
+        let cookiesNum = 0;
+        let resultsNum = 0;
+        setListBullets([responseNum, headersNum, cookiesNum, resultsNum]);
     }, [apiData]);
     return (
         <div className={styles.results}>
@@ -22,7 +28,7 @@ export default function Results() {
             />
             <CommonSliderAssets
                 lists={["Response", "Headers", "Cookies", "Results"]}
-                listBullets={[1, 3, 5, 6]}
+                listBullets={listBullets}
                 defaultCheck="Response"
             >
                 <Response data={apiData?.data || {}} />
