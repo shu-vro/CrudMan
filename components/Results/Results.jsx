@@ -3,6 +3,7 @@ import { useApiData } from "../../utils/ApiData";
 import CommonSliderAssets from "../CommonSliderAssets";
 import Table from "./Table";
 import StatusBar from "./StatusBar";
+import TestResult from "./TestResult";
 import styles from "../../css/App.module.scss";
 import { Response } from "./index";
 
@@ -37,10 +38,7 @@ export default function Results() {
                     <h2>Cookies</h2>
                     <p>No cookies found</p>
                 </div>
-                <div className="slide Results">
-                    <h2>Results</h2>
-                    <p>Will be available soon!</p>
-                </div>
+                <TestResult />
             </CommonSliderAssets>
         </div>
     );

@@ -8,11 +8,19 @@ export default function Nav() {
 
     useEffect(() => {
         themeManager.setValue(localStorage.getItem("theme"));
+        if (!localStorage.getItem("theme")) {
+            localStorage.setItem(
+                "theme",
+                !window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "light"
+                    : "dark"
+            );
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
         console.log(themeManager);
-        document.body.className = themeManager.value;
+        document.body.className = localStorage.getItem("theme");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [themeManager]);
 
@@ -41,8 +49,6 @@ export default function Nav() {
                         theme === "dark"
                             ? localStorage.setItem("theme", "light")
                             : localStorage.setItem("theme", "dark");
-
-                        document.body.className = localStorage.getItem("theme");
                         themeManager.setValue(localStorage.getItem("theme"));
                     }
                 }}

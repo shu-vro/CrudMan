@@ -18,6 +18,7 @@ export default function TestInput({ formRef, placeHolderNames, allHeaders }) {
                 <option value="equal">Equal</option>
                 <option value="not-equal">Not Equal</option>
                 <option value="count">Count</option>
+                <option value="contains">Contains</option>
                 <option value="<=">&lt;=</option>
                 <option value=">=">&gt;=</option>
                 <option value="<">&lt;</option>
