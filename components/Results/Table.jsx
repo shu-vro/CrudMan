@@ -1,6 +1,6 @@
 import styles from "../../css/App.module.scss";
 
-export default function Table({ content }) {
+export default function Table({ content, result = undefined }) {
     let object2Array = Object.entries(content);
     return (
         <table rules="all" frame="none" className={styles.table}>
@@ -9,7 +9,7 @@ export default function Table({ content }) {
                     return (
                         <tr key={key}>
                             <td>{key}</td>
-                            <td>{value}</td>
+                            <td className={result}>{value}</td>
                         </tr>
                     );
                 })}

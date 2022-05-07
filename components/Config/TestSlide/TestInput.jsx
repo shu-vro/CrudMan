@@ -15,14 +15,14 @@ export default function TestInput({ formRef, placeHolderNames, allHeaders }) {
                 }}
             />
             <select name="operation">
-                <option value="equal">Equal</option>
-                <option value="not-equal">Not Equal</option>
+                <option value="equals to">Equal</option>
+                <option value="not equals to">Not Equal</option>
                 <option value="count">Count</option>
                 <option value="contains">Contains</option>
-                <option value="<=">&lt;=</option>
-                <option value=">=">&gt;=</option>
-                <option value="<">&lt;</option>
-                <option value=">">&gt;</option>
+                <option value="is less than or equal">&lt;=</option>
+                <option value="is greater than or equal">&gt;=</option>
+                <option value="greater than">&lt;</option>
+                <option value="less than">&gt;</option>
             </select>
             <input type="text" name={key} placeholder={placeHolderNames[1]} />
             <button

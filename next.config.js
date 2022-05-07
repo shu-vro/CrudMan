@@ -11,3 +11,7 @@ module.exports = withPWA({
         dest: "public",
     },
 });
+
+module.exports = {
+    autoPrefixer: {},
+};

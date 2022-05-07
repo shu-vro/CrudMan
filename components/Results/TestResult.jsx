@@ -1,10 +1,39 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import Table from "./Table";
+import { useTest } from "../../utils/Test";
+import { useApiData } from "../../utils/ApiData";
 
 export default function TestResult() {
+    const [results, setResults] = useState([]);
+    const [tests, setTests] = useState({});
+    let { props } = useTest();
+    let apiData = useApiData();
+    useEffect(() => {
+        let headers = apiData?.headers || {};
+        setResults([]);
+        setTests({});
+
+        props.forEach((prop) => {
+            let propName = prop.key.toLowerCase();
+            let operation = prop.operation;
+            let value = prop.value;
+            let text = `${propName} ${operation} ${value}`;
+            setTests((test) => ({ ...test, [text]: "refreshing..." }));
+            if (headers[propName] && headers[propName] === value) {
+                setResults((results) => [
+                    ...results,
+                    `${prop.key} ${operation} ${value}`,
+                ]);
+            }
+        });
+        console.log(props);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [apiData]);
+
     return (
         <div className="slide Results">
             <h2>Results</h2>
-            <p>Will be available soon!</p>
+            <Table content={tests} result="success" />
         </div>
     );
 }

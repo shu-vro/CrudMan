@@ -12,7 +12,6 @@ export default function Results() {
     const [listBullets, setListBullets] = useState([]);
 
     useEffect(() => {
-        console.log(apiData);
         let responseNum = 0;
         let headersNum = Object.keys(apiData.headers || {}).length;
         let cookiesNum = 0;
