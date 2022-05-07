@@ -4,13 +4,11 @@ import { useTest } from "../../utils/Test";
 import { useApiData } from "../../utils/ApiData";
 
 export default function TestResult() {
-    const [results, setResults] = useState([]);
     const [tests, setTests] = useState({});
     let { props } = useTest();
     let apiData = useApiData();
     useEffect(() => {
         let headers = apiData?.headers || {};
-        setResults([]);
         setTests({});
 
         props.forEach((prop) => {
@@ -19,11 +17,12 @@ export default function TestResult() {
             let value = prop.value;
             let text = `${propName} ${operation} ${value}`;
             setTests((test) => ({ ...test, [text]: "refreshing..." }));
-            if (headers[propName] && headers[propName] === value) {
-                setResults((results) => [
-                    ...results,
-                    `${prop.key} ${operation} ${value}`,
-                ]);
+            if (operation === "equals to") {
+                if (headers[propName] && headers[propName] === value) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
             }
         });
         console.log(props);
@@ -33,7 +32,7 @@ export default function TestResult() {
     return (
         <div className="slide Results">
             <h2>Results</h2>
-            <Table content={tests} result="success" />
+            <Table content={tests} testing={true} />
         </div>
     );
 }

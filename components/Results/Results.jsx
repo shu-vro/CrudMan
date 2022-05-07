@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApiData } from "../../utils/ApiData";
+import { useTest } from "../../utils/Test";
 import CommonSliderAssets from "../CommonSliderAssets";
 import Table from "./Table";
 import StatusBar from "./StatusBar";
@@ -9,14 +10,16 @@ import { Response } from "./index";
 
 export default function Results() {
     let apiData = useApiData();
+    let { props } = useTest();
     const [listBullets, setListBullets] = useState([]);
 
     useEffect(() => {
         let responseNum = 0;
         let headersNum = Object.keys(apiData.headers || {}).length;
         let cookiesNum = 0;
-        let resultsNum = 0;
+        let resultsNum = props.length;
         setListBullets([responseNum, headersNum, cookiesNum, resultsNum]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiData]);
     return (
         <div className={styles.results}>

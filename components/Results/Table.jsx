@@ -1,6 +1,6 @@
 import styles from "../../css/App.module.scss";
 
-export default function Table({ content, result = undefined }) {
+export default function Table({ content, testing = false }) {
     let object2Array = Object.entries(content);
     return (
         <table rules="all" frame="none" className={styles.table}>
@@ -9,7 +9,25 @@ export default function Table({ content, result = undefined }) {
                     return (
                         <tr key={key}>
                             <td>{key}</td>
-                            <td className={result}>{value}</td>
+                            {testing ? (
+                                <td>
+                                    <span
+                                        style={{
+                                            padding: `5px 10px`,
+                                            borderRadius: `5px`,
+                                            color: "var(--theme)",
+                                            backgroundColor:
+                                                value === "passed"
+                                                    ? "green"
+                                                    : "red",
+                                        }}
+                                    >
+                                        {value}
+                                    </span>
+                                </td>
+                            ) : (
+                                <td>{value}</td>
+                            )}
                         </tr>
                     );
                 })}
