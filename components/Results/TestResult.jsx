@@ -33,6 +33,7 @@ export default function TestResult() {
                 if (
                     headers[propName] &&
                     Number(headers[propName]) &&
+                    Number(value) &&
                     headers[propName] === value
                 ) {
                     setTests((tests) => ({ ...tests, [text]: "passed" }));
@@ -43,7 +44,8 @@ export default function TestResult() {
                 if (
                     headers[propName] &&
                     Number(headers[propName]) &&
-                    headers[propName] <= value
+                    Number(value) &&
+                    Number(headers[propName]) <= Number(value)
                 ) {
                     setTests((tests) => ({ ...tests, [text]: "passed" }));
                 } else {
@@ -53,7 +55,8 @@ export default function TestResult() {
                 if (
                     headers[propName] &&
                     Number(headers[propName]) &&
-                    headers[propName] >= value
+                    Number(value) &&
+                    Number(headers[propName]) >= Number(value)
                 ) {
                     setTests((tests) => ({ ...tests, [text]: "passed" }));
                 } else {
@@ -63,7 +66,8 @@ export default function TestResult() {
                 if (
                     headers[propName] &&
                     Number(headers[propName]) &&
-                    headers[propName] < value
+                    Number(value) &&
+                    Number(headers[propName]) < Number(value)
                 ) {
                     setTests((tests) => ({ ...tests, [text]: "passed" }));
                 } else {
@@ -73,7 +77,8 @@ export default function TestResult() {
                 if (
                     headers[propName] &&
                     Number(headers[propName]) &&
-                    headers[propName] > value
+                    Number(value) &&
+                    Number(headers[propName]) > Number(value)
                 ) {
                     setTests((tests) => ({ ...tests, [text]: "passed" }));
                 } else {
