@@ -23,6 +23,62 @@ export default function TestResult() {
                 } else {
                     setTests((tests) => ({ ...tests, [text]: "failed" }));
                 }
+            } else if (operation === "not equals to") {
+                if (headers[propName] && headers[propName] !== value) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
+            } else if (operation === "count") {
+                if (
+                    headers[propName] &&
+                    Number(headers[propName]) &&
+                    headers[propName] === value
+                ) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
+            } else if (operation === "is less than or equal") {
+                if (
+                    headers[propName] &&
+                    Number(headers[propName]) &&
+                    headers[propName] <= value
+                ) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
+            } else if (operation === "is greater than or equal") {
+                if (
+                    headers[propName] &&
+                    Number(headers[propName]) &&
+                    headers[propName] >= value
+                ) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
+            } else if (operation === "is less than") {
+                if (
+                    headers[propName] &&
+                    Number(headers[propName]) &&
+                    headers[propName] < value
+                ) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
+            } else if (operation === "is greater than") {
+                if (
+                    headers[propName] &&
+                    Number(headers[propName]) &&
+                    headers[propName] > value
+                ) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
             }
         });
         console.log(props);

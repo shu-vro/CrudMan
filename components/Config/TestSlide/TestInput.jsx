@@ -21,8 +21,8 @@ export default function TestInput({ formRef, placeHolderNames, allHeaders }) {
                 <option value="contains">Contains</option>
                 <option value="is less than or equal">&lt;=</option>
                 <option value="is greater than or equal">&gt;=</option>
-                <option value="greater than">&lt;</option>
-                <option value="less than">&gt;</option>
+                <option value="is greater than">&lt;</option>
+                <option value="is less than">&gt;</option>
             </select>
             <input type="text" name={key} placeholder={placeHolderNames[1]} />
             <button
