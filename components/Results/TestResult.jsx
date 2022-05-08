@@ -40,6 +40,12 @@ export default function TestResult() {
                 } else {
                     setTests((tests) => ({ ...tests, [text]: "failed" }));
                 }
+            } else if (operation === "contains") {
+                if (headers[value]?.toLowerCase()) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
             } else if (operation === "is less than or equal") {
                 if (
                     headers[propName] &&
@@ -93,7 +99,11 @@ export default function TestResult() {
     return (
         <div className="slide Results">
             <h2>Results</h2>
-            <Table content={tests} testing={true} />
+            <Table
+                content={tests}
+                testing={true}
+                header={["Test", "Results"]}
+            />
         </div>
     );
 }

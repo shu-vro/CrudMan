@@ -50,7 +50,7 @@ function Headers({ headers }) {
     return (
         <div className="slide Headers">
             <h2>Headers</h2>
-            <Table content={headers} />
+            <Table content={headers} header={["Headers", "Value"]} />
         </div>
     );
 }
