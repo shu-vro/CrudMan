@@ -47,6 +47,11 @@
         & {
             flex-direction: column;
         }
+
+        & > div:first-child {
+            border-right: none;
+            border-bottom: 2px solid var(--thin-border-color);
+        }
     }
 }
 
@@ -156,6 +161,12 @@
                 font-size: 14px;
                 font-weight: bold;
                 cursor: pointer;
+
+                @media screen and (max-width: 401px) {
+                    & {
+                        padding: 0;
+                    }
+                }
             }
         }
     }
