@@ -3,15 +3,28 @@ const nextConfig = {
     reactStrictMode: false,
 };
 
-module.exports = nextConfig;
 const withPWA = require("next-pwa");
 
-module.exports = withPWA({
-    pwa: {
-        dest: "public",
-    },
-});
-
 module.exports = {
-    autoPrefixer: {},
+    plugins: [
+        withPWA({
+            pwa: {
+                dest: "public",
+            },
+        }),
+        [
+            "postcss-flexbugs-fixes",
+            [
+                "postcss-preset-env",
+                {
+                    autoprefixer: {},
+                    stage: 3,
+                    features: {
+                        "custom-properties": false,
+                    },
+                },
+            ],
+        ],
+        nextConfig,
+    ],
 };
