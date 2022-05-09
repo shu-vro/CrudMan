@@ -21,7 +21,11 @@ export default function QuerySlide() {
         let search = `${urlData.baseURL}?${new URLSearchParams(
             props
         ).toString()}`;
-        urlData.setObject((prev) => ({ ...prev, url: search }));
+        urlData.setObject((prev) => ({
+            ...prev,
+            url: search,
+            urlParams: props,
+        }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props]);
 
@@ -71,6 +75,7 @@ export default function QuerySlide() {
                         formRef={formRef}
                         placeHolderNames={["parameter", "value"]}
                         defaultValue={[data[0], data[1]]}
+                        defaultChecked={true}
                     />
                 ))}
                 {fields.map((field) => (

@@ -148,6 +148,13 @@
                 background: var(--blue-color);
                 color: white;
                 text-align: center;
+
+                @media screen and (max-width: 401px) {
+                    & {
+                        top: -$r / 2;
+                        right: -$r / 2;
+                    }
+                }
             }
 
             button {

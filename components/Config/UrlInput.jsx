@@ -20,14 +20,6 @@ export default function UrlInput() {
     let { setObject } = apiData;
     const formRef = useRef(null);
 
-    // useEffect(() => {
-    //     console.log(apiData);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [apiData]);
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [apiData]);
-
     useEffect(() => {
         setHeaderCopy(() => {
             let h = { ...headers };
@@ -69,6 +61,10 @@ export default function UrlInput() {
     }
 
     useEffect(() => {
+        console.log(urlData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlData]);
+    useEffect(() => {
         handleInput();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -84,7 +80,7 @@ export default function UrlInput() {
             urlParams,
             baseURL: baseURLCopy,
             url: baseURL,
-            setObjectUrl,
+            setObject: setObjectUrl,
         });
     }
 
