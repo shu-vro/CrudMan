@@ -44,26 +44,34 @@ export default function UrlInput() {
         let formData = new FormData(form);
         let entries = Object.fromEntries(formData.entries());
 
-        let start = Date.now();
-        let res = await axios.get("/api/headerParser", {
-            params: {
-                params: paramsCopy,
-                headers: headerCopy,
-                body: postBodyCopy,
-                url: entries.baseURL,
-                method: entries.method,
-            },
-        });
+        try {
+            let start = Date.now();
+            let res = await axios.get("/api/headerParser", {
+                params: {
+                    params: paramsCopy,
+                    headers: headerCopy,
+                    body: postBodyCopy,
+                    url: entries.baseURL,
+                    method: entries.method,
+                },
+            });
 
-        res = res.data;
-        let diff = Date.now() - start;
-        setObject({ ...res, elapsedTime: diff, setObject });
+            res = res.data;
+            let diff = Date.now() - start;
+            setObject({ ...res, elapsedTime: diff, setObject });
+        } catch (error) {
+            console.log(error);
+            setObject({
+                elapsedTime: "None",
+                setObject,
+
+                data: { message: error.message },
+                headers: error.config.headers,
+                status: error.response.status,
+                statusText: error.response.statusText,
+            });
+        }
     }
-
-    useEffect(() => {
-        console.log(urlData);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [urlData]);
     useEffect(() => {
         handleInput();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +80,7 @@ export default function UrlInput() {
     async function handleInput() {
         let form = formRef.current;
         let formData = new FormData(form);
-        let { baseURL } = Object.fromEntries(formData.entries());
+        let { baseURL, method } = Object.fromEntries(formData.entries());
         let url = baseURL.split("?");
         let baseURLCopy = url[0];
         let urlParams = Object.fromEntries(new URLSearchParams(url[1]));
@@ -81,6 +89,7 @@ export default function UrlInput() {
             baseURL: baseURLCopy,
             url: baseURL,
             setObject: setObjectUrl,
+            method,
         });
     }
 

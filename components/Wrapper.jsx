@@ -5,6 +5,7 @@ import { ApiDataContext } from "../utils/ApiData";
 import { UrlDataContext } from "../utils/UrlData";
 import { ThemeContext } from "../utils/Theme";
 import { TestContext } from "../utils/Test";
+import { CodeContext } from "../utils/Code";
 import React from "react";
 
 export default function Wrapper({ children }) {
@@ -15,7 +16,9 @@ export default function Wrapper({ children }) {
                     <PostBodyContext>
                         <UrlDataContext>
                             <ThemeContext>
-                                <TestContext>{children}</TestContext>
+                                <TestContext>
+                                    <CodeContext>{children}</CodeContext>
+                                </TestContext>
                             </ThemeContext>
                         </UrlDataContext>
                     </PostBodyContext>

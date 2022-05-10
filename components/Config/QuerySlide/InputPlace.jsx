@@ -41,7 +41,7 @@ export default function InputPlace({
                     inputPlaceRef.current.remove();
 
                     setTimeout(() => {
-                        formRef.current.dispatchEvent(
+                        formRef.current?.dispatchEvent(
                             new Event("input", {
                                 bubbles: true,
                             })

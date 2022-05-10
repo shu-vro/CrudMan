@@ -15,6 +15,9 @@ export default function QuerySlide() {
     useEffect(() => {
         setUrlDataParams(Object.entries(urlData.urlParams));
     }, [urlData]);
+    // useEffect(() => {
+    //     console.log(urlDataParams);
+    // }, [urlDataParams]);
 
     useEffect(() => {
         setObject(props);
@@ -90,7 +93,7 @@ export default function QuerySlide() {
                 <button
                     type="button"
                     className="add-row-button"
-                    onClick={() => addField()}
+                    onClick={addField}
                 >
                     + Add Row
                 </button>

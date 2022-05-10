@@ -5,6 +5,7 @@ import CommonSliderAssets from "../CommonSliderAssets";
 import Table from "./Table";
 import StatusBar from "./StatusBar";
 import TestResult from "./TestResult";
+import Code from "./CodeSlide/Code";
 import styles from "../../css/App.module.scss";
 import { Response } from "./index";
 
@@ -18,7 +19,14 @@ export default function Results() {
         let headersNum = Object.keys(apiData.headers || {}).length;
         let cookiesNum = 0;
         let resultsNum = props.length;
-        setListBullets([responseNum, headersNum, cookiesNum, resultsNum]);
+        let codeNum = 0;
+        setListBullets([
+            responseNum,
+            headersNum,
+            cookiesNum,
+            resultsNum,
+            codeNum,
+        ]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiData]);
     return (
@@ -30,7 +38,7 @@ export default function Results() {
                 time={apiData.elapsedTime}
             />
             <CommonSliderAssets
-                lists={["Response", "Headers", "Cookies", "Results"]}
+                lists={["Response", "Headers", "Cookies", "Results", "Code"]}
                 listBullets={listBullets}
                 defaultCheck="Response"
             >
@@ -41,6 +49,7 @@ export default function Results() {
                     <p>No cookies found</p>
                 </div>
                 <TestResult />
+                <Code />
             </CommonSliderAssets>
         </div>
     );

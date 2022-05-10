@@ -129,6 +129,10 @@
         flex-direction: row;
         padding: 0;
 
+        @media screen and (max-width: 370px) {
+            width: 100%;
+        }
+
         li {
             position: relative;
             list-style: none;

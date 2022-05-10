@@ -196,3 +196,32 @@ li.selected button {
         }
     }
 }
+
+.slide.Code {
+    .code-header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 10px 5px;
+
+        select,
+        button {
+            background: var(--slide-bg-color);
+            color: var(--general-text-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            outline: none;
+            border: 2px solid var(--thin-border-color);
+            cursor: pointer;
+        }
+
+        button {
+            float: right;
+            transition: 0.3s ease-in-out;
+
+            &:hover {
+                background: var(--thin-border-color);
+                color: white;
+            }
+        }
+    }
+}
