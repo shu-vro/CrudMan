@@ -123,20 +123,13 @@
     flex-direction: column;
 
     & > ul {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
         padding: 0;
-
-        @media screen and (max-width: 370px) {
-            width: 100%;
-        }
 
         li {
             position: relative;
             list-style: none;
             margin: 0 10px;
+            display: inline-block;
             color: var(--button-text-color);
 
             span {
@@ -153,7 +146,7 @@
                 color: white;
                 text-align: center;
 
-                @media screen and (max-width: 401px) {
+                @media screen and (max-width: 481px) {
                     & {
                         top: -$r / 2;
                         right: -$r / 2;
@@ -173,7 +166,7 @@
                 font-weight: bold;
                 cursor: pointer;
 
-                @media screen and (max-width: 401px) {
+                @media screen and (max-width: 481px) {
                     & {
                         padding: 0;
                     }

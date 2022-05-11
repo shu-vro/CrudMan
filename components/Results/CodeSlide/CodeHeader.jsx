@@ -19,6 +19,7 @@ export default function CodeHeader() {
             >
                 <option value="C# HttpClient">C# HttpClient</option>
                 <option value="cURL">cURL</option>
+                <option value="PowerShell">PowerShell</option>
                 <option value="Dart Http">Dart Http</option>
                 <option value="Javascript Axios">Javascript Axios</option>
                 <option value="Javascript Fetch">Javascript Fetch</option>

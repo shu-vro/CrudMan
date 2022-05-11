@@ -6,6 +6,7 @@ const AceEditor = dynamic(
         let ace = await import("react-ace");
         require("ace-builds/src-noconflict/mode-json");
         require("ace-builds/src-noconflict/theme-dracula");
+        require("ace-builds/src-noconflict/theme-xcode");
         require("ace-builds/src-noconflict/ext-searchbox");
         return ace;
     },
@@ -23,7 +24,7 @@ export default function Response({ data }) {
             <AceEditor
                 placeholder="Type code."
                 mode="json"
-                theme={theme === "dark" ? "dracula" : "github"}
+                theme={theme === "dark" ? "dracula" : "Xcode"}
                 fontSize={14}
                 width="100%"
                 height="calc(100% - 100px)"

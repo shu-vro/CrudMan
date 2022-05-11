@@ -11,6 +11,7 @@ export function UrlDataContext({ children }) {
         urlParams: {},
         baseURL: "",
         url: "",
+        method: "",
     });
     return (
         <Context.Provider value={{ ...object, setObject }}>
