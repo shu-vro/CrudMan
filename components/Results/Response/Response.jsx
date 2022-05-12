@@ -24,7 +24,7 @@ export default function Response({ data }) {
             <AceEditor
                 placeholder="Type code."
                 mode="json"
-                theme={theme === "dark" ? "dracula" : "Xcode"}
+                theme={theme === "dark" ? "dracula" : "xcode"}
                 fontSize={14}
                 width="100%"
                 height="calc(100% - 100px)"

@@ -30,15 +30,16 @@ import { usePostBody } from "../../../utils/Body";
 
 export default function CodeBody() {
     const { value: theme } = useTheme();
-    const { selectCode } = useCode();
+    const { selectCode, setObject } = useCode();
     let headers = useHeaders();
     let urlData = useUrlData();
     let body = usePostBody();
     const [config, setConfig] = useState({});
 
     useEffect(() => {
-        console.log(headers);
-    }, [headers]);
+        setObject((prev) => ({ ...prev, code: config.boilerplate }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [config]);
 
     useEffect(() => {
         let copyBody = { ...body };
@@ -97,22 +98,18 @@ let headersList = ${copyHeaderString}
 let bodyContent = JSON.stringify(${copyBodyString});
 
 let reqOptions = {
-    url: "http://jsonplaceholder.typicode.com/comments?postId=1",
-    method: "${methodString}",
-    headers: headersList,
-    body: bodyContent,
+    method: '${urlData.method}',
+    url: '${urlData.url}',
+    headers: headerList,
+    data: bodyContent,
 }
 
-axios.request(reqOptions).then(function (response) {
+axios(reqOptions).then(function (response) {
     console.log(response.data);
 })`;
             setConfig({ mode: "javascript", boilerplate });
         } else if (selectCode === "Javascript Fetch") {
-            let boilerplate = `let headersList = ${JSON.stringify(
-                copyHeaders,
-                null,
-                4
-            )}
+            let boilerplate = `let headersList = ${copyHeaderString}
 
 let bodyContent = JSON.stringify(${copyBodyString});
 
@@ -127,17 +124,22 @@ fetch("http://jsonplaceholder.typicode.com/comments?postId=1", {
 })`;
             setConfig({ mode: "javascript", boilerplate });
         } else if (selectCode === "Python Http.client") {
-            let string = new URLSearchParams(urlData.urlParams).toString();
+            let urlRegex =
+                /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
+            let urlArray = urlData.url.split(urlRegex); // 4, 5 and 6 has desired output
+            console.log(urlArray);
             let boilerplate = `import http.client
 import json
 
-conn = http.client.HTTPSConnection("${urlData.baseURL}")
+conn = http.client.HTTPSConnection("${urlArray[4]}")
 
 headersList = ${copyHeaderString.replaceAll("true", "True")}
 
 payload = json.dumps(${copyBodyString.replaceAll("true", "True")})
 
-conn.request("${methodString}", "?${string}", payload, headersList)
+conn.request("${methodString}", "${urlArray[5]}${
+                urlArray[6]
+            }", payload, headersList)
 response = conn.getresponse()
 result = response.read()
 
@@ -158,17 +160,16 @@ response = requests.request("${methodString}", reqUrl, data=payload,  headers=he
 print(response.text)`;
             setConfig({ mode: "python", boilerplate });
         } else if (selectCode === "cURL") {
-            let headerString =
-                Object.entries(copyHeaders)
-                    .map((i) => {
-                        return `\t--header '${i[0]}: ${i[1]}' \\`;
-                    })
-                    .join("\n") +
-                `\n\t--header 'Content-Type: application/json' \\`;
+            let headerString = Object.entries(copyHeaders)
+                .map((i) => {
+                    return `\t--header '${i[0]}: ${i[1]}' \\`;
+                })
+                .join("\n");
             let boilerplate = `curl -X GET \
-'${urlData.url}' \\
-${headerString}
-    --data-raw '${copyBodyString}'`;
+'${urlData.url}' 
+    --data-raw '${copyBodyString}'
+    --header 'Content-Type: application/json'
+${headerString}`;
             setConfig({ mode: "vbscript", boilerplate });
         } else if (selectCode === "PowerShell") {
             let headerString = Object.entries(copyHeaders)
@@ -183,7 +184,13 @@ $headers.Add("Content-Type", "application/json")
 $reqUrl = '${urlData.url}'
 $body = '${copyBodyString}'
 
-$response = Invoke-RestMethod -Uri $reqUrl -Method Get -Headers $headers -ContentType 'application/json' -Body $body
+$response = Invoke-RestMethod -Uri $reqUrl -Method ${
+                urlData.method
+            } -Headers $headers -ContentType 'application/json' ${
+                urlData.method === "Post" || urlData.method === "Put"
+                    ? "-Body $body"
+                    : ""
+            }
 $response | ConvertTo-Json`;
             setConfig({ mode: "vbscript", boilerplate });
         }

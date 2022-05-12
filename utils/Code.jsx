@@ -7,7 +7,10 @@ export function useCode() {
 }
 
 export function CodeContext({ children }) {
-    const [object, setObject] = useState({ selectCode: `C# HttpClient` });
+    const [object, setObject] = useState({
+        selectCode: `C# HttpClient`,
+        code: "",
+    });
     return (
         <Context.Provider value={{ ...object, setObject }}>
             {children}

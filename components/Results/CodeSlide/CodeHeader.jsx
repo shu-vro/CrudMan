@@ -26,7 +26,25 @@ export default function CodeHeader() {
                 <option value="Python Http.client">Python Http.client</option>
                 <option value="Python Requests">Python Requests</option>
             </select>
-            <button type="button">Copy</button>
+            <button
+                type="button"
+                onClick={async (e) => {
+                    try {
+                        await navigator.clipboard.writeText(code.code);
+
+                        e.target.textContent = "Copied!";
+                        setTimeout(() => {
+                            e.target.textContent = "Copy";
+                        }, 2000);
+                    } catch (error) {
+                        alert(
+                            `Your device is not compatible to copy code. \nThis error may occur if you are using this website without "https" protocol or with an insecure device.\n\nError Message: ${error.message}`
+                        );
+                    }
+                }}
+            >
+                Copy
+            </button>
         </div>
     );
 }
