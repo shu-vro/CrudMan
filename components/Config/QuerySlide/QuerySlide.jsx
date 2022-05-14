@@ -72,7 +72,7 @@ export default function QuerySlide() {
                 ref={formRef}
             >
                 <h2>Query Parameters</h2>
-                {urlDataParams.map((data) => (
+                {/* {urlDataParams.map((data) => (
                     <InputPlace
                         key={data[0]}
                         formRef={formRef}
@@ -80,7 +80,7 @@ export default function QuerySlide() {
                         defaultValue={[data[0], data[1]]}
                         defaultChecked={true}
                     />
-                ))}
+                ))} */}
                 {fields.map((field) => (
                     <InputPlace
                         key={field}

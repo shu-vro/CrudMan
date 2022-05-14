@@ -45,7 +45,6 @@ export default function UrlInput() {
         let entries = Object.fromEntries(formData.entries());
 
         try {
-            let start = Date.now();
             let res = await axios.get("/api/headerParser", {
                 params: {
                     params: paramsCopy,
@@ -57,8 +56,7 @@ export default function UrlInput() {
             });
 
             res = res.data;
-            let diff = Date.now() - start;
-            setObject({ ...res, elapsedTime: diff, setObject });
+            setObject({ ...res, setObject });
         } catch (error) {
             console.log(error);
             setObject({
