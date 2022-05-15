@@ -79,7 +79,7 @@ export default function UrlInput() {
         let form = formRef.current;
         let formData = new FormData(form);
         let { baseURL, method } = Object.fromEntries(formData.entries());
-        let url = baseURL.split("?");
+        let url = (baseURL as string).split("?");
         let baseURLCopy = url[0];
         let urlParams = Object.fromEntries(new URLSearchParams(url[1]));
         setObjectUrl({

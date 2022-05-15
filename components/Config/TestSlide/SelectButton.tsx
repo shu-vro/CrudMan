@@ -7,9 +7,9 @@ export default function SelectButton({ allHeaders, ...rest }) {
     const tdRef = useRef();
 
     useEffect(() => {
-        let input = inputRef.current;
-        let options = optionsRef.current;
-        let td = tdRef.current;
+        let input: HTMLInputElement = inputRef.current;
+        let options: HTMLDivElement = optionsRef.current;
+        let td: HTMLTableDataCellElement = tdRef.current;
 
         input.addEventListener("blur", () => {
             td.style.display = "none";
@@ -19,7 +19,7 @@ export default function SelectButton({ allHeaders, ...rest }) {
         });
 
         input.addEventListener("input", (e) => {
-            let value = e.target.value.toUpperCase();
+            let value = input.value.toUpperCase();
             if (value === "") {
                 options.style.display = "none";
                 return;
@@ -39,15 +39,20 @@ export default function SelectButton({ allHeaders, ...rest }) {
                 }
             }
             let blocks = options.querySelectorAll(".block");
-            blocks.forEach((block) => {
+            blocks.forEach((block: HTMLElement) => {
                 block.addEventListener("click", () => {
                     input.value = block.textContent;
-                    input.dispatchEvent(
-                        new Event("input", {
-                            bubbles: true,
-                            target: { value: input.value },
-                        })
-                    );
+                    interface eventInitDictParams {
+                        bubbles: boolean;
+                        target: {
+                            value: string;
+                        };
+                    }
+                    let eventInitDict: eventInitDictParams = {
+                        bubbles: true,
+                        target: { value: input.value },
+                    };
+                    input.dispatchEvent(new Event("input", eventInitDict));
                     options.style.display = "none";
                     td.textContent = block.dataset.text;
                     td.style.display = "block";

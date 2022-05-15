@@ -20,8 +20,9 @@ export default function InputPlace({
                 type="text"
                 placeholder={placeHolderNames[0]}
                 onInput={(e) => {
-                    setKey(e.target.value);
-                    if (e.target.value !== "") setHasInput(true);
+                    setKey((e.target as HTMLInputElement).value);
+                    if ((e.target as HTMLInputElement).value !== "")
+                        setHasInput(true);
                     else setHasInput(false);
                 }}
                 name={key}

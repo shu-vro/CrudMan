@@ -1,8 +1,16 @@
 import { createContext, useContext, useState } from "react";
 
-const Context = createContext();
+const Context = createContext({});
 
-export function useUrlData() {
+interface urlProps {
+    urlParams?: string;
+    url?: string;
+    method?: string;
+    baseURL?: string;
+    setObject?: (value: any) => void;
+}
+
+export function useUrlData(): urlProps {
     return useContext(Context);
 }
 

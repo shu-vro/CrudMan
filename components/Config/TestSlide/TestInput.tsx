@@ -1,7 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, MutableRefObject } from "react";
 import SelectButton from "./SelectButton";
 
-export default function TestInput({ formRef, placeHolderNames, allHeaders }) {
+export default function TestInput({
+    formRef,
+    placeHolderNames,
+    allHeaders,
+}) {
     const [key, setKey] = useState({ label: "", value: "" });
     const inputPlaceRef = useRef(null);
     return (
@@ -24,13 +28,13 @@ export default function TestInput({ formRef, placeHolderNames, allHeaders }) {
                 <option value="is greater than">&lt;</option>
                 <option value="is less than">&gt;</option>
             </select>
-            <input type="text" name={key} placeholder={placeHolderNames[1]} />
+            <input type="text" name={key.label} placeholder={placeHolderNames[1]} />
             <button
                 type="button"
                 onClick={(e) => {
                     inputPlaceRef.current.remove();
                     setTimeout(() => {
-                        formRef.current.dispatchEvent(
+                        (formRef.current as HTMLFormElement).dispatchEvent(
                             new Event("input", {
                                 bubbles: true,
                             })

@@ -1,8 +1,14 @@
 import { createContext, useContext, useState } from "react";
 
-const Context = createContext();
+const Context = createContext({});
 
-export function useCode() {
+interface codeProps {
+    selectCode?: string;
+    code?: string;
+    setObject?: (value: any) => void;
+}
+
+export function useCode(): codeProps {
     return useContext(Context);
 }
 

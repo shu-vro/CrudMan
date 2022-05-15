@@ -1,8 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, SetStateAction } from "react";
 
-const Context = createContext();
+const Context = createContext({});
 
-export function useTheme() {
+export function useTheme(): {
+    value?: string;
+    setObject?: (value: SetStateAction<string>) => void;
+} {
     return useContext(Context);
 }
 

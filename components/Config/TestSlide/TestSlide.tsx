@@ -4,7 +4,7 @@ import { useTest } from "../../../utils/Test";
 import TestInput from "./TestInput";
 import allHeaders from "../../../utils/data.json";
 
-export default function QuerySlide() {
+export default function TestSlide() {
     const formRef = useRef(null);
     let test = useTest();
     let setObject = test.setObject;

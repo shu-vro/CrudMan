@@ -1,12 +1,13 @@
 import { createContext, useContext, useState } from "react";
+import { normalParams } from "./interfaces";
 
-const Context = createContext();
+const Context = createContext({});
 
-export function usePostBody() {
+export function useParams(): normalParams {
     return useContext(Context);
 }
 
-export function PostBodyContext({ children }) {
+export function ParamContext({ children }) {
     const [object, setObject] = useState({});
     return (
         <Context.Provider value={{ ...object, setObject }}>

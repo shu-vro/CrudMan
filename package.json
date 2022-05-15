@@ -20,6 +20,7 @@
         "uuid": "^8.3.2"
     },
     "devDependencies": {
+        "@types/react": "^18.0.9",
         "eslint": "8.14.0",
         "eslint-config-next": "12.1.5",
         "sass": "^1.51.0"
