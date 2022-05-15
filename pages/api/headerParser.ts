@@ -5,7 +5,7 @@ import axios from "axios";
 export default async function handler(req, res) {
     let { params, headers, body, url, method } = req.query;
 
-    let start = new Date();
+    let start = Date.now();
     try {
         let response = await axios({
             method,
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
             params,
             data: JSON.parse(body),
         });
-        let elapsedTime = new Date() - start;
+        let elapsedTime = Date.now() - start;
         res.status(200).json({
             data: response.data,
             headers: response.headers,
