@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "tsc": "clear && tsc"
     },
     "dependencies": {
         "ace-builds": "^1.4.14",

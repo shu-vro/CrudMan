@@ -1,7 +1,16 @@
-import { createContext, useContext, useState } from "react";
-import { normalParams } from "./interfaces";
+import React, { createContext, useContext, useState } from "react";
 
 const Context = createContext({});
+
+interface normalParams {
+    headers?: {};
+    body?: {};
+    data?: {};
+    elapsedTime?: number;
+    status?: number;
+    statusText?: string;
+    setObject?: React.Dispatch<React.SetStateAction<{}>>;
+}
 
 export function useApiData(): normalParams {
     return useContext(Context);

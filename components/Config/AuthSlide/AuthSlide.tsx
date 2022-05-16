@@ -1,7 +1,6 @@
 import React from "react";
 import CommonSliderAssets from "../../CommonSliderAssets";
 import { NoneSlide } from ".";
-import { buffer } from "../../../utils/utils";
 
 export default function AuthSlide() {
     let lists = ["None", "Basic", "Bearer"];
@@ -22,7 +21,6 @@ export default function AuthSlide() {
                     <h3>Bearer</h3>
                 </div>
             </CommonSliderAssets>
-            <p>{buffer("foo", "bar")}</p>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext({});
 
 export function useTest(): {
-    props?: [];
+    props?: any[];
     setObject?: React.Dispatch<React.SetStateAction<{}>>;
 } {
     return useContext(Context);

@@ -34,7 +34,10 @@ export default function CodeBody() {
     let headers = useHeaders();
     let urlData = useUrlData();
     let body = usePostBody();
-    const [config, setConfig] = useState({});
+    const [config, setConfig] = useState({
+        boilerplate: "",
+        mode: "",
+    });
 
     useEffect(() => {
         setObject((prev) => ({ ...prev, code: config.boilerplate }));

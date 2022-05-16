@@ -32,9 +32,9 @@ export default function CodeHeader() {
                     try {
                         await navigator.clipboard.writeText(code.code);
 
-                        e.target.textContent = "Copied!";
+                        (e.target as HTMLButtonElement).textContent = "Copied!";
                         setTimeout(() => {
-                            e.target.textContent = "Copy";
+                            (e.target as HTMLButtonElement).textContent = "Copy";
                         }, 2000);
                     } catch (error) {
                         alert(
