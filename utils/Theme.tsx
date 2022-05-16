@@ -4,7 +4,7 @@ const Context = createContext({});
 
 export function useTheme(): {
     value?: string;
-    setObject?: (value: SetStateAction<string>) => void;
+    setValue?: (value: SetStateAction<string>) => void;
 } {
     return useContext(Context);
 }

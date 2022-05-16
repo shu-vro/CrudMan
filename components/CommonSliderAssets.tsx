@@ -6,17 +6,18 @@ export default function CommonSliderAssets({
     lists,
     listBullets = [],
     defaultCheck,
+    ulName = `list-ul`,
 }) {
     let slidesRef = useRef(null);
     useEffect(() => {
-        /**
-         * @type {HTMLDivElement}
-         */
-        const slides = slidesRef.current;
-        const listsEl = slides.querySelectorAll("ul.list-ul li");
-        const slideContainer = slides.querySelector(".slideContainer");
+        const slides: HTMLDivElement = slidesRef.current;
+        const listsEl: NodeListOf<HTMLLIElement> = slides.querySelectorAll(
+            `ul.${ulName} li`
+        );
+        const slideContainer: HTMLDivElement =
+            slides.querySelector(".slideContainer");
 
-        listsEl.forEach((list) => {
+        listsEl.forEach((list: HTMLLIElement) => {
             list.addEventListener("click", () => {
                 listsEl.forEach((l) => {
                     l.classList.remove("selected");
@@ -30,11 +31,11 @@ export default function CommonSliderAssets({
                     .classList.add("slide-selected");
             });
         });
-    }, []);
+    }, [ulName]);
     return (
         <div className={styles.sliders} ref={slidesRef}>
-            <ul className="list-ul">
-                {lists.map((li, i) => (
+            <ul className={ulName}>
+                {lists.map((li: string, i: number) => (
                     <li
                         className={li === defaultCheck ? "selected" : ""}
                         key={i}

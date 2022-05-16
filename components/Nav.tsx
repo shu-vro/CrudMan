@@ -7,7 +7,6 @@ export default function Nav() {
     let themeManager = useTheme();
 
     useEffect(() => {
-        themeManager.setValue(localStorage.getItem("theme"));
         if (!localStorage.getItem("theme")) {
             localStorage.setItem(
                 "theme",
@@ -16,6 +15,7 @@ export default function Nav() {
                     : "dark"
             );
         }
+        themeManager.setValue(localStorage.getItem("theme"));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
