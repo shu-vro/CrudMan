@@ -24,8 +24,5 @@
         "eslint": "8.14.0",
         "eslint-config-next": "12.1.5",
         "sass": "^1.51.0"
-    },
-    "browserslist": [
-        "since 2010"
-    ]
+    }
 }
