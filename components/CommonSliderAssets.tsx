@@ -9,13 +9,13 @@ export default function CommonSliderAssets({
     ulName = `list-ul`,
 }) {
     let slidesRef = useRef(null);
+    let slideContainerRef = useRef(null);
     useEffect(() => {
         const slides: HTMLDivElement = slidesRef.current;
         const listsEl: NodeListOf<HTMLLIElement> = slides.querySelectorAll(
-            `ul.${ulName} li`
+            `ul.${ulName} > li`
         );
-        const slideContainer: HTMLDivElement =
-            slides.querySelector(".slideContainer");
+        const slideContainer: HTMLDivElement = slideContainerRef.current;
 
         listsEl.forEach((list: HTMLLIElement) => {
             list.addEventListener("click", () => {
@@ -23,9 +23,11 @@ export default function CommonSliderAssets({
                     l.classList.remove("selected");
                 });
                 list.classList.add("selected");
-                slideContainer.querySelectorAll(".slide").forEach((child) => {
+                console.log(slideContainer.children);
+                for (let i = 0; i < slideContainer.children.length; i++) {
+                    const child = slideContainer.children[i];
                     child.classList.remove("slide-selected");
-                });
+                }
                 slideContainer
                     .querySelector(`.${list.dataset.text}`)
                     .classList.add("slide-selected");
@@ -46,7 +48,9 @@ export default function CommonSliderAssets({
                     </li>
                 ))}
             </ul>
-            <div className="slideContainer">{children}</div>
+            <div className="slideContainer" ref={slideContainerRef}>
+                {children}
+            </div>
         </div>
     );
 }

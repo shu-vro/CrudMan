@@ -1,6 +1,6 @@
 import React from "react";
 import CommonSliderAssets from "../../CommonSliderAssets";
-import { NoneSlide } from ".";
+import { NoneSlide, BasicSlide, BearerSlide } from ".";
 
 export default function AuthSlide() {
     let lists = ["None", "Basic", "Bearer"];
@@ -14,12 +14,8 @@ export default function AuthSlide() {
                 ulName="child-list-ul"
             >
                 <NoneSlide />
-                <div className="slide Basic">
-                    <h3>Basic</h3>
-                </div>
-                <div className="slide Bearer">
-                    <h3>Bearer</h3>
-                </div>
+                <BasicSlide />
+                <BearerSlide />
             </CommonSliderAssets>
         </div>
     );
