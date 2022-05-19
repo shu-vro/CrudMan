@@ -1,13 +1,13 @@
 import React from "react";
-import { v4 } from "uuid";
 
 export default function InputAuth({
     FieldName,
     FieldValue = "",
     type = "text",
-    rest = { width: "70%" },
+    style = { width: "70%" },
+    name,
 }) {
-    let id = v4();
+    let id = React.useId();
     return (
         <div className="input-place">
             <label htmlFor={id}>{FieldName}</label>
@@ -15,7 +15,8 @@ export default function InputAuth({
                 type={type}
                 id={id}
                 defaultValue={FieldValue}
-                style={{ ...rest }}
+                style={style}
+                name={name}
             />
         </div>
     );

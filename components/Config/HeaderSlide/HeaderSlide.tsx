@@ -10,6 +10,7 @@ export default function QuerySlide() {
     const [props, setProps] = useState({});
 
     useEffect(() => {
+        console.log(props);
         setObject({ ...props, setObject });
     }, [props, setObject]);
 
@@ -27,6 +28,13 @@ export default function QuerySlide() {
                 if (isChecked !== true) continue;
                 let key = place.childNodes[1].querySelector("input").value;
                 let value = place.childNodes[2].value;
+                if (!isNaN(Number(value))) {
+                    value = Number(value);
+                } else if (value === "true") {
+                    value = true;
+                } else if (value === "false") {
+                    value = false;
+                }
                 let o = {
                     [key]: value,
                 };

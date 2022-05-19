@@ -23,7 +23,6 @@ export default function CommonSliderAssets({
                     l.classList.remove("selected");
                 });
                 list.classList.add("selected");
-                console.log(slideContainer.children);
                 for (let i = 0; i < slideContainer.children.length; i++) {
                     const child = slideContainer.children[i];
                     child.classList.remove("slide-selected");

@@ -1,0 +1,1 @@
+{"version":"0.1.0","name":"crudman-next","dependencies":{"ace-builds":{"version":"1.5.0"},"axios":{"version":"0.27.2"},"next-pwa":{"version":"5.5.2"},"next":{"version":"12.1.5"},"numeral":{"version":"2.0.6"},"react-ace":{"version":"10.1.0"},"react-dom":{"version":"18.1.0"},"react":{"version":"18.1.0"},"uuid":{"version":"8.3.2"}}}

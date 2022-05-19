@@ -116,7 +116,7 @@ axios(reqOptions).then(function (response) {
 
 let bodyContent = JSON.stringify(${copyBodyString});
 
-fetch("http://jsonplaceholder.typicode.com/comments?postId=1", { 
+fetch("${urlData.url}", { 
     method: "${methodString}",
     body: bodyContent,
     headers: headersList
@@ -130,22 +130,17 @@ fetch("http://jsonplaceholder.typicode.com/comments?postId=1", {
             let urlRegex =
                 /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
             let urlArray = urlData.url.split(urlRegex); // 4, 5 and 6 has desired output
-            console.log(urlArray[4] !== undefined && urlArray[4]);
             let boilerplate = `import http.client
 import json
 
-conn = http.client.HTTPSConnection("${
-                urlArray[4] !== undefined ? urlArray[4] : ""
-            }")
+conn = http.client.HTTPSConnection("${urlArray?.[4]}")
 
 headersList = ${copyHeaderString.replaceAll("true", "True")}
 
 payload = json.dumps(${copyBodyString.replaceAll("true", "True")})
 
-conn.request("${methodString}", "${
-                urlArray[5] !== undefined ? urlArray[5] : ""
-            }${
-                urlArray[6] !== undefined ? urlArray[6] : ""
+conn.request("${methodString}", "${urlArray?.[5]}${
+                urlArray?.[6]
             }", payload, headersList)
 response = conn.getresponse()
 result = response.read()
