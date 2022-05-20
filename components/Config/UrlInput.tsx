@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "../../css/App.module.scss";
 import { useApiData } from "../../utils/ApiData";
 import { useHeaders } from "../../utils/Headers";
+import { useAuth } from "../../utils/Auth";
 import { useParams } from "../../utils/Params";
 import { usePostBody } from "../../utils/Body";
 import { useUrlData } from "../../utils/UrlData";
@@ -13,6 +14,7 @@ export default function UrlInput() {
     let params = useParams();
     let postbody = usePostBody();
     let urlData = useUrlData();
+    let auth = useAuth();
     let setObjectUrl = urlData.setObject;
     const [headerCopy, setHeaderCopy] = useState({});
     const [paramsCopy, setParamsCopy] = useState({});
@@ -22,7 +24,7 @@ export default function UrlInput() {
 
     useEffect(() => {
         setHeaderCopy(() => {
-            let h = { ...headers };
+            let h = { ...headers, ...auth };
             delete h["setObject"];
             return h;
         });
@@ -36,7 +38,7 @@ export default function UrlInput() {
             delete pb["setObject"];
             return pb;
         });
-    }, [headers, params, postbody]);
+    }, [headers, params, postbody, auth]);
 
     async function handleSubmit(e) {
         e.preventDefault();

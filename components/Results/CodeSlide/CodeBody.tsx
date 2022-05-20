@@ -25,6 +25,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "../../../utils/Theme";
 import { useCode } from "../../../utils/Code";
 import { useHeaders } from "../../../utils/Headers";
+import { useAuth } from "../../../utils/Auth";
 import { useUrlData } from "../../../utils/UrlData";
 import { usePostBody } from "../../../utils/Body";
 
@@ -32,6 +33,7 @@ export default function CodeBody() {
     const { value: theme } = useTheme();
     const { selectCode, setObject } = useCode();
     let headers = useHeaders();
+    let auth = useAuth();
     let urlData = useUrlData();
     let body = usePostBody();
     const [config, setConfig] = useState({
@@ -47,7 +49,7 @@ export default function CodeBody() {
     useEffect(() => {
         let copyBody = { ...body };
         delete copyBody["setObject"];
-        let copyHeaders = { ...headers };
+        let copyHeaders = { ...headers, ...auth };
         delete copyHeaders["setObject"];
 
         let copyBodyString = JSON.stringify(copyBody, null, 4);
@@ -197,7 +199,7 @@ $response | ConvertTo-Json`;
             setConfig({ mode: "vbscript", boilerplate });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectCode, headers, body, urlData]);
+    }, [selectCode, headers, body, urlData, auth]);
 
     return (
         <AceEditor

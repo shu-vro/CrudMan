@@ -66,6 +66,16 @@ li.selected button {
     z-index: 1;
     background: var(--slide-bg-color);
 
+    #bearer_token {
+        background: transparent;
+        color: inherit;
+        resize: vertical;
+        width: 80%;
+        display: block;
+        margin: 0 auto;
+        font-family: inherit;
+    }
+
     .input-place {
         width: 100%;
         display: flex;

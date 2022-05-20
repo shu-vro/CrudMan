@@ -6,6 +6,7 @@ import { UrlDataContext } from "../utils/UrlData";
 import { ThemeContext } from "../utils/Theme";
 import { TestContext } from "../utils/Test";
 import { CodeContext } from "../utils/Code";
+import { AuthContext } from "../utils/Auth";
 import React from "react";
 
 export default function Wrapper({ children }) {
@@ -17,7 +18,9 @@ export default function Wrapper({ children }) {
                         <UrlDataContext>
                             <ThemeContext>
                                 <TestContext>
-                                    <CodeContext>{children}</CodeContext>
+                                    <CodeContext>
+                                        <AuthContext>{children}</AuthContext>
+                                    </CodeContext>
                                 </TestContext>
                             </ThemeContext>
                         </UrlDataContext>
