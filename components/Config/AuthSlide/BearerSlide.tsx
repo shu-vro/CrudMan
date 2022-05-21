@@ -9,7 +9,9 @@ export default function BearerSlide() {
         form.addEventListener("input", (e) => {
             e.preventDefault();
             let formData = new FormData(form);
-            let Authorization = `bearer ${formData.get("bearer_token")}`;
+            let token = formData.get("bearer_token");
+            if (token === "") return setObject({ setObject });
+            let Authorization = `bearer ${token}`;
             setObject({ Authorization, setObject });
         });
     }, [setObject]);

@@ -12,11 +12,11 @@ export default function BasicSlide() {
         form.addEventListener("input", (e) => {
             e.preventDefault();
             let formData = new FormData(form);
-            type data = {} | any;
-            let data: data = Object.fromEntries(formData.entries());
-            data = Object.values(data);
+            let username = formData.get("basic_username");
+            let password = formData.get("basic_password");
+            if (username === "") return setObject({ setObject });
             let Authorization = `basic ${Buffer.from(
-                `${data?.[0]}:${data?.[1]}`
+                `${username}:${password}`
             ).toString("base64")}`;
             setObject({ Authorization, setObject });
         });
