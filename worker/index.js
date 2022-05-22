@@ -1,6 +1,6 @@
 "use strict";
 
-// self.__WB_DISABLE_DEV_LOGS = true;
+self.__WB_DISABLE_DEV_LOGS = true;
 
 import { registerRoute } from "workbox-routing";
 import {

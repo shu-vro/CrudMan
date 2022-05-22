@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import SelectButton from "../TestSlide/SelectButton";
+import SelectHeaderButton from "./SelectHeaderButton";
 import allHeaders from "../../../utils/data.json";
 
 export default function HeaderInput({ formRef, placeHolderNames }) {
@@ -9,7 +9,7 @@ export default function HeaderInput({ formRef, placeHolderNames }) {
     return (
         <div className="input-place" ref={inputPlaceRef}>
             <input type="checkbox" defaultChecked />
-            <SelectButton
+            <SelectHeaderButton
                 allHeaders={allHeaders}
                 placeholder={placeHolderNames[0]}
                 onInput={(e) => {

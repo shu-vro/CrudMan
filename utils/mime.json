@@ -1,0 +1,213 @@
+[
+    { "label": "audio/aac", "description": "Mime type for extension: .aac" },
+    {
+        "label": "application/x-abiword",
+        "description": "Mime type for extension: .abw"
+    },
+    {
+        "label": "application/x-freearc",
+        "description": "Mime type for extension: .arc"
+    },
+    {
+        "label": "video/x-msvideo",
+        "description": "Mime type for extension: .avi"
+    },
+    {
+        "label": "application/vnd.amazon.ebook",
+        "description": "Mime type for extension: .azw"
+    },
+    {
+        "label": "application/octet-stream",
+        "description": "Mime type for extension: .bin"
+    },
+    { "label": "image/bmp", "description": "Mime type for extension: .bmp" },
+    {
+        "label": "application/x-bzip",
+        "description": "Mime type for extension: .bz"
+    },
+    {
+        "label": "application/x-bzip2",
+        "description": "Mime type for extension: .bz2"
+    },
+    {
+        "label": "application/x-csh",
+        "description": "Mime type for extension: .csh"
+    },
+    { "label": "text/css", "description": "Mime type for extension: .css" },
+    { "label": "text/csv", "description": "Mime type for extension: .csv" },
+    {
+        "label": "application/msword",
+        "description": "Mime type for extension: .doc"
+    },
+    {
+        "label": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "description": "Mime type for extension: .docx"
+    },
+    {
+        "label": "application/vnd.ms-fontobject",
+        "description": "Mime type for extension: .eot"
+    },
+    {
+        "label": "application/epub+zip",
+        "description": "Mime type for extension: .epub"
+    },
+    {
+        "label": "application/gzip",
+        "description": "Mime type for extension: .gz"
+    },
+    { "label": "image/gif", "description": "Mime type for extension: .gif" },
+    {
+        "label": "text/html",
+        "description": "Mime type for extension: .htm\n.html"
+    },
+    {
+        "label": "image/vnd.microsoft.icon",
+        "description": "Mime type for extension: .ico"
+    },
+    {
+        "label": "text/calendar",
+        "description": "Mime type for extension: .ics"
+    },
+    {
+        "label": "application/java-archive",
+        "description": "Mime type for extension: .jar"
+    },
+    {
+        "label": "image/jpeg",
+        "description": "Mime type for extension: \n.jpeg .jpg\n"
+    },
+    {
+        "label": "text/javascript",
+        "description": "Mime type for extension: .js"
+    },
+    {
+        "label": "application/json",
+        "description": "Mime type for extension: .json"
+    },
+    {
+        "label": "application/ld+json",
+        "description": "Mime type for extension: .jsonld"
+    },
+    {
+        "label": "audio/midi",
+        "description": "Mime type for extension: \n.mid .midi\n"
+    },
+    {
+        "label": "text/javascript",
+        "description": "Mime type for extension: .mjs"
+    },
+    { "label": "audio/mpeg", "description": "Mime type for extension: .mp3" },
+    { "label": "video/mpeg", "description": "Mime type for extension: .mpeg" },
+    {
+        "label": "application/vnd.apple.installer+xml",
+        "description": "Mime type for extension: .mpkg"
+    },
+    {
+        "label": "application/vnd.oasis.opendocument.presentation",
+        "description": "Mime type for extension: .odp"
+    },
+    {
+        "label": "application/vnd.oasis.opendocument.spreadsheet",
+        "description": "Mime type for extension: .ods"
+    },
+    {
+        "label": "application/vnd.oasis.opendocument.text",
+        "description": "Mime type for extension: .odt"
+    },
+    { "label": "audio/ogg", "description": "Mime type for extension: .oga" },
+    { "label": "video/ogg", "description": "Mime type for extension: .ogv" },
+    {
+        "label": "application/ogg",
+        "description": "Mime type for extension: .ogx"
+    },
+    { "label": "audio/opus", "description": "Mime type for extension: .opus" },
+    { "label": "font/otf", "description": "Mime type for extension: .otf" },
+    { "label": "image/png", "description": "Mime type for extension: .png" },
+    {
+        "label": "application/pdf",
+        "description": "Mime type for extension: .pdf"
+    },
+    {
+        "label": "application/x-httpd-php",
+        "description": "Mime type for extension: .php"
+    },
+    {
+        "label": "application/vnd.ms-powerpoint",
+        "description": "Mime type for extension: .ppt"
+    },
+    {
+        "label": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "description": "Mime type for extension: .pptx"
+    },
+    {
+        "label": "application/vnd.rar",
+        "description": "Mime type for extension: .rar"
+    },
+    {
+        "label": "application/rtf",
+        "description": "Mime type for extension: .rtf"
+    },
+    {
+        "label": "application/x-sh",
+        "description": "Mime type for extension: .sh"
+    },
+    {
+        "label": "image/svg+xml",
+        "description": "Mime type for extension: .svg"
+    },
+    {
+        "label": "application/x-shockwave-flash",
+        "description": "Mime type for extension: .swf"
+    },
+    {
+        "label": "application/x-tar",
+        "description": "Mime type for extension: .tar"
+    },
+    {
+        "label": "image/tiff",
+        "description": "Mime type for extension: .tif\n.tiff"
+    },
+    { "label": "video/mp2t", "description": "Mime type for extension: .ts" },
+    { "label": "font/ttf", "description": "Mime type for extension: .ttf" },
+    { "label": "text/plain", "description": "Mime type for extension: .txt" },
+    {
+        "label": "application/vnd.visio",
+        "description": "Mime type for extension: .vsd"
+    },
+    { "label": "audio/wav", "description": "Mime type for extension: .wav" },
+    { "label": "audio/webm", "description": "Mime type for extension: .weba" },
+    { "label": "video/webm", "description": "Mime type for extension: .webm" },
+    { "label": "image/webp", "description": "Mime type for extension: .webp" },
+    { "label": "font/woff", "description": "Mime type for extension: .woff" },
+    { "label": "font/woff2", "description": "Mime type for extension: .woff2" },
+    {
+        "label": "application/xhtml+xml",
+        "description": "Mime type for extension: .xhtml"
+    },
+    {
+        "label": "application/vnd.ms-excel",
+        "description": "Mime type for extension: .xls"
+    },
+    {
+        "label": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "Mime type for extension: .xlsx"
+    },
+    {
+        "label": "application/xml ",
+        "description": "Mime type for extension: .xml"
+    },
+    {
+        "label": "application/vnd.mozilla.xul+xml",
+        "description": "Mime type for extension: .xul"
+    },
+    {
+        "label": "application/zip",
+        "description": "Mime type for extension: .zip"
+    },
+    { "label": "video/3gpp", "description": "Mime type for extension: .3gp" },
+    { "label": "video/3gpp2", "description": "Mime type for extension: .3g2" },
+    {
+        "label": "application/x-7z-compressed",
+        "description": "Mime type for extension: .7z"
+    }
+]

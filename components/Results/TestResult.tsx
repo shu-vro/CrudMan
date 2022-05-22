@@ -7,6 +7,21 @@ export default function TestResult() {
     const [tests, setTests] = useState({});
     let { props } = useTest();
     let apiData = useApiData();
+
+    function stringToRegex(s: string): RegExp {
+        var m = [];
+        return (m = s.match(/^([\/~@;%#'])(.*?)\1([gimsuy]*)$/))
+            ? new RegExp(
+                  m[2],
+                  m[3]
+                      .split("")
+                      .filter(
+                          (i: number, p: any, s: any[]) => s.indexOf(i) === p
+                      )
+                      .join("")
+              )
+            : new RegExp(s);
+    }
     useEffect(() => {
         let headers = apiData?.headers || {};
         setTests({});
@@ -85,6 +100,15 @@ export default function TestResult() {
                     Number(headers[propName]) &&
                     Number(value) &&
                     Number(headers[propName]) > Number(value)
+                ) {
+                    setTests((tests) => ({ ...tests, [text]: "passed" }));
+                } else {
+                    setTests((tests) => ({ ...tests, [text]: "failed" }));
+                }
+            } else if (operation === "matched regex expression") {
+                if (
+                    headers[propName] &&
+                    headers[propName].match(stringToRegex(value))
                 ) {
                     setTests((tests) => ({ ...tests, [text]: "passed" }));
                 } else {

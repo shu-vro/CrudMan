@@ -20,6 +20,7 @@ body {
     --slide-bg-color: #212630;
     --thin-border-color: #4d4d56;
     --general-text-color: #bcc3cc;
+    --input-place-hover-bg: #282a36;
     --theme: #fff;
     --input-bg: #000;
 
@@ -42,6 +43,7 @@ body.light {
     --general-text-color: #292a2c;
     --theme: #000000;
     --input-bg: rgb(255, 255, 255);
+    --input-place-hover-bg: #ced1e3;
 }
 
 li.selected button {
@@ -84,6 +86,11 @@ li.selected button {
         flex-direction: row;
         margin: 10px 0;
         padding: 10px 0;
+        transition: 0.25s;
+
+        &:hover {
+            background: var(--input-place-hover-bg);
+        }
 
         input[type="text"],
         input[type="password"] {
@@ -185,12 +192,14 @@ li.selected button {
         top: 100%;
         left: 0;
         overflow-y: auto;
+        width: 100%;
         height: calc(30px * 5);
         background: var(--slide-bg-color);
         display: none;
 
         .option {
             cursor: pointer;
+            word-wrap: break-word;
             border-bottom: 1px solid var(--thin-border-color);
 
             &.block {
@@ -200,6 +209,13 @@ li.selected button {
             &.none {
                 display: none;
             }
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: var(--thin-border-color);
         }
     }
 }
@@ -231,4 +247,8 @@ li.selected button {
             }
         }
     }
+}
+
+input::placeholder {
+    font-style: italic;
 }

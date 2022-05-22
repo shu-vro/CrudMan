@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import allHeaders from "../../../utils/data.json";
 
-export default function SelectButton({ allHeaders, ...rest }) {
-    const [first, setFirst] = useState();
+export default function SelectButton({ setSectionValueParent }) {
     const inputRef = useRef();
     const optionsRef = useRef();
     const tdRef = useRef();
+    const sectionRef = useRef();
+    const [sectionValue, setSectionValue] = useState("");
+    const [allParams, setAllParams] = useState([]);
+    const [inputDisabled, setInputDisabled] = useState(true);
 
     useEffect(() => {
         let input: HTMLInputElement = inputRef.current;
@@ -18,7 +22,13 @@ export default function SelectButton({ allHeaders, ...rest }) {
             }, 500);
         });
 
-        input.addEventListener("input", (e) => {
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && input.value === "") {
+                setInputDisabled((prev) => !prev);
+            }
+        });
+
+        input.addEventListener("input", () => {
             let value = input.value.toUpperCase();
             if (value === "") {
                 options.style.display = "none";
@@ -65,11 +75,61 @@ export default function SelectButton({ allHeaders, ...rest }) {
         });
     }, []);
 
+    useEffect(() => {
+        let select: HTMLSelectElement = sectionRef.current;
+        let input: HTMLInputElement = inputRef.current;
+        select.addEventListener("change", () => {
+            let value = select.value;
+            let params = [];
+            if (value === "Headers") {
+                params = allHeaders;
+            } else {
+                params = [];
+            }
+            setAllParams(params);
+
+            if (
+                ["Headers", "Response-Body"].find((option) => option === value)
+            ) {
+                input.value = "";
+                setInputDisabled(false);
+            } else {
+                input.value = value;
+                setInputDisabled(true);
+            }
+        });
+    }, [allParams]);
+
     return (
         <div className="select-container">
-            <input type="text" name={first} ref={inputRef} {...rest} />
+            <select
+                ref={sectionRef}
+                hidden={!inputDisabled}
+                onChange={(e) => {
+                    setSectionValue(e.target.value);
+                    setSectionValueParent(e.target.value);
+                }}
+            >
+                <option value="" defaultChecked>
+                    Select
+                </option>
+                <option value="Headers">Headers</option>
+                <option value="Response-Code">Response-Code</option>
+                <option value="Response-Body">Response-Body</option>
+                <option value="Response-Time">Response-Time</option>
+                <option value="Content-Length">Content-Length</option>
+                <option value="Content-Time">Content-Time</option>
+                <option value="Content-Encoding">Content-Encoding</option>
+            </select>
+            <input
+                type="text"
+                ref={inputRef}
+                placeholder={"Test " + sectionValue}
+                title="Escape button for more categories."
+                hidden={inputDisabled}
+            />
             <div className="options" ref={optionsRef}>
-                {allHeaders.map((el) => (
+                {allParams.map((el: { label: string; description: string }) => (
                     <div
                         key={el.label}
                         className="option"

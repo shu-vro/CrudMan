@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useTest } from "../../../utils/Test";
 import TestInput from "./TestInput";
-import allHeaders from "../../../utils/data.json";
 
 export default function TestSlide() {
     const formRef = useRef(null);
@@ -34,11 +33,13 @@ export default function TestSlide() {
 
                 if (!isPresent) continue;
 
+                let section = place.childNodes[1].querySelector("select").value;
                 let key = place.childNodes[1].querySelector("input").value;
                 let operation = place.childNodes[2].value;
                 let value = place.childNodes[3].value;
 
                 let o = {
+                    section,
                     key,
                     operation,
                     value,
@@ -64,7 +65,6 @@ export default function TestSlide() {
                         key={field}
                         formRef={formRef}
                         placeHolderNames={["Test Header", "value"]}
-                        allHeaders={allHeaders}
                     />
                 ))}
 
