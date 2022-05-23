@@ -29,7 +29,7 @@ export default function Table({ content, header = [], testing = false }) {
                                         style={{
                                             padding: `5px 10px`,
                                             borderRadius: `5px`,
-                                            color: "var(--theme)",
+                                            color: "white",
                                             fontSize: "13px",
                                             backgroundColor:
                                                 value === "passed"

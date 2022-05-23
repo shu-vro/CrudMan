@@ -36,7 +36,9 @@ export default function TestSlide() {
                 let section = place.childNodes[1].querySelector("select").value;
                 let key = place.childNodes[1].querySelector("input").value;
                 let operation = place.childNodes[2].value;
-                let value = place.childNodes[3].value;
+                let value = place.childNodes[3].querySelector(
+                    ".select-container input"
+                ).value;
 
                 let o = {
                     section,

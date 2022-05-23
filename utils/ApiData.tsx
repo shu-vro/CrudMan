@@ -9,6 +9,7 @@ interface normalParams {
     elapsedTime?: number;
     status?: number;
     statusText?: string;
+    size?: number;
     setObject?: React.Dispatch<React.SetStateAction<{}>>;
 }
 

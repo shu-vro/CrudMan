@@ -14,11 +14,15 @@ export default function TestInput({ formRef, placeHolderNames }) {
             setAllHeaders([]);
         } else if (
             sectionValueParent === "Headers" ||
-            sectionValueParent === "Content-Encoding"
+            sectionValueParent === "Content-Type"
         ) {
             setAllHeaders(mimes);
         } else if (sectionValueParent === "Response-Code") {
             setAllHeaders(statuses);
+        } else if (sectionValueParent === "Json-Query") {
+            setAllHeaders(statuses);
+        } else {
+            setAllHeaders([]);
         }
     }, [sectionValueParent]);
 
@@ -32,6 +36,7 @@ export default function TestInput({ formRef, placeHolderNames }) {
                 <option value="count">Count</option>
                 <option value="contains">Contains</option>
                 <option value="matched regex expression">Regex</option>
+                <option value="type of">TypeOf</option>
                 <option value="is less than or equal">&lt;=</option>
                 <option value="is greater than or equal">&gt;=</option>
                 <option value="is greater than">&lt;</option>

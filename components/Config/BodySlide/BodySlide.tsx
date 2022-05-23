@@ -55,7 +55,9 @@ export default function BodySlide() {
                                 row,
                                 column,
                                 type: "error",
-                                text: `Invalid JSON syntax at row: ${row} column:${column}`,
+                                text: `Invalid JSON syntax at row: ${
+                                    row + 1
+                                } column:${column + 1}`,
                             };
                             let now = prev.filter((item) => item.row !== o.row);
                             return [...now, o];

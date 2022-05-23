@@ -22,6 +22,7 @@ export default async function handler(req, res: NextApiResponse) {
             headers: response.headers,
             status: response.status,
             statusText: response.statusText,
+            size: JSON.stringify(response.data || {}, null, 0).length,
             elapsedTime,
         });
         console.log("sent!");

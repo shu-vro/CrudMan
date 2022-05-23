@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import allHeaders from "../../../utils/data.json";
 
-export default function SelectButton({ setSectionValueParent }) {
+export default function SelectButton({ setSectionValueParent, ...rest }) {
     const inputRef = useRef();
     const optionsRef = useRef();
     const tdRef = useRef();
@@ -88,10 +88,10 @@ export default function SelectButton({ setSectionValueParent }) {
             }
             setAllParams(params);
 
-            if (
-                ["Headers", "Response-Body"].find((option) => option === value)
-            ) {
-                input.value = "";
+            if (["Headers", "Json-Query"].find((option) => option === value)) {
+                value === "Json-Query"
+                    ? (input.value = "json.")
+                    : (input.value = "");
                 setInputDisabled(false);
             } else {
                 input.value = value;
@@ -118,15 +118,17 @@ export default function SelectButton({ setSectionValueParent }) {
                 <option value="Response-Body">Response-Body</option>
                 <option value="Response-Time">Response-Time</option>
                 <option value="Content-Length">Content-Length</option>
-                <option value="Content-Time">Content-Time</option>
-                <option value="Content-Encoding">Content-Encoding</option>
+                <option value="Content-Type">Content-Type</option>
+                <option value="Json-Query">Json-Query</option>
             </select>
             <input
                 type="text"
+                defaultValue={"wtf"}
                 ref={inputRef}
                 placeholder={"Test " + sectionValue}
                 title="Escape button for more categories."
                 hidden={inputDisabled}
+                {...rest}
             />
             <div className="options" ref={optionsRef}>
                 {allParams.map((el: { label: string; description: string }) => (

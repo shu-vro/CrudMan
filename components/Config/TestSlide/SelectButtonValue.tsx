@@ -70,7 +70,7 @@ export default function SelectButtonValue({ allProps, ...rest }) {
             <div className="options" ref={optionsRef}>
                 {allProps.map((el) => (
                     <div
-                        key={el.label}
+                        key={el.description}
                         className="option"
                         data-text={`${el.description}`}
                     >

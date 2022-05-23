@@ -17,9 +17,12 @@ function MyApp({ Component, pageProps }) {
                 <meta name="apple-mobile-web-app-title" content="CrudMan" />
                 <meta
                     name="description"
-                    content="CrudMan - An Online Version For RESTful API"
+                    content="CrudMan - An Online Version Building And Testing For RESTful API"
                 />
-                <meta name="keywords" content="crudman, restful, api" />
+                <meta
+                    name="keywords"
+                    content="crudman, restful, api, make-api, test-api"
+                />
                 <meta name="format-detection" content="telephone=no" />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="msapplication-TileColor" content="#2B5797" />
@@ -72,7 +75,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="twitter:title" content="CrudMan" />
                 <meta
                     name="twitter:description"
-                    content="CrudMan - An Online Version For RESTful API"
+                    content="CrudMan - An Online Version Building And Testing For RESTful API"
                 />
                 <meta
                     name="twitter:image"
@@ -83,7 +86,7 @@ function MyApp({ Component, pageProps }) {
                 <meta property="og:title" content="CrudMan" />
                 <meta
                     property="og:description"
-                    content="CrudMan - An Online Version For RESTful API"
+                    content="CrudMan - An Online Version Building And Testing For RESTful API"
                 />
                 <meta property="og:site_name" content="CrudMan" />
                 <meta property="og:url" content={myAppLocation} />
@@ -91,6 +94,10 @@ function MyApp({ Component, pageProps }) {
                     property="og:image"
                     content={`${myAppLocation}/icons/icon-192x192.png`}
                 />
+                <title>
+                    CrudMan - An Online Version Building And Testing For RESTful
+                    API
+                </title>
             </Head>
             <Component {...pageProps} />
         </>

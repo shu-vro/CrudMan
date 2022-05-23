@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "../../css/App.module.scss";
 import { useApiData } from "../../utils/ApiData";
 import { useHeaders } from "../../utils/Headers";
@@ -21,6 +21,7 @@ export default function UrlInput() {
     const [postBodyCopy, setPostBodyCopy] = useState({});
     let { setObject } = apiData;
     const formRef = useRef(null);
+    const [processFinished, setProcessFinished] = useState(false);
 
     useEffect(() => {
         setHeaderCopy(() => {
@@ -40,8 +41,9 @@ export default function UrlInput() {
         });
     }, [headers, params, postbody, auth]);
 
-    async function handleSubmit(e) {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setProcessFinished(true);
         let form = formRef.current;
         let formData = new FormData(form);
         let entries = Object.fromEntries(formData.entries());
@@ -59,6 +61,7 @@ export default function UrlInput() {
 
             res = res.data;
             setObject({ ...res, setObject });
+            setProcessFinished(false);
         } catch (error) {
             console.log(error);
             setObject({
@@ -70,6 +73,7 @@ export default function UrlInput() {
                 status: error.response.status,
                 statusText: error.response.statusText,
             });
+            setProcessFinished(false);
         }
     }
     useEffect(() => {
@@ -117,7 +121,9 @@ export default function UrlInput() {
                 value={urlData.url}
                 onChange={() => true}
             />
-            <button type="submit">Send</button>
+            <button type="submit" disabled={processFinished}>
+                Send
+            </button>
         </form>
     );
 }

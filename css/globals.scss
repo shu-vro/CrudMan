@@ -102,6 +102,10 @@ li.selected button {
             border-bottom: 2px solid var(--thin-border-color);
             font-size: 15px;
             color: var(--general-text-color);
+
+            &:focus {
+                border-bottom: 1px solid var(--button-hover-underline-color);
+            }
         }
 
         button {
@@ -185,6 +189,7 @@ li.selected button {
         background: var(--navbar-color);
         display: none;
         border-radius: 0 0 7px 7px;
+        cursor: help;
     }
 
     .options {
@@ -193,7 +198,7 @@ li.selected button {
         left: 0;
         overflow-y: auto;
         width: 100%;
-        height: calc(30px * 5);
+        max-height: calc(30px * 5);
         background: var(--slide-bg-color);
         display: none;
 

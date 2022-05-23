@@ -34,7 +34,7 @@ export default function Results() {
             <StatusBar
                 status={apiData.status}
                 statusText={apiData.statusText}
-                size={JSON.stringify(apiData?.data || {}, null, 0).length}
+                size={apiData.size}
                 time={apiData.elapsedTime}
             />
             <CommonSliderAssets
