@@ -98,7 +98,7 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
                 setInputDisabled(true);
             }
         });
-    }, [allParams]);
+    }, []);
 
     return (
         <div className="select-container">
@@ -123,7 +123,6 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             </select>
             <input
                 type="text"
-                defaultValue={"wtf"}
                 ref={inputRef}
                 placeholder={"Test " + sectionValue}
                 title="Escape button for more categories."

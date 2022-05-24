@@ -27,13 +27,13 @@ export default async function handler(req, res: NextApiResponse) {
         });
         console.log("sent!");
     } catch (error) {
-        console.log(error);
+        let elapsedTime = Date.now() - start;
         res.status(200).json({
             data: error.response.data,
             headers: error.response.headers,
             status: error.response.status,
             statusText: error.response.statusText,
-            elapsedTime: "null",
+            elapsedTime,
         });
         console.log("error!");
     }

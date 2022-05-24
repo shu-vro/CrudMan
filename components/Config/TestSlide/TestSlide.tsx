@@ -40,6 +40,14 @@ export default function TestSlide() {
                     ".select-container input"
                 ).value;
 
+                if (!isNaN(value)) {
+                    value = Number(value);
+                } else if (value === "true") {
+                    value = true;
+                } else if (value === "false") {
+                    value = false;
+                }
+
                 let o = {
                     section,
                     key,

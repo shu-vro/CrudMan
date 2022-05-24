@@ -2,26 +2,21 @@ import { useEffect, useState } from "react";
 import Table from "./Table";
 import { useTest } from "../../utils/Test";
 import { useApiData } from "../../utils/ApiData";
+import {
+    stringToRegex,
+    getValueFromResponse,
+    checkRegexKeyInResponse,
+} from "../../utils/utils";
 
 export default function TestResult() {
     const [tests, setTests] = useState({});
     let { props } = useTest();
     let apiData = useApiData();
 
-    function stringToRegex(s: string): RegExp {
-        var m = [];
-        return (m = s.match(/^([\/~@;%#'])(.*?)\1([gimsuy]*)$/))
-            ? new RegExp(
-                  m[2],
-                  m[3]
-                      .split("")
-                      .filter(
-                          (i: number, p: any, s: any[]) => s.indexOf(i) === p
-                      )
-                      .join("")
-              )
-            : new RegExp(s);
-    }
+    useEffect(() => {
+        console.log(props);
+    }, [props]);
+
     useEffect(() => {
         let headers = apiData?.headers || {};
         setTests({});
@@ -362,6 +357,20 @@ export default function TestResult() {
                                 [text + reason]: "failed",
                             }));
                             break;
+                        case "type of":
+                            if (typeof apiData?.elapsedTime === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${typeof apiData?.elapsedTime}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
 
                         default:
                             break;
@@ -487,6 +496,20 @@ export default function TestResult() {
                                 [text + reason]: "failed",
                             }));
                             break;
+                        case "type of":
+                            if (typeof apiData?.size === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${typeof apiData?.size}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -610,6 +633,20 @@ export default function TestResult() {
                                 [text + reason]: "failed",
                             }));
                             break;
+                        case "type of":
+                            if (typeof apiData?.status === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${typeof apiData?.status}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -714,12 +751,239 @@ export default function TestResult() {
                                 [text + reason]: "failed",
                             }));
                             break;
+                        case "type of":
+                            if (typeof headers["content-type"] === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${typeof headers[
+                                    "content-type"
+                                ]}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
                         default:
                             break;
                     }
                     break;
 
                 case "Response-Body":
+                    switch (operation) {
+                        case "equals to":
+                            if (JSON.stringify(apiData?.data) === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Response body does not matches.`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "not equals to":
+                            if (JSON.stringify(apiData?.data) !== value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Response body does not matches.`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "count":
+                            if (typeof apiData?.data === "object") {
+                                if (
+                                    Object.keys(apiData?.data).length ===
+                                    parseInt(value)
+                                ) {
+                                    setTests((tests) => ({
+                                        ...tests,
+                                        [text]: "passed",
+                                    }));
+                                } else {
+                                    let reason = ` - Actual length: ${
+                                        Object.keys(apiData.data).length
+                                    }`;
+                                    setTests((tests) => ({
+                                        ...tests,
+                                        [text + reason]: "failed",
+                                    }));
+                                }
+                            } else {
+                                let reason = ` - Value is not object or array`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "contains":
+                            if (
+                                getValueFromResponse(apiData?.data, value)
+                                    .length > 0
+                            ) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Value is not present in the response body`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "matched regex expression":
+                            if (
+                                checkRegexKeyInResponse(
+                                    apiData?.data,
+                                    stringToRegex(value)
+                                )
+                            ) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Value is not present in the response body`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "type of":
+                            if (typeof apiData?.data === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${typeof apiData?.data}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    if (
+                        operation === "is less than or equal" ||
+                        operation === "is greater than or equal" ||
+                        operation === "is less than" ||
+                        operation === "is greater than"
+                    ) {
+                        var reason = ` - Actual result did not match the condition`;
+                        setTests((tests) => ({
+                            ...tests,
+                            [text + reason]: "failed",
+                        }));
+                    }
+                    break;
+
+                case "Json-Query":
+                    let json = apiData?.data;
+                    var answer;
+                    try {
+                        answer = eval(propName);
+                    } catch (error) {
+                        setTests((tests) => ({
+                            ...tests,
+                            [text + " - Not a valid operation"]: "failed",
+                        }));
+                        break;
+                    }
+                    switch (operation) {
+                        case "equals to":
+                            if (answer === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "not equals to":
+                            if (answer !== value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "count":
+                            if (typeof answer === "object") {
+                                if (
+                                    Object.keys(answer).length ===
+                                    parseInt(value)
+                                ) {
+                                    setTests((tests) => ({
+                                        ...tests,
+                                        [text]: "passed",
+                                    }));
+                                } else {
+                                    let reason = ` - Actual length: ${
+                                        Object.keys(answer).length
+                                    }`;
+                                    setTests((tests) => ({
+                                        ...tests,
+                                        [text + reason]: "failed",
+                                    }));
+                                }
+                            } else {
+                                let reason = ` - Value is not object or array`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
+                            break;
+                        case "contains":
+                            break;
+                        case "matched regex expression":
+                            break;
+                        case "type of":
+                            break;
+                        case "is greater than or equal":
+                            break;
+                        case "is less than or equal":
+                            break;
+                        case "is less than":
+                            break;
+                        case "is greater than":
+                            break;
+
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;

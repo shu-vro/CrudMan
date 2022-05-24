@@ -3,9 +3,8 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext({});
 
 interface normalParams {
-    headers?: {};
-    body?: {};
-    data?: {};
+    headers?: object;
+    data?: object | any[];
     elapsedTime?: number;
     status?: number;
     statusText?: string;

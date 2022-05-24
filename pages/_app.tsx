@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="msapplication-TileColor" content="#2B5797" />
                 <meta name="msapplication-tap-highlight" content="no" />
-                <meta name="theme-color" content="#000000" />
+                <meta name="theme-color" content="#151619" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"

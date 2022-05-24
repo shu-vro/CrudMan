@@ -1,6 +1,6 @@
 import React from "react";
 
 export interface normalParams {
-    object?: {};
+    object?: object;
     setObject?: React.Dispatch<React.SetStateAction<{}>>;
 }

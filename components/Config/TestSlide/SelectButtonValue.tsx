@@ -17,8 +17,9 @@ export default function SelectButtonValue({ allProps, ...rest }) {
             }, 500);
         });
 
-        input.addEventListener("input", (e) => {
-            let value = input.value.toUpperCase();
+        input.addEventListener("input", () => {
+            let value: string = input.value.toUpperCase();
+
             if (value === "") {
                 options.style.display = "none";
                 return;
