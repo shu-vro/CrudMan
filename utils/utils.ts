@@ -11,44 +11,20 @@ export function stringToRegex(s: string): RegExp {
         : new RegExp(s);
 }
 export function getValueFromResponse(o: any[] | object, v: string) {
-    var final = [];
-    if (Array.isArray(o)) {
-        o.forEach((i) => {
-            if (!Array.isArray(i)) {
-                if (i.hasOwnProperty(v)) {
-                    final.push(i[v]);
-                }
-            } else {
-                final = getValueFromResponse(i, v);
-            }
-        });
-        return final;
-    } else if (typeof o === "object") {
-        return [o[v]];
-    }
-    return [];
+    return Array.of(o)
+        .flat(Infinity)
+        .map((el) => {
+            return el[v];
+        })
+        .filter((el) => el);
 }
 
 export function checkRegexKeyInResponse(o: any[] | object, r: RegExp) {
-    return inner(o, r).some((i) => i === true);
-    function inner(o: any, r: RegExp) {
-        var final = [];
-        if (Array.isArray(o)) {
-            o.forEach((i) => {
-                if (!Array.isArray(i)) {
-                    // if (i.hasOwnProperty(r)) {
-                    //     final.push(i[r]);
-                    // }
-                    let stringify = JSON.stringify(Object.keys(i));
-                    final.push(r.test(stringify));
-                } else {
-                    final = inner(i, r);
-                }
-            });
-            return final;
-        } else {
-            let stringify = JSON.stringify(Object.keys(o));
-            return [r.test(stringify)];
-        }
-    }
+    return Array.of(o)
+        .flat(Infinity)
+        .map((el) => {
+            return Boolean(Object.keys(el).toString().match(r));
+        })
+        .filter((el) => el)
+        .some((el) => el);
 }

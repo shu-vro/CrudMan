@@ -691,34 +691,6 @@ export default function TestResult() {
                                 }));
                             }
                             break;
-                        case "is less than":
-                            var reason = ` - Actual: content-type is a string. It cannot be compared to a number.`;
-                            setTests((tests) => ({
-                                ...tests,
-                                [text + reason]: "failed",
-                            }));
-                            break;
-                        case "is greater than":
-                            var reason = ` - Actual: content-type is a string. It cannot be compared to a number.`;
-                            setTests((tests) => ({
-                                ...tests,
-                                [text + reason]: "failed",
-                            }));
-                            break;
-                        case "is less than or equal":
-                            var reason = ` - Actual: content-type is a string. It cannot be compared to a number.`;
-                            setTests((tests) => ({
-                                ...tests,
-                                [text + reason]: "failed",
-                            }));
-                            break;
-                        case "is greater than or equal":
-                            var reason = ` - Actual: content-type is a string. It cannot be compared to a number.`;
-                            setTests((tests) => ({
-                                ...tests,
-                                [text + reason]: "failed",
-                            }));
-                            break;
                         case "matched regex expression":
                             if (
                                 headers["content-type"]
@@ -770,6 +742,19 @@ export default function TestResult() {
                         default:
                             break;
                     }
+
+                    if (
+                        operation === "is less than" ||
+                        operation === "is greater than" ||
+                        operation === "is less than or equal" ||
+                        operation === "is greater than or equal"
+                    ) {
+                        var reason = ` - Actual: content-type is a string. It cannot be compared to a number.`;
+                        setTests((tests) => ({
+                            ...tests,
+                            [text + reason]: "failed",
+                        }));
+                    }
                     break;
 
                 case "Response-Body":
@@ -806,7 +791,7 @@ export default function TestResult() {
                             if (typeof apiData?.data === "object") {
                                 if (
                                     Object.keys(apiData?.data).length ===
-                                    parseInt(value)
+                                    Math.floor(Number(value))
                                 ) {
                                     setTests((tests) => ({
                                         ...tests,
@@ -902,6 +887,10 @@ export default function TestResult() {
                     let json = apiData?.data;
                     var answer;
                     try {
+                        if (propName.substring(0, 4) !== "json") {
+                            throw new Error();
+                        }
+                        // console.log(propName.substring(0, 4));
                         answer = eval(propName);
                     } catch (error) {
                         setTests((tests) => ({
@@ -943,7 +932,7 @@ export default function TestResult() {
                             if (typeof answer === "object") {
                                 if (
                                     Object.keys(answer).length ===
-                                    parseInt(value)
+                                    Math.round(Number(value))
                                 ) {
                                     setTests((tests) => ({
                                         ...tests,
@@ -967,18 +956,106 @@ export default function TestResult() {
                             }
                             break;
                         case "contains":
+                            if (
+                                answer
+                                    .toLowerCase()
+                                    .includes(value.toLowerCase())
+                            ) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Cannot perform contains on non-string value`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
                         case "matched regex expression":
+                            if (stringToRegex(value).test(answer)) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual value: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
                         case "type of":
+                            if (typeof answer === value) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual type: ${typeof answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
                         case "is greater than or equal":
+                            if (answer >= Number(value)) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual value: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
                         case "is less than or equal":
+                            if (answer <= Number(value)) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual value: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
                         case "is less than":
+                            if (answer < Number(value)) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual value: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
                         case "is greater than":
+                            if (answer > Number(value)) {
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text]: "passed",
+                                }));
+                            } else {
+                                let reason = ` - Actual value: ${answer}`;
+                                setTests((tests) => ({
+                                    ...tests,
+                                    [text + reason]: "failed",
+                                }));
+                            }
                             break;
 
                         default:
