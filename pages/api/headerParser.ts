@@ -9,12 +9,15 @@ export default async function handler(req, res: NextApiResponse) {
     console.log("processing...");
     let start = Date.now();
     try {
+        params = JSON.parse(params);
+        headers = JSON.parse(headers);
+        let data = JSON.parse(body);
         let response = await axios({
             method,
             baseURL: url,
-            headers: JSON.parse(headers),
+            headers,
             params,
-            data: JSON.parse(body),
+            data,
         });
         let elapsedTime = Date.now() - start;
         res.status(200).json({

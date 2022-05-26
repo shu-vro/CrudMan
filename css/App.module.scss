@@ -20,7 +20,10 @@
         margin: 0;
         text-align: center;
 
-        span {
+        span:nth-child(1) {
+            color: var(--theme);
+        }
+        span:nth-child(2) {
             color: var(--blue-color);
         }
     }
@@ -89,7 +92,7 @@
     }
 
     & > button {
-        background: var(--button-color);
+        background: var(--blue-color);
         color: var(--theme);
         border: none;
         outline: none;

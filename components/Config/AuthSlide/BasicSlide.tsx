@@ -8,17 +8,35 @@ export default function BasicSlide() {
     const auth = useAuth();
 
     useEffect(() => {
+        let methodFromAuthSlide: string = "basic";
         let form: HTMLFormElement = formRef.current;
         form.addEventListener("input", (e) => {
             e.preventDefault();
             let formData = new FormData(form);
             let username = formData.get("basic_username");
             let password = formData.get("basic_password");
-            if (username === "") return setObject({ setObject });
-            let Authorization = `basic ${Buffer.from(
+            if (username === "")
+                return setObject((prev) => {
+                    return {
+                        ...prev,
+                        headers: {},
+                        params: {},
+                        setObject,
+                        methodFromAuthSlide,
+                    };
+                });
+            let Authorization = `${methodFromAuthSlide} ${Buffer.from(
                 `${username}:${password}`
             ).toString("base64")}`;
-            setObject({ Authorization, setObject });
+            // setObject({ Authorization, setObject, methodFromAuthSlide });
+            setObject((prev) => {
+                return {
+                    ...prev,
+                    headers: { Authorization },
+                    setObject,
+                    methodFromAuthSlide,
+                };
+            });
         });
     }, [setObject]);
 

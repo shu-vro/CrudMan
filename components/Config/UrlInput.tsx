@@ -25,12 +25,15 @@ export default function UrlInput() {
 
     useEffect(() => {
         setHeaderCopy(() => {
-            let h = { ...headers, ...auth };
+            let authHeaders = auth.headers;
+            let h = { ...headers, ...authHeaders };
             delete h["setObject"];
+            delete h["methodFromAuthSlide"];
             return h;
         });
         setParamsCopy(() => {
-            let p = { ...params };
+            let authParams = auth.params;
+            let p = { ...params, ...authParams };
             delete p["setObject"];
             return p;
         });

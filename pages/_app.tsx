@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="apple-mobile-web-app-title" content="CrudMan" />
                 <meta
                     name="description"
-                    content="CrudMan - An Online Version Building And Testing For RESTful API"
+                    content="CrudMan - An Online Version Of PostMan For Building And Testing RESTful API"
                 />
                 <meta
                     name="keywords"
@@ -75,7 +75,7 @@ function MyApp({ Component, pageProps }) {
                 <meta name="twitter:title" content="CrudMan" />
                 <meta
                     name="twitter:description"
-                    content="CrudMan - An Online Version Building And Testing For RESTful API"
+                    content="CrudMan - An Online Version Of PostMan For Building And Testing RESTful API"
                 />
                 <meta
                     name="twitter:image"
@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps }) {
                 <meta property="og:title" content="CrudMan" />
                 <meta
                     property="og:description"
-                    content="CrudMan - An Online Version Building And Testing For RESTful API"
+                    content="CrudMan - An Online Version Of PostMan For Building And Testing RESTful API"
                 />
                 <meta property="og:site_name" content="CrudMan" />
                 <meta property="og:url" content={myAppLocation} />

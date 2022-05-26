@@ -5,14 +5,32 @@ export default function BearerSlide() {
     const formRef = useRef(null);
     const { setObject } = useAuth();
     useEffect(() => {
+        let methodFromAuthSlide: string = "bearer";
         const form: HTMLFormElement = formRef.current;
         form.addEventListener("input", (e) => {
             e.preventDefault();
             let formData = new FormData(form);
             let token = formData.get("bearer_token");
-            if (token === "") return setObject({ setObject });
-            let Authorization = `bearer ${token}`;
-            setObject({ Authorization, setObject });
+            if (token === "")
+                return setObject((prev) => {
+                    return {
+                        ...prev,
+                        headers: {},
+                        params: {},
+                        setObject,
+                        methodFromAuthSlide,
+                    };
+                });
+            let Authorization = `${methodFromAuthSlide} ${token}`;
+            setObject((prev) => {
+                return {
+                    ...prev,
+                    headers: { Authorization },
+                    params: {},
+                    setObject,
+                    methodFromAuthSlide,
+                };
+            });
         });
     }, [setObject]);
 

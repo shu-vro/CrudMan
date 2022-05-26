@@ -14,10 +14,6 @@ export default function TestResult() {
     let apiData = useApiData();
 
     useEffect(() => {
-        console.log(props);
-    }, [props]);
-
-    useEffect(() => {
         let headers = apiData?.headers || {};
         setTests({});
 
@@ -890,7 +886,6 @@ export default function TestResult() {
                         if (propName.substring(0, 4) !== "json") {
                             throw new Error();
                         }
-                        // console.log(propName.substring(0, 4));
                         answer = eval(propName);
                     } catch (error) {
                         setTests((tests) => ({
@@ -1068,10 +1063,6 @@ export default function TestResult() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiData]);
-
-    useEffect(() => {
-        console.log(tests);
-    }, [tests]);
 
     return (
         <div className="slide Results">

@@ -49,8 +49,23 @@ export default function CodeBody() {
     useEffect(() => {
         let copyBody = { ...body };
         delete copyBody["setObject"];
-        let copyHeaders = { ...headers, ...auth };
+        let authHeaders = auth.headers;
+        let copyHeaders = { ...headers, ...authHeaders };
         delete copyHeaders["setObject"];
+
+        let urlRegex =
+            /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
+        let urlArray = urlData?.url.split(urlRegex); // 4, 5 and 6 has desired output
+        let searchParams = new URLSearchParams(urlArray?.[6]);
+        for (const key in auth.params) {
+            if (Object.prototype.hasOwnProperty.call(auth.params, key)) {
+                const value = auth.params[key];
+                searchParams.append(key, value);
+            }
+        }
+        let url = `${urlArray?.[1]}//${urlArray?.[4]}${
+            urlArray?.[5]
+        }?${searchParams.toString()}`;
 
         let copyBodyString = JSON.stringify(copyBody, null, 4);
         let copyHeaderString = JSON.stringify(copyHeaders, null, 4);
@@ -63,7 +78,7 @@ export default function CodeBody() {
                 .join("\n");
             let boilerplate = `var client = new HttpClient();
 var request = new HttpRequestMessage();
-request.RequestUri = new Uri("${urlData.url}");
+request.RequestUri = new Uri("${url}");
 request.Method = HttpMethod.${urlData.method};
 
 ${headerString}
@@ -78,7 +93,7 @@ Console.WriteLine(result);`;
             setConfig({ mode: "csharp", boilerplate });
         } else if (selectCode === "Dart Http") {
             let boilerplate = `var headersList = ${copyHeaderString}
-var url = Uri.parse('${urlData.url}');
+var url = Uri.parse('${url}');
 
 var body = ${copyBodyString}
 var req = http.Request('${methodString}', url);
@@ -104,7 +119,7 @@ let bodyContent = JSON.stringify(${copyBodyString});
 
 let reqOptions = {
     method: '${urlData.method}',
-    url: '${urlData.url}',
+    url: '${url}',
     headers: headerList,
     data: bodyContent,
 }
@@ -118,7 +133,7 @@ axios(reqOptions).then(function (response) {
 
 let bodyContent = JSON.stringify(${copyBodyString});
 
-fetch("${urlData.url}", { 
+fetch("${url}", { 
     method: "${methodString}",
     body: bodyContent,
     headers: headersList
@@ -131,7 +146,7 @@ fetch("${urlData.url}", {
         } else if (selectCode === "Python Http.client") {
             let urlRegex =
                 /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
-            let urlArray = urlData.url.split(urlRegex); // 4, 5 and 6 has desired output
+            let urlArray = url.split(urlRegex); // 4, 5 and 6 has desired output
             let boilerplate = `import http.client
 import json
 
@@ -153,7 +168,7 @@ print(result.decode("utf-8"))`;
             let boilerplate = `import requests
 import json
 
-reqUrl = "${urlData.url}"
+reqUrl = "${url}"
 
 headersList = ${copyHeaderString.replaceAll("true", "True")}
 
@@ -170,7 +185,7 @@ print(response.text)`;
                 })
                 .join("\n");
             let boilerplate = `curl -X GET \
-'${urlData.url}' 
+'${url}' 
     --data-raw '${copyBodyString}'
     --header 'Content-Type: application/json'
 ${headerString}`;
@@ -185,7 +200,7 @@ ${headerString}`;
 ${headerString}
 $headers.Add("Content-Type", "application/json")
 
-$reqUrl = '${urlData.url}'
+$reqUrl = '${url}'
 $body = '${copyBodyString}'
 
 $response = Invoke-RestMethod -Uri $reqUrl -Method ${

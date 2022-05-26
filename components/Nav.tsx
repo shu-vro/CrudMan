@@ -62,7 +62,8 @@ export default function Nav() {
             </svg>
 
             <h1>
-                CRUD<span>MAN</span>
+                <span>CRUD</span>
+                <span>MAN</span>
             </h1>
         </nav>
     );
