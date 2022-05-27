@@ -260,3 +260,15 @@ li.selected button {
 input::placeholder {
     font-style: italic;
 }
+
+.select-transparent {
+    background: var(--slide-bg-color);
+    color: var(--general-text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid var(--thin-border-color);
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}

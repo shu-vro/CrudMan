@@ -6,14 +6,7 @@ interface AuthProps {
     headers?: object;
     params?: object;
     methodFromAuthSlide?: string;
-    setObject?: React.Dispatch<
-        React.SetStateAction<{
-            headers?: object;
-            params?: object;
-            methodFromAuthSlide?: string;
-            setObject?: React.Dispatch<React.SetStateAction<{}>>;
-        }>
-    >;
+    setObject?: React.Dispatch<React.SetStateAction<AuthProps>>;
 }
 
 export function useAuth(): AuthProps {

@@ -1,9 +1,15 @@
 import React from "react";
 import CommonSliderAssets from "../../CommonSliderAssets";
-import { NoneSlide, BasicSlide, BearerSlide, AwsSlide, APIKeySlide } from ".";
+import {
+    NoneSlide,
+    BasicSlide,
+    BearerSlide,
+    OAuth2Slide,
+    APIKeySlide,
+} from ".";
 
 export default function AuthSlide() {
-    let lists = ["None", "Basic", "Bearer", "APIKey", "Aws"];
+    let lists = ["None", "Basic", "Bearer", "APIKey", "OAuth2"];
     return (
         <div className="slide Auth">
             <h2>Auth</h2>
@@ -17,7 +23,7 @@ export default function AuthSlide() {
                 <BasicSlide />
                 <BearerSlide />
                 <APIKeySlide />
-                <AwsSlide />
+                <OAuth2Slide />
             </CommonSliderAssets>
         </div>
     );

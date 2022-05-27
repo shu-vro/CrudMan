@@ -7,7 +7,6 @@ import { useParams } from "../../utils/Params";
 import { useHeaders } from "../../utils/Headers";
 import { useTest } from "../../utils/Test";
 import { useAuth } from "../../utils/Auth";
-import { usePostBody } from "../../utils/Body";
 
 export default function Config() {
     return (
