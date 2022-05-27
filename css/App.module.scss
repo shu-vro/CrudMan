@@ -41,7 +41,6 @@ $container-height: calc(100vh - $height);
 
     & > div {
         width: 100%;
-        height: $container-height;
     }
 
     @media screen and (max-width: 786px) {

@@ -1,4 +1,5 @@
 import "../css/globals.scss";
+import "../css/splitters.css";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
