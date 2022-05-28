@@ -1,20 +1,20 @@
-﻿import { ComponentClass } from "react";
+﻿import { ComponentClass, ReactElement } from "react";
 
 // ------ Splitter interfaces
-export type handlePositionType = 'vertical' | 'horizontal'; 
+export type handlePositionType = "vertical" | "horizontal";
 
 export interface SplitterProps {
     children?: {} | any;
     position: handlePositionType;
     hasDetailPane?: boolean;
-    primaryPaneMinWidth?: number | any; 
-    primaryPaneWidth?: string | any; 
+    primaryPaneMinWidth?: number | any;
+    primaryPaneWidth?: string | any;
     primaryPaneMaxWidth?: string | any;
-    primaryPaneMinHeight?: number | any; 
-    primaryPaneHeight?: string | any; 
+    primaryPaneMinHeight?: number | any;
+    primaryPaneHeight?: string | any;
     primaryPaneMaxHeight?: string | any;
-    className?: string; 
-    primaryPaneClassName?: string; 
+    className?: string;
+    primaryPaneClassName?: string;
     secondaryPaneClassName?: string;
     dispatchResize?: Boolean;
     maximizedPrimaryPane?: Boolean;
@@ -43,6 +43,7 @@ export interface PaneProps {
     id?: string;
     style?: CSSStyleRule | any;
     className?: string;
+    children?: ReactElement;
 }
 
 // ------ Handlebar interfaces

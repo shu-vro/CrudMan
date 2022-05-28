@@ -1,7 +1,8 @@
 import styles from "../css/App.module.scss";
 import { Nav, Config, Results } from "../components/index";
 import Wrapper from "../components/Wrapper";
-import Splitter from "../plugins/m-react-splitters";
+// import Splitter from "../plugins/m-react-splitters";
+import Splitter from "../plugins/Splitters";
 import { useEffect, useState } from "react";
 
 function App() {

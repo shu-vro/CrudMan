@@ -1,25 +1,27 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function unselectAll() {
+﻿export function unselectAll() {
     try {
         window.getSelection().removeAllRanges();
-    }
-    catch (e) {
+    } catch (e) {
         console.warn(e);
     }
 }
-exports.unselectAll = unselectAll;
-function getPrimaryPaneWidth(position, lastX, lastY, maxMousePosition, handleBarOffsetFromParent, primaryPaneMinHeight, primaryPaneMinWidth) {
-    var primaryPanePosition;
+
+export function getPrimaryPaneWidth
+    (
+    position: string, lastX: number, lastY: number,
+    maxMousePosition: number, handleBarOffsetFromParent: number,
+    primaryPaneMinHeight: number, primaryPaneMinWidth: number
+    ): number {
+
+    let primaryPanePosition;
+
     switch (position) {
         case 'horizontal': {
             if (lastY > maxMousePosition) {
                 primaryPanePosition = maxMousePosition - handleBarOffsetFromParent;
-            }
-            else if ((lastY - handleBarOffsetFromParent) <= primaryPaneMinHeight) {
+            } else if ((lastY - handleBarOffsetFromParent) <= primaryPaneMinHeight) {
                 primaryPanePosition = primaryPaneMinHeight + 0.001;
-            }
-            else {
+            } else {
                 primaryPanePosition = lastY - handleBarOffsetFromParent;
             }
             break;
@@ -28,16 +30,14 @@ function getPrimaryPaneWidth(position, lastX, lastY, maxMousePosition, handleBar
         default: {
             if (lastX >= maxMousePosition) {
                 primaryPanePosition = maxMousePosition - handleBarOffsetFromParent;
-            }
-            else if ((lastX - handleBarOffsetFromParent) <= primaryPaneMinWidth) {
+            } else if ((lastX - handleBarOffsetFromParent) <= primaryPaneMinWidth) {
                 primaryPanePosition = primaryPaneMinWidth + 0.001;
-            }
-            else {
+            } else {
                 primaryPanePosition = lastX - handleBarOffsetFromParent;
             }
             break;
         }
     }
+
     return primaryPanePosition;
 }
-exports.getPrimaryPaneWidth = getPrimaryPaneWidth;
