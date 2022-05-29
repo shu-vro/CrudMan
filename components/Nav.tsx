@@ -6,24 +6,6 @@ export default function Nav() {
     let logoRef = useRef();
     let themeManager = useTheme();
 
-    useEffect(() => {
-        if (!localStorage.getItem("theme")) {
-            localStorage.setItem(
-                "theme",
-                !window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "light"
-                    : "dark"
-            );
-        }
-        themeManager.setValue(localStorage.getItem("theme"));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    useEffect(() => {
-        console.log(themeManager);
-        document.body.className = localStorage.getItem("theme");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [themeManager]);
-
     return (
         <nav className={styles.nav}>
             <svg

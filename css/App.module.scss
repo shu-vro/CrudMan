@@ -33,31 +33,25 @@ $container-height: calc(100vh - $height);
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: $container-height;
-    flex-direction: row;
-
-    & > div {
-        width: 100%;
-    }
-
     @media screen and (max-width: 786px) {
-        & {
-            flex-direction: column;
-        }
     }
 }
 
 .config,
 .results {
+    background: var(--background-color);
     width: 100%;
     height: $container-height;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
+    z-index: 11;
+}
+
+.results {
+    position: relative;
+    z-index: 12;
 }
 
 .UrlInput {

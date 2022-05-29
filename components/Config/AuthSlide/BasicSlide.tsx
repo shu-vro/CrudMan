@@ -40,9 +40,9 @@ export default function BasicSlide() {
         });
     }, [setObject]);
 
-    useEffect(() => {
-        console.log(auth);
-    }, [auth]);
+    // useEffect(() => {
+    //     console.log(auth);
+    // }, [auth]);
 
     return (
         <form className="slide Basic" ref={formRef}>

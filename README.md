@@ -1,3 +1,7 @@
 # CrudMan APP IN DEVELOPMENT
 
-Please do not use this app right now! Some functionalities still don't work.
+### Features added on last commit:
+
+-   Theme Manager Updated
+-   Horizontal Slides for responsive page
+-   Splitters css file transformed into scss
