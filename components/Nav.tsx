@@ -1,9 +1,7 @@
-import { useRef, useEffect } from "react";
 import styles from "../css/App.module.scss";
 import { useTheme } from "../utils/Theme";
 
 export default function Nav() {
-    let logoRef = useRef();
     let themeManager = useTheme();
 
     return (
@@ -16,7 +14,6 @@ export default function Nav() {
                 textRendering="geometricPrecision"
                 width="512"
                 height="512"
-                ref={logoRef}
                 onClick={() => {
                     if (!localStorage.getItem("theme")) {
                         localStorage.setItem(
