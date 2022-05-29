@@ -2,14 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useParams } from "../../../utils/Params";
 import { useUrlData } from "../../../utils/UrlData";
-import { useAuth } from "../../../utils/Auth";
 import InputPlace from "./InputPlace";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
     let param = useParams();
     let urlData = useUrlData();
-    const auth = useAuth();
     const setObject = param.setObject;
     const [props, setProps] = useState({});
     const [urlDataParams, setUrlDataParams] = useState([]);
@@ -22,14 +20,9 @@ export default function QuerySlide() {
     // }, [urlDataParams]);
 
     useEffect(() => {
-        let authParams = auth.params;
         setObject(props);
-        let search = `${urlData.baseURL}?${new URLSearchParams({
-            ...props,
-        }).toString()}`;
         urlData.setObject((prev) => ({
             ...prev,
-            url: search,
             urlParams: props,
         }));
         // eslint-disable-next-line react-hooks/exhaustive-deps

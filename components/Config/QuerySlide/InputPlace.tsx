@@ -4,7 +4,6 @@ export default function InputPlace({
     formRef,
     placeHolderNames,
     defaultValue,
-    defaultChecked = false,
 }) {
     const [key, setKey] = useState("");
     const [hasInput, setHasInput] = useState(false);
@@ -12,10 +11,7 @@ export default function InputPlace({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input
-                type="checkbox"
-                defaultChecked={hasInput || defaultChecked}
-            />
+            <input type="checkbox" defaultChecked={hasInput} />
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}
