@@ -25,6 +25,13 @@ export default function TestResult() {
             let text = `${propName} ${operation} ${value}`;
             switch (section) {
                 case "Headers":
+                    if (!isNaN(headers[propName])) {
+                        headers[propName] = Number(headers[propName]);
+                    } else if (headers[propName] === "true") {
+                        headers[propName] = true;
+                    } else if (headers[propName] === "false") {
+                        headers[propName] = false;
+                    }
                     switch (operation) {
                         case "equals to":
                             if (

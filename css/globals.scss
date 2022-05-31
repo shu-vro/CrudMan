@@ -20,13 +20,14 @@ body {
     --thin-border-color: #4d4d56;
     --general-text-color: #bcc3cc;
     --input-place-hover-bg: #282a36;
-    --theme: #fff;
+    --theme: #ffffff;
     --input-bg: #000;
 
     background: var(--background-color);
     width: 100%;
     min-height: 100vh;
     color: var(--general-text-color);
+    overflow-x: hidden;
 }
 
 body.light {

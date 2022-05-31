@@ -47,11 +47,16 @@ export default function BasicSlide() {
     return (
         <form className="slide Basic" ref={formRef}>
             <h3>Basic Authentication</h3>
-            <InputAuth FieldName="Username" name="basic_username" />
+            <InputAuth
+                FieldName="Username"
+                name="basic_username"
+                autoComplete="username"
+            />
             <InputAuth
                 FieldName="Password"
                 type="password"
                 name="basic_password"
+                autoComplete="current-password"
             />
         </form>
     );

@@ -32,7 +32,7 @@ export default async function handler(req, res: NextApiResponse) {
     } catch (error) {
         let elapsedTime = Date.now() - start;
         res.status(200).json({
-            data: error.response.data,
+            data: error.response?.data,
             headers: error.response.headers,
             status: error.response.status,
             statusText: error.response.statusText,

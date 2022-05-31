@@ -6,6 +6,7 @@ export default function InputAuth({
     type = "text",
     style = { width: "70%" },
     name,
+    ...rest
 }) {
     let id = React.useId();
     return (
@@ -17,6 +18,7 @@ export default function InputAuth({
                 defaultValue={FieldValue}
                 style={style}
                 name={name}
+                {...rest}
             />
         </div>
     );
