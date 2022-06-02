@@ -2,6 +2,9 @@
 
 ### Features added on last commit:
 
--   Theme Manager Updated
--   Horizontal Slides for responsive page
--   Splitters css file transformed into scss
+-   Added some functionalities in sidebar.
+-   HistorySaver created and work properly.
+-   Histories are saved in localStorage.
+-   Histories synchronized with components.
+-   Some new components are created for declaratively.
+-   fixed #7

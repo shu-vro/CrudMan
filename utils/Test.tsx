@@ -3,9 +3,12 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext({});
 
 export function useTest(): {
-    props?: [
-        { section: string; key: string; operation: string; value: string }
-    ];
+    props?: Array<{
+        section: string;
+        key: string;
+        operation: string;
+        value: string;
+    }>;
     setObject?: React.Dispatch<React.SetStateAction<{}>>;
 } {
     return useContext(Context);

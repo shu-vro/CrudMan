@@ -6,7 +6,9 @@ import { useAuth } from "../../utils/Auth";
 import { useParams } from "../../utils/Params";
 import { usePostBody } from "../../utils/Body";
 import { useUrlData } from "../../utils/UrlData";
+import { useHistorySaver } from "../../utils/HistorySaver";
 import axios from "axios";
+import { useTest } from "../../utils/Test";
 
 export default function UrlInput() {
     let apiData = useApiData();
@@ -15,11 +17,14 @@ export default function UrlInput() {
     let postbody = usePostBody();
     let urlData = useUrlData();
     let auth = useAuth();
-    let setObjectUrl = urlData.setObject;
+    let history = useHistorySaver();
+    let test = useTest();
+    let { setObject: setObjectUrl } = urlData;
     const [headerCopy, setHeaderCopy] = useState({});
     const [paramsCopy, setParamsCopy] = useState({});
     const [postBodyCopy, setPostBodyCopy] = useState({});
     let { setObject } = apiData;
+    let { setObject: setHistory } = history;
     const formRef = useRef(null);
     const [processFinished, setProcessFinished] = useState(false);
 
@@ -68,7 +73,7 @@ export default function UrlInput() {
         } catch (error) {
             console.log(error);
             setObject({
-                elapsedTime: "None",
+                elapsedTime: 0,
                 setObject,
 
                 data: { message: error.message },
@@ -78,6 +83,19 @@ export default function UrlInput() {
             });
             setProcessFinished(false);
         }
+        setHistory(prev => [
+            ...prev,
+            {
+                params: paramsCopy,
+                body: postBodyCopy,
+                headers: headerCopy,
+                url: entries.baseURL.toString(),
+                method: entries.method.toString(),
+                tests: test.props,
+                time: new Date().toLocaleString(),
+            },
+        ]);
+        // setObject: setHistory,
     }
     useEffect(() => {
         handleInput();
@@ -106,12 +124,9 @@ export default function UrlInput() {
             onSubmit={handleSubmit}
             ref={formRef}
             autoComplete="on"
-            onChange={handleInput}
-        >
-            <select name="method">
-                <option value="Get" defaultChecked>
-                    Get
-                </option>
+            onChange={handleInput}>
+            <select name="method" value={urlData.method} onChange={() => true}>
+                <option value="Get">Get</option>
                 <option value="Post">Post</option>
                 <option value="Put">Put</option>
                 <option value="Patch">Patch</option>

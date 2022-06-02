@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePostBody } from "../../../utils/Body";
 import dynamic from "next/dynamic";
 import { useTheme } from "../../../utils/Theme";
@@ -23,6 +23,15 @@ export default function BodySlide() {
     const { value: theme } = useTheme();
     const [annotations, setAnnotations] = useState([]);
     let postBody = usePostBody();
+    const [postBodyCopy, setPostBodyCopy] = useState("");
+    useEffect(() => {
+        setPostBodyCopy(() => {
+            let pb = { ...postBody };
+            delete pb["setObject"];
+            return JSON.stringify(pb, null, 4);
+        });
+    }, [postBody]);
+
     return (
         <div className="slide Body">
             <h2>Json Content</h2>
@@ -37,20 +46,21 @@ export default function BodySlide() {
                 showGutter={true}
                 highlightActiveLine={true}
                 wrapEnabled={true}
-                onLoad={(editor) => {
+                onLoad={editor => {
                     let result = JSON.parse(editor.getValue());
                     let setObject = postBody.setObject;
                     setObject({ setObject, ...result });
                 }}
                 onChange={(value, event) => {
                     const { row, column } = event.start;
+                    setPostBodyCopy(value);
                     try {
                         let result = JSON.parse(value);
                         setAnnotations([]);
                         let setObject = postBody.setObject;
                         setObject({ setObject, ...result });
                     } catch (error) {
-                        setAnnotations((prev) => {
+                        setAnnotations(prev => {
                             let o = {
                                 row,
                                 column,
@@ -59,7 +69,7 @@ export default function BodySlide() {
                                     row + 1
                                 } column:${column + 1}`,
                             };
-                            let now = prev.filter((item) => item.row !== o.row);
+                            let now = prev.filter(item => item.row !== o.row);
                             return [...now, o];
                         });
                     }
@@ -71,10 +81,7 @@ export default function BodySlide() {
                     tabSize: 4,
                 }}
                 keyboardHandler="vscode"
-                defaultValue={`{
-    "hello": "world",
-    "bool": true
-}`}
+                value={postBodyCopy || `{}`}
             />
         </div>
     );

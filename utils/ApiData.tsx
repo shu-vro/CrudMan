@@ -9,7 +9,7 @@ interface normalParams {
     status?: number;
     statusText?: string;
     size?: number;
-    setObject?: React.Dispatch<React.SetStateAction<{}>>;
+    setObject?: React.Dispatch<React.SetStateAction<normalParams>>;
 }
 
 export function useApiData(): normalParams {

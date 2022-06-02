@@ -277,7 +277,7 @@ $container-height: calc(100vh - $height - 1px);
             }
         }
 
-        div[class="subSidebar"] {
+        div[class="histories"] {
             width: calc(100% - $left);
             height: 100%;
             overflow-x: hidden;
