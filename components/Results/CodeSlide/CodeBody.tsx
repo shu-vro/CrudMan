@@ -59,19 +59,19 @@ export default function CodeBody() {
             /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
         let urlArray = urlData?.url.split(urlRegex); // 4, 5 and 6 has desired output
         let searchParams = new URLSearchParams(urlArray?.[6]);
-        for (const key in queryParams)
+        for (const key in queryParams) {
             searchParams.append(key, queryParams[key]);
+        }
         for (const key in auth.params) {
             if (Object.prototype.hasOwnProperty.call(auth.params, key)) {
                 const value = auth.params[key];
                 searchParams.append(key, value);
             }
         }
-        let url = `${urlArray?.[1]}//${urlArray?.[4]}${
-            urlArray?.[5]
-        }?${searchParams.toString()}`;
-
-        console.log(urlArray);
+        // let url = `${urlArray?.[1]}//${urlArray?.[4]}${
+        //     urlArray?.[5]
+        // }?${searchParams.toString()}`;
+        let url = `${urlData.baseURL}?${searchParams.toString()}`;
 
         let copyBodyString = JSON.stringify(copyBody, null, 4);
         let copyHeaderString = JSON.stringify(copyHeaders, null, 4);
