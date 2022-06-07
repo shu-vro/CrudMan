@@ -24,30 +24,32 @@ const AceEditor = dynamic(
 import { useState, useEffect } from "react";
 import { useTheme } from "../../../utils/Theme";
 import { useCode } from "../../../utils/Code";
+import { useParams } from "../../../utils/Params";
 import { useHeaders } from "../../../utils/Headers";
 import { useAuth } from "../../../utils/Auth";
 import { useUrlData } from "../../../utils/UrlData";
 import { usePostBody } from "../../../utils/Body";
 
 export default function CodeBody() {
-    const { value: theme } = useTheme();
     const { selectCode, setObject } = useCode();
-    let headers = useHeaders();
+    const { value: theme } = useTheme();
+    let { object: headers } = useHeaders();
+    const { object: queryParams } = useParams();
     let auth = useAuth();
     let urlData = useUrlData();
-    let body = usePostBody();
+    let { object: body } = usePostBody();
     const [config, setConfig] = useState({
         boilerplate: "",
         mode: "",
     });
 
     useEffect(() => {
-        setObject((prev) => ({ ...prev, code: config.boilerplate }));
+        setObject(prev => ({ ...prev, code: config.boilerplate }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [config]);
 
     useEffect(() => {
-        let copyBody = { ...body };
+        let copyBody = body;
         delete copyBody["setObject"];
         let authHeaders = auth.headers;
         let copyHeaders = { ...headers, ...authHeaders };
@@ -57,6 +59,8 @@ export default function CodeBody() {
             /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
         let urlArray = urlData?.url.split(urlRegex); // 4, 5 and 6 has desired output
         let searchParams = new URLSearchParams(urlArray?.[6]);
+        for (const key in queryParams)
+            searchParams.append(key, queryParams[key]);
         for (const key in auth.params) {
             if (Object.prototype.hasOwnProperty.call(auth.params, key)) {
                 const value = auth.params[key];
@@ -67,12 +71,14 @@ export default function CodeBody() {
             urlArray?.[5]
         }?${searchParams.toString()}`;
 
+        console.log(urlArray);
+
         let copyBodyString = JSON.stringify(copyBody, null, 4);
         let copyHeaderString = JSON.stringify(copyHeaders, null, 4);
         let methodString = urlData.method.toUpperCase();
         if (selectCode === "C# HttpClient") {
             let headerString = Object.entries(copyHeaders)
-                .map((i) => {
+                .map(i => {
                     return `request.Headers.Add("${i[0]}", "${i[1]}");`;
                 })
                 .join("\n");
@@ -180,7 +186,7 @@ print(response.text)`;
             setConfig({ mode: "python", boilerplate });
         } else if (selectCode === "cURL") {
             let headerString = Object.entries(copyHeaders)
-                .map((i) => {
+                .map(i => {
                     return `\t--header '${i[0]}: ${i[1]}' \\`;
                 })
                 .join("\n");
@@ -192,7 +198,7 @@ ${headerString}`;
             setConfig({ mode: "vbscript", boilerplate });
         } else if (selectCode === "PowerShell") {
             let headerString = Object.entries(copyHeaders)
-                .map((i) => {
+                .map(i => {
                     return `$headers.Add("${i[0]}", "${i[1]}")`;
                 })
                 .join("\n");
@@ -214,7 +220,7 @@ $response | ConvertTo-Json`;
             setConfig({ mode: "vbscript", boilerplate });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectCode, headers, body, urlData, auth]);
+    }, [selectCode, headers, body, urlData, auth, queryParams]);
 
     return (
         <AceEditor

@@ -15,21 +15,21 @@ export default function InputPlace({
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}
-                onInput={(e) => {
+                onInput={e => {
                     setKey((e.target as HTMLInputElement).value);
                     if ((e.target as HTMLInputElement).value !== "")
                         setHasInput(true);
                     else setHasInput(false);
                 }}
                 name={key}
-                value={defaultValue[0]}
+                defaultValue={defaultValue[0]}
                 onChange={() => true}
             />
             <input
                 type="text"
                 name={key}
                 placeholder={placeHolderNames[1]}
-                value={defaultValue[1]}
+                defaultValue={defaultValue[1]}
                 onChange={() => true}
             />
             <button
@@ -44,8 +44,7 @@ export default function InputPlace({
                             })
                         );
                     }, 500);
-                }}
-            >
+                }}>
                 &times;
             </button>
         </div>

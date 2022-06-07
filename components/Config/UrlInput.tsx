@@ -12,42 +12,35 @@ import { useTest } from "../../utils/Test";
 
 export default function UrlInput() {
     let apiData = useApiData();
-    let headers = useHeaders();
-    let params = useParams();
-    let postbody = usePostBody();
+    let { object: headersObject } = useHeaders();
+    let { object: paramsObject } = useParams();
+    let { object: postBodyObject } = usePostBody();
     let urlData = useUrlData();
     let auth = useAuth();
     let history = useHistorySaver();
     let test = useTest();
     let { setObject: setObjectUrl } = urlData;
-    const [headerCopy, setHeaderCopy] = useState({});
-    const [paramsCopy, setParamsCopy] = useState({});
-    const [postBodyCopy, setPostBodyCopy] = useState({});
+    // const [headerCopy, setHeaderCopy] = useState({});
+    // const [paramsCopy, setParamsCopy] = useState({});
     let { setObject } = apiData;
     let { setObject: setHistory } = history;
     const formRef = useRef(null);
     const [processFinished, setProcessFinished] = useState(false);
 
     useEffect(() => {
-        setHeaderCopy(() => {
-            let authHeaders = auth.headers;
-            let h = { ...headers, ...authHeaders };
-            delete h["setObject"];
-            delete h["methodFromAuthSlide"];
-            return h;
-        });
-        setParamsCopy(() => {
-            let authParams = auth.params;
-            let p = { ...params, ...authParams };
-            delete p["setObject"];
-            return p;
-        });
-        setPostBodyCopy(() => {
-            let pb = { ...postbody };
-            delete pb["setObject"];
-            return pb;
-        });
-    }, [headers, params, postbody, auth]);
+        // setHeaderCopy(() => {
+        //     let authHeaders = auth.headers;
+        //     let h = { ...headers, ...authHeaders };
+        //     delete h["setObject"];
+        //     delete h["methodFromAuthSlide"];
+        //     return h;
+        // });
+        // setParamsCopy(() => {
+        //     let authParams = auth.params;
+        //     let p = { ...paramsObject, ...authParams };
+        //     return p;
+        // });
+    }, [headersObject, paramsObject, auth]);
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -59,9 +52,9 @@ export default function UrlInput() {
         try {
             let res = await axios.get("/api/headerParser", {
                 params: {
-                    params: paramsCopy,
-                    headers: headerCopy,
-                    body: postBodyCopy,
+                    params: { ...paramsObject, ...auth.params },
+                    headers: { ...headersObject, ...auth.headers },
+                    body: postBodyObject,
                     url: entries.baseURL,
                     method: entries.method,
                 },
@@ -86,9 +79,9 @@ export default function UrlInput() {
         setHistory(prev => [
             ...prev,
             {
-                params: paramsCopy,
-                body: postBodyCopy,
-                headers: headerCopy,
+                params: paramsObject,
+                body: postBodyObject,
+                headers: headersObject,
                 url: entries.baseURL.toString(),
                 method: entries.method.toString(),
                 tests: test.props,

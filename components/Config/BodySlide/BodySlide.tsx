@@ -23,13 +23,17 @@ export default function BodySlide() {
     const { value: theme } = useTheme();
     const [annotations, setAnnotations] = useState([]);
     let postBody = usePostBody();
-    const [postBodyCopy, setPostBodyCopy] = useState("");
+    const [postBodyCopy, setPostBodyCopy] = useState(
+        JSON.stringify(postBody.object, null, 4)
+    );
     useEffect(() => {
-        setPostBodyCopy(() => {
-            let pb = { ...postBody };
-            delete pb["setObject"];
-            return JSON.stringify(pb, null, 4);
-        });
+        console.log(postBody);
+        Object.keys(postBody.object).length > 0 &&
+            setPostBodyCopy(() => {
+                let pb = postBody.object;
+                return JSON.stringify(pb, null, 4);
+            });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [postBody]);
 
     return (
@@ -46,11 +50,6 @@ export default function BodySlide() {
                 showGutter={true}
                 highlightActiveLine={true}
                 wrapEnabled={true}
-                onLoad={editor => {
-                    let result = JSON.parse(editor.getValue());
-                    let setObject = postBody.setObject;
-                    setObject({ setObject, ...result });
-                }}
                 onChange={(value, event) => {
                     const { row, column } = event.start;
                     setPostBodyCopy(value);
@@ -58,7 +57,7 @@ export default function BodySlide() {
                         let result = JSON.parse(value);
                         setAnnotations([]);
                         let setObject = postBody.setObject;
-                        setObject({ setObject, ...result });
+                        setObject(result);
                     } catch (error) {
                         setAnnotations(prev => {
                             let o = {
@@ -81,7 +80,7 @@ export default function BodySlide() {
                     tabSize: 4,
                 }}
                 keyboardHandler="vscode"
-                value={postBodyCopy || `{}`}
+                value={postBodyCopy}
             />
         </div>
     );

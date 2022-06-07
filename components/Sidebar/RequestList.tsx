@@ -12,7 +12,7 @@ export default function RequestList({ history }) {
     const params = useParams();
     const headers = useHeaders();
 
-    function handleClick(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
+    function handleClick() {
         urlData.setObject(prev => ({
             ...prev,
             baseURL: history.url,
@@ -23,9 +23,9 @@ export default function RequestList({ history }) {
         body.setObject(history.body);
     }
 
-    useEffect(() => {
-        console.log(params, body, test, headers, urlData, history);
-    }, [params, body, test, headers, urlData, history]);
+    // useEffect(() => {
+    //     console.log(params, body, test, headers, urlData, history);
+    // }, [params, body, test, headers, urlData, history]);
 
     return (
         <li onClick={handleClick}>

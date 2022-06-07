@@ -6,12 +6,12 @@ import HeaderInput from "./HeaderInput";
 export default function QuerySlide() {
     const formRef = useRef(null);
     let headers = useHeaders();
-    let setObject = headers.setObject;
     const [props, setProps] = useState({});
 
     useEffect(() => {
-        setObject({ ...props, setObject });
-    }, [props, setObject]);
+        headers.setObject(props);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props]);
 
     useEffect(() => {
         /**
@@ -37,7 +37,7 @@ export default function QuerySlide() {
                 let o = {
                     [key]: value,
                 };
-                setProps((prop) => ({ ...prop, ...o }));
+                setProps(prop => ({ ...prop, ...o }));
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,10 +57,9 @@ export default function QuerySlide() {
             <form
                 className="slide Header"
                 id="config-header-slide"
-                ref={formRef}
-            >
+                ref={formRef}>
                 <h2>HTTP Headers</h2>
-                {fields.map((field) => (
+                {fields.map(field => (
                     <HeaderInput
                         key={field}
                         formRef={formRef}
@@ -71,8 +70,7 @@ export default function QuerySlide() {
                 <button
                     type="button"
                     className="add-row-button"
-                    onClick={() => addField()}
-                >
+                    onClick={() => addField()}>
                     + Add Row
                 </button>
             </form>

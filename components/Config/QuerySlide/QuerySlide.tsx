@@ -21,7 +21,7 @@ export default function QuerySlide() {
 
     useEffect(() => {
         setObject(props);
-        urlData.setObject((prev) => ({
+        urlData.setObject(prev => ({
             ...prev,
             urlParams: props,
         }));
@@ -45,16 +45,12 @@ export default function QuerySlide() {
                 let o = {
                     [key]: value,
                 };
-                setProps((prop) => ({ ...prop, ...o }));
+                setProps(prop => ({ ...prop, ...o }));
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const [fields, setFields] = useState([v4()]);
-
-    // useEffect(() => {
-    //     console.log(param);
-    // }, [param]);
 
     function addField() {
         setFields([...fields, v4()]);
@@ -65,19 +61,17 @@ export default function QuerySlide() {
             <form
                 className="slide Query slide-selected"
                 id="config-query-slide"
-                ref={formRef}
-            >
+                ref={formRef}>
                 <h2>Query Parameters</h2>
-                {/* {urlDataParams.map((data) => (
+                {/* {urlDataParams.map(data => (
                     <InputPlace
                         key={data[0]}
                         formRef={formRef}
                         placeHolderNames={["parameter", "value"]}
                         defaultValue={[data[0], data[1]]}
-                        defaultChecked={true}
                     />
                 ))} */}
-                {fields.map((field) => (
+                {fields.map(field => (
                     <InputPlace
                         key={field}
                         formRef={formRef}
@@ -89,8 +83,7 @@ export default function QuerySlide() {
                 <button
                     type="button"
                     className="add-row-button"
-                    onClick={addField}
-                >
+                    onClick={addField}>
                     + Add Row
                 </button>
             </form>

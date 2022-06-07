@@ -10,7 +10,7 @@ export function usePostBody(): normalParams {
 export function PostBodyContext({ children }) {
     const [object, setObject] = useState({});
     return (
-        <Context.Provider value={{ ...object, setObject }}>
+        <Context.Provider value={{ object, setObject }}>
             {children}
         </Context.Provider>
     );

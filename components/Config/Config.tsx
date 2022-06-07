@@ -25,8 +25,8 @@ function Sliders() {
     const auth = useAuth();
 
     useEffect(() => {
-        let paramsNum = Object.keys(params || {}).length - 1;
-        let headersNum = Object.keys(headers || {}).length - 1;
+        let paramsNum = Object.keys(params.object || {}).length;
+        let headersNum = Object.keys(headers.object || {}).length;
         let bodyNum = 0;
         let authNum =
             Object.keys(auth.headers || {}).length > 0 ||
@@ -41,8 +41,7 @@ function Sliders() {
         <CommonSliderAssets
             lists={["Query", "Header", "Body", "Auth", "Test"]}
             listBullets={listBullets}
-            defaultCheck="Query"
-        >
+            defaultCheck="Query">
             <QuerySlide />
             <HeaderSlide />
             <BodySlide />
