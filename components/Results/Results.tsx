@@ -4,13 +4,13 @@ import { useTest } from "../../utils/Test";
 import CommonSliderAssets from "../CommonSliderAssets";
 import Table from "./Table";
 import StatusBar from "./StatusBar";
-import TestResult from "./TestResult";
+import TestResults from "./TestResults/TestResults";
 import Code from "./CodeSlide/Code";
 import styles from "../../css/App.module.scss";
 import { Response } from "./index";
 
 export default function Results() {
-    let apiData = useApiData();
+    let { object: apiData } = useApiData();
     let { props } = useTest();
     const [listBullets, setListBullets] = useState([]);
 
@@ -40,15 +40,17 @@ export default function Results() {
             <CommonSliderAssets
                 lists={["Response", "Headers", "Cookies", "Results", "Code"]}
                 listBullets={listBullets}
-                defaultCheck="Response"
-            >
-                <Response data={apiData?.data || {}} />
+                defaultCheck="Response">
+                <Response
+                    data={apiData?.data || {}}
+                    isFinished={apiData?.isFinished}
+                />
                 <Headers headers={apiData?.headers || {}} />
                 <div className="slide Cookies">
                     <h2>Cookies</h2>
                     <p>No cookies found</p>
                 </div>
-                <TestResult />
+                <TestResults />
                 <Code />
             </CommonSliderAssets>
         </div>

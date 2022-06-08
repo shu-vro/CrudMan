@@ -97,6 +97,11 @@ $container-height: calc(100vh - $height - 1px);
         outline: none;
         border: none;
         padding: 0 10px;
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:focus {
+            transition: background-color 600000s 0s, color 600000s 0s;
+        }
     }
 
     & > button {
@@ -200,6 +205,39 @@ $container-height: calc(100vh - $height - 1px);
         width: 50%;
         padding: 5px 20px;
         word-break: break-word;
+    }
+}
+
+.loader {
+    position: absolute;
+    $b: 5px;
+    top: $b;
+    left: $b;
+    right: $b;
+    bottom: $b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--background-color);
+    z-index: 100;
+
+    div[class="loader-circle"] {
+        $radius: 30px;
+        width: $radius;
+        height: $radius;
+        border-radius: $radius;
+        border: 5px solid var(--slide-bg-color);
+        border-top: 5px solid var(--blue-color);
+        animation: circle360 0.75s linear 0s infinite forwards;
+    }
+
+    @keyframes circle360 {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 }
 

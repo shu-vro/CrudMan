@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useTheme } from "../../../utils/Theme";
+import Loader from "../Loader";
 
 const AceEditor = dynamic(
     async () => {
@@ -16,10 +17,11 @@ const AceEditor = dynamic(
     }
 );
 
-export default function Response({ data }) {
+export default function Response({ data, isFinished }) {
     const { value: theme } = useTheme();
     return (
         <div className="slide Response slide-selected">
+            {!isFinished && <Loader />}
             <h2>Response</h2>
             <AceEditor
                 placeholder="Type code."

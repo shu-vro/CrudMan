@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import Table from "./Table";
-import { useTest } from "../../utils/Test";
-import { useApiData } from "../../utils/ApiData";
+import Table from "../Table";
+import { useTest } from "../../../utils/Test";
+import { useApiData } from "../../../utils/ApiData";
 import {
     stringToRegex,
     getValueFromResponse,
     checkRegexKeyInResponse,
-} from "../../utils/utils";
+} from "../../../utils/utils";
 
-export default function TestResult() {
+export default function TestResults() {
     const [tests, setTests] = useState({});
     let { props } = useTest();
-    let apiData = useApiData();
+    let { object: apiData } = useApiData();
 
     useEffect(() => {
         let headers = apiData?.headers || {};
         setTests({});
 
-        props.forEach((prop) => {
+        props.forEach(prop => {
             let propName = prop.key.toLowerCase();
             let section = prop.section;
             let operation = prop.operation;
@@ -38,13 +38,13 @@ export default function TestResult() {
                                 headers[propName] &&
                                 headers[propName] === value
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -56,13 +56,13 @@ export default function TestResult() {
                                 headers[propName] &&
                                 headers[propName] !== value
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -75,13 +75,13 @@ export default function TestResult() {
                                 Number(value) &&
                                 headers[propName].length === Number(value)
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -93,13 +93,13 @@ export default function TestResult() {
                                     .toLowerCase()
                                     .includes(value.toLowerCase())
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -112,13 +112,13 @@ export default function TestResult() {
                                 Number(value) &&
                                 Number(headers[propName]) <= Number(value)
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -131,13 +131,13 @@ export default function TestResult() {
                                 Number(value) &&
                                 Number(headers[propName]) >= Number(value)
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -150,13 +150,13 @@ export default function TestResult() {
                                 Number(value) &&
                                 Number(headers[propName]) < Number(value)
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -170,13 +170,13 @@ export default function TestResult() {
                                 Number(value) &&
                                 Number(headers[propName]) > Number(value)
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${headers[propName]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -187,12 +187,12 @@ export default function TestResult() {
                                 headers[propName] &&
                                 headers[propName].match(stringToRegex(value))
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "failed",
                                 }));
@@ -204,7 +204,7 @@ export default function TestResult() {
                                 headers[propName] &&
                                 typeof headers[propName] === value
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
@@ -212,7 +212,7 @@ export default function TestResult() {
                                 let reason = ` - Actual: ${typeof headers[
                                     propName
                                 ]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -229,13 +229,13 @@ export default function TestResult() {
                     switch (operation) {
                         case "equals to":
                             if (apiData?.elapsedTime === Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -243,13 +243,13 @@ export default function TestResult() {
                             break;
                         case "not equals to":
                             if (apiData?.elapsedTime !== Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -257,13 +257,13 @@ export default function TestResult() {
                             break;
                         case "is less than":
                             if (apiData?.elapsedTime < Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -271,13 +271,13 @@ export default function TestResult() {
                             break;
                         case "is greater than":
                             if (apiData?.elapsedTime > Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -285,13 +285,13 @@ export default function TestResult() {
                             break;
                         case "is less than or equal":
                             if (apiData?.elapsedTime <= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -299,13 +299,13 @@ export default function TestResult() {
                             break;
                         case "is greater than or equal":
                             if (apiData?.elapsedTime >= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -318,12 +318,12 @@ export default function TestResult() {
                                     .toString()
                                     .match(stringToRegex(value))
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "failed",
                                 }));
@@ -332,13 +332,13 @@ export default function TestResult() {
 
                         case "type of":
                             if (typeof apiData?.elapsedTime === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${typeof apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -347,7 +347,7 @@ export default function TestResult() {
 
                         case "contains":
                             var reason = ` - Cannot perform contains on non-string value`;
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
@@ -355,20 +355,20 @@ export default function TestResult() {
 
                         case "count":
                             var reason = " - Value is not object or array";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "type of":
                             if (typeof apiData?.elapsedTime === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${typeof apiData?.elapsedTime}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -384,13 +384,13 @@ export default function TestResult() {
                     switch (operation) {
                         case "equals to":
                             if (apiData?.size === Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -398,13 +398,13 @@ export default function TestResult() {
                             break;
                         case "not equals to":
                             if (apiData?.size !== Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -412,13 +412,13 @@ export default function TestResult() {
                             break;
                         case "is less than":
                             if (apiData?.size < Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -426,13 +426,13 @@ export default function TestResult() {
                             break;
                         case "is greater than":
                             if (apiData?.size > Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -440,13 +440,13 @@ export default function TestResult() {
                             break;
                         case "is less than or equal":
                             if (apiData?.size <= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -454,13 +454,13 @@ export default function TestResult() {
                             break;
                         case "is greater than or equal":
                             if (apiData?.size >= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -473,12 +473,12 @@ export default function TestResult() {
                                     .toString()
                                     .match(stringToRegex(value))
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "failed",
                                 }));
@@ -487,27 +487,27 @@ export default function TestResult() {
                         case "contains":
                             var reason =
                                 " - Cannot perform contains on non-string value";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "count":
                             var reason = " - Value is not object or array";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "type of":
                             if (typeof apiData?.size === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${typeof apiData?.size}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -522,13 +522,13 @@ export default function TestResult() {
                     switch (operation) {
                         case "equals to":
                             if (apiData?.status === Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -536,13 +536,13 @@ export default function TestResult() {
                             break;
                         case "not equals to":
                             if (apiData?.status !== Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -550,13 +550,13 @@ export default function TestResult() {
                             break;
                         case "is less than":
                             if (apiData?.status < Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -564,13 +564,13 @@ export default function TestResult() {
                             break;
                         case "is greater than":
                             if (apiData?.status > Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -578,13 +578,13 @@ export default function TestResult() {
                             break;
                         case "is less than or equal":
                             if (apiData?.status <= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -592,13 +592,13 @@ export default function TestResult() {
                             break;
                         case "is greater than or equal":
                             if (apiData?.status >= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -610,12 +610,12 @@ export default function TestResult() {
                                     .toString()
                                     .match(stringToRegex(value))
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "failed",
                                 }));
@@ -624,27 +624,27 @@ export default function TestResult() {
                         case "contains":
                             var reason =
                                 " - Cannot perform contains on non-string value";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "count":
                             var reason = " - Value is not object or array";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "type of":
                             if (typeof apiData?.status === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${typeof apiData?.status}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -662,7 +662,7 @@ export default function TestResult() {
                             if (
                                 headers["content-type"]?.toLowerCase() === value
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
@@ -670,7 +670,7 @@ export default function TestResult() {
                                 let reason = ` - Actual: ${headers[
                                     "content-type"
                                 ]?.toLowerCase()}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -680,7 +680,7 @@ export default function TestResult() {
                             if (
                                 headers["content-type"]?.toLowerCase() !== value
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
@@ -688,7 +688,7 @@ export default function TestResult() {
                                 let reason = ` - Actual: ${headers[
                                     "content-type"
                                 ]?.toLowerCase()}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -700,12 +700,12 @@ export default function TestResult() {
                                     ?.toLowerCase()
                                     .match(stringToRegex(value))
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "failed",
                                 }));
@@ -714,21 +714,21 @@ export default function TestResult() {
                         case "contains":
                             var reason =
                                 " - Cannot perform contains on non-string value";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "count":
                             var reason = " - Value is not object or array";
-                            setTests((tests) => ({
+                            setTests(tests => ({
                                 ...tests,
                                 [text + reason]: "failed",
                             }));
                             break;
                         case "type of":
                             if (typeof headers["content-type"] === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
@@ -736,7 +736,7 @@ export default function TestResult() {
                                 let reason = ` - Actual: ${typeof headers[
                                     "content-type"
                                 ]}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -753,7 +753,7 @@ export default function TestResult() {
                         operation === "is greater than or equal"
                     ) {
                         var reason = ` - Actual: content-type is a string. It cannot be compared to a number.`;
-                        setTests((tests) => ({
+                        setTests(tests => ({
                             ...tests,
                             [text + reason]: "failed",
                         }));
@@ -764,13 +764,13 @@ export default function TestResult() {
                     switch (operation) {
                         case "equals to":
                             if (JSON.stringify(apiData?.data) === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Response body does not matches.`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -778,13 +778,13 @@ export default function TestResult() {
                             break;
                         case "not equals to":
                             if (JSON.stringify(apiData?.data) !== value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Response body does not matches.`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -796,7 +796,7 @@ export default function TestResult() {
                                     Object.keys(apiData?.data).length ===
                                     Math.floor(Number(value))
                                 ) {
-                                    setTests((tests) => ({
+                                    setTests(tests => ({
                                         ...tests,
                                         [text]: "passed",
                                     }));
@@ -804,14 +804,14 @@ export default function TestResult() {
                                     let reason = ` - Actual length: ${
                                         Object.keys(apiData.data).length
                                     }`;
-                                    setTests((tests) => ({
+                                    setTests(tests => ({
                                         ...tests,
                                         [text + reason]: "failed",
                                     }));
                                 }
                             } else {
                                 let reason = ` - Value is not object or array`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -822,13 +822,13 @@ export default function TestResult() {
                                 getValueFromResponse(apiData?.data, value)
                                     .length > 0
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Value is not present in the response body`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -841,13 +841,13 @@ export default function TestResult() {
                                     stringToRegex(value)
                                 )
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Value is not present in the response body`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -855,13 +855,13 @@ export default function TestResult() {
                             break;
                         case "type of":
                             if (typeof apiData?.data === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${typeof apiData?.data}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -879,7 +879,7 @@ export default function TestResult() {
                         operation === "is greater than"
                     ) {
                         var reason = ` - Actual result did not match the condition`;
-                        setTests((tests) => ({
+                        setTests(tests => ({
                             ...tests,
                             [text + reason]: "failed",
                         }));
@@ -895,7 +895,7 @@ export default function TestResult() {
                         }
                         answer = eval(propName);
                     } catch (error) {
-                        setTests((tests) => ({
+                        setTests(tests => ({
                             ...tests,
                             [text + " - Not a valid operation"]: "failed",
                         }));
@@ -904,13 +904,13 @@ export default function TestResult() {
                     switch (operation) {
                         case "equals to":
                             if (answer === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -918,13 +918,13 @@ export default function TestResult() {
                             break;
                         case "not equals to":
                             if (answer !== value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -936,7 +936,7 @@ export default function TestResult() {
                                     Object.keys(answer).length ===
                                     Math.round(Number(value))
                                 ) {
-                                    setTests((tests) => ({
+                                    setTests(tests => ({
                                         ...tests,
                                         [text]: "passed",
                                     }));
@@ -944,14 +944,14 @@ export default function TestResult() {
                                     let reason = ` - Actual length: ${
                                         Object.keys(answer).length
                                     }`;
-                                    setTests((tests) => ({
+                                    setTests(tests => ({
                                         ...tests,
                                         [text + reason]: "failed",
                                     }));
                                 }
                             } else {
                                 let reason = ` - Value is not object or array`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -963,13 +963,13 @@ export default function TestResult() {
                                     .toLowerCase()
                                     .includes(value.toLowerCase())
                             ) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Cannot perform contains on non-string value`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -977,13 +977,13 @@ export default function TestResult() {
                             break;
                         case "matched regex expression":
                             if (stringToRegex(value).test(answer)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual value: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -991,13 +991,13 @@ export default function TestResult() {
                             break;
                         case "type of":
                             if (typeof answer === value) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual type: ${typeof answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -1005,13 +1005,13 @@ export default function TestResult() {
                             break;
                         case "is greater than or equal":
                             if (answer >= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual value: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -1019,13 +1019,13 @@ export default function TestResult() {
                             break;
                         case "is less than or equal":
                             if (answer <= Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual value: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -1033,13 +1033,13 @@ export default function TestResult() {
                             break;
                         case "is less than":
                             if (answer < Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual value: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));
@@ -1047,13 +1047,13 @@ export default function TestResult() {
                             break;
                         case "is greater than":
                             if (answer > Number(value)) {
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",
                                 }));
                             } else {
                                 let reason = ` - Actual value: ${answer}`;
-                                setTests((tests) => ({
+                                setTests(tests => ({
                                     ...tests,
                                     [text + reason]: "failed",
                                 }));

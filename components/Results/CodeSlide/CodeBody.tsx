@@ -36,7 +36,7 @@ export default function CodeBody() {
     let { object: headers } = useHeaders();
     const { object: queryParams } = useParams();
     let auth = useAuth();
-    let urlData = useUrlData();
+    let { object: urlData } = useUrlData();
     let { object: body } = usePostBody();
     const [config, setConfig] = useState({
         boilerplate: "",

@@ -2,14 +2,18 @@ import React, { createContext, useContext, useState } from "react";
 
 const Context = createContext({});
 
-interface normalParams {
+interface ObjectType {
     headers?: object;
     data?: object | any[];
     elapsedTime?: number;
     status?: number;
     statusText?: string;
     size?: number;
-    setObject?: React.Dispatch<React.SetStateAction<normalParams>>;
+    isFinished?: boolean;
+}
+interface normalParams {
+    object?: ObjectType;
+    setObject?: React.Dispatch<React.SetStateAction<ObjectType>>;
 }
 
 export function useApiData(): normalParams {
@@ -17,9 +21,11 @@ export function useApiData(): normalParams {
 }
 
 export function ApiDataContext({ children }) {
-    const [object, setObject] = useState({});
+    const [object, setObject] = useState({
+        isFinished: true,
+    });
     return (
-        <Context.Provider value={{ ...object, setObject }}>
+        <Context.Provider value={{ object, setObject }}>
             {children}
         </Context.Provider>
     );

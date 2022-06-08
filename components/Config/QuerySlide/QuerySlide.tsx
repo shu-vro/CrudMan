@@ -8,19 +8,18 @@ export default function QuerySlide() {
     const formRef = useRef(null);
     let param = useParams();
     let urlData = useUrlData();
-    const setObject = param.setObject;
     const [props, setProps] = useState({});
     const [urlDataParams, setUrlDataParams] = useState([]);
 
     useEffect(() => {
-        setUrlDataParams(Object.entries(urlData.urlParams));
+        setUrlDataParams(Object.entries(urlData.object.urlParams));
     }, [urlData]);
     // useEffect(() => {
     //     console.log(urlDataParams);
     // }, [urlDataParams]);
 
     useEffect(() => {
-        setObject(props);
+        param.setObject(props);
         urlData.setObject(prev => ({
             ...prev,
             urlParams: props,

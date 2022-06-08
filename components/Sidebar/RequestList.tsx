@@ -18,7 +18,6 @@ export default function RequestList({ history }) {
             baseURL: history.url,
             url: history.url,
             method: history.method,
-            setObject: urlData.setObject,
         }));
         body.setObject(history.body);
     }

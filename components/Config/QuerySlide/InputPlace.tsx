@@ -11,7 +11,7 @@ export default function InputPlace({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input type="checkbox" defaultChecked={hasInput} />
+            <input type="checkbox" checked={hasInput} onChange={() => true} />
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}

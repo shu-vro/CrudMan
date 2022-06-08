@@ -3,11 +3,20 @@ import { createContext, useContext, useState } from "react";
 const Context = createContext({});
 
 interface urlProps {
-    urlParams?: string;
-    url?: string;
-    method?: string;
-    baseURL?: string;
-    setObject?: (value: any) => void;
+    object?: {
+        urlParams?: string;
+        url?: string;
+        method?: string;
+        baseURL?: string;
+    };
+    setObject?: React.Dispatch<
+        React.SetStateAction<{
+            urlParams: {};
+            baseURL: string;
+            url: string;
+            method: string;
+        }>
+    >;
 }
 
 export function useUrlData(): urlProps {
@@ -22,7 +31,7 @@ export function UrlDataContext({ children }) {
         method: "",
     });
     return (
-        <Context.Provider value={{ ...object, setObject }}>
+        <Context.Provider value={{ object, setObject }}>
             {children}
         </Context.Provider>
     );

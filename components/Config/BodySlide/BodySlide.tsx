@@ -27,7 +27,6 @@ export default function BodySlide() {
         JSON.stringify(postBody.object, null, 4)
     );
     useEffect(() => {
-        console.log(postBody);
         Object.keys(postBody.object).length > 0 &&
             setPostBodyCopy(() => {
                 let pb = postBody.object;

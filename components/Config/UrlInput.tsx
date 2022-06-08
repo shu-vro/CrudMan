@@ -11,7 +11,7 @@ import axios from "axios";
 import { useTest } from "../../utils/Test";
 
 export default function UrlInput() {
-    let apiData = useApiData();
+    let { setObject } = useApiData();
     let { object: headersObject } = useHeaders();
     let { object: paramsObject } = useParams();
     let { object: postBodyObject } = usePostBody();
@@ -19,13 +19,11 @@ export default function UrlInput() {
     let auth = useAuth();
     let history = useHistorySaver();
     let test = useTest();
-    let { setObject: setObjectUrl } = urlData;
     // const [headerCopy, setHeaderCopy] = useState({});
     // const [paramsCopy, setParamsCopy] = useState({});
-    let { setObject } = apiData;
     let { setObject: setHistory } = history;
     const formRef = useRef(null);
-    const [processFinished, setProcessFinished] = useState(false);
+    const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
         // setHeaderCopy(() => {
@@ -44,10 +42,12 @@ export default function UrlInput() {
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setProcessFinished(true);
+        setProcessing(true);
         let form = formRef.current;
         let formData = new FormData(form);
         let entries = Object.fromEntries(formData.entries());
+        setObject(prev => ({ ...prev, isFinished: false }));
+        // setObject((prev) => { second })
 
         try {
             let res = await axios.get("/api/headerParser", {
@@ -61,20 +61,19 @@ export default function UrlInput() {
             });
 
             res = res.data;
-            setObject({ ...res, setObject });
-            setProcessFinished(false);
+            setObject({ ...res, isFinished: true });
+            setProcessing(false);
         } catch (error) {
             console.log(error);
             setObject({
                 elapsedTime: 0,
-                setObject,
-
                 data: { message: error.message },
                 headers: error.config.headers,
                 status: error.response.status,
                 statusText: error.response.statusText,
+                isFinished: true,
             });
-            setProcessFinished(false);
+            setProcessing(false);
         }
         setHistory(prev => [
             ...prev,
@@ -102,12 +101,11 @@ export default function UrlInput() {
         let url = (baseURL as string).split("?");
         let baseURLCopy = url[0];
         let urlParams = Object.fromEntries(new URLSearchParams(url[1]));
-        setObjectUrl({
+        urlData.setObject({
             urlParams,
             baseURL: baseURLCopy,
-            url: baseURL,
-            setObject: setObjectUrl,
-            method,
+            url: baseURL.toString(),
+            method: method.toString(),
         });
     }
 
@@ -118,7 +116,10 @@ export default function UrlInput() {
             ref={formRef}
             autoComplete="on"
             onChange={handleInput}>
-            <select name="method" value={urlData.method} onChange={() => true}>
+            <select
+                name="method"
+                value={urlData.object.method}
+                onChange={() => true}>
                 <option value="Get">Get</option>
                 <option value="Post">Post</option>
                 <option value="Put">Put</option>
@@ -129,10 +130,10 @@ export default function UrlInput() {
                 type="text"
                 placeholder="Enter a URL"
                 name="baseURL"
-                value={urlData.url}
+                value={urlData.object.url}
                 onChange={() => true}
             />
-            <button type="submit" disabled={processFinished}>
+            <button type="submit" disabled={processing}>
                 Send
             </button>
         </form>
