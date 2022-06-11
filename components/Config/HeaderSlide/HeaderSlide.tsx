@@ -2,11 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useHeaders } from "../../../utils/Headers";
 import HeaderInput from "./HeaderInput";
+import { useHistorySaver } from "../../../utils/HistorySaver";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
     let headers = useHeaders();
     const [props, setProps] = useState({});
+    const historySaver = useHistorySaver();
+
+    const [fields, setFields] = useState<
+        Array<{ id: string; entry?: [string?, any?] }>
+    >([{ id: v4(), entry: ["", ""] }]);
+
+    function addField() {
+        setFields([...fields, { id: v4(), entry: [] }]);
+    }
 
     useEffect(() => {
         headers.setObject(props);
@@ -42,15 +52,18 @@ export default function QuerySlide() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const [fields, setFields] = useState([v4()]);
 
-    // useEffect(() => {
-    //     console.log(headers);
-    // }, [headers]);
-
-    const addField = () => {
-        setFields([...fields, v4()]);
-    };
+    useEffect(() => {
+        let entries = Object.entries(historySaver.defaultObject.headers);
+        console.log(entries);
+        if (entries.length > 0) {
+            entries.forEach(data => {
+                setFields([{ id: v4(), entry: [data[0], data[1]] }]);
+            });
+        } else {
+            setFields([{ id: v4(), entry: ["", ""] }]);
+        }
+    }, [historySaver.defaultObject]);
 
     return (
         <>
@@ -61,9 +74,10 @@ export default function QuerySlide() {
                 <h2>HTTP Headers</h2>
                 {fields.map(field => (
                     <HeaderInput
-                        key={field}
+                        key={field.id}
                         formRef={formRef}
                         placeHolderNames={["header", "value"]}
+                        defaultValue={field.entry}
                     />
                 ))}
 

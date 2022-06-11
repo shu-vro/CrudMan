@@ -2,46 +2,51 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const Context = createContext({});
 
-type normalParams = {
-    object?: Array<{
-        params: object;
-        headers: object;
-        url: string;
-        body: object;
-        method: string;
-        tests: Array<{
-            section: string;
-            key: string;
-            operation: string;
-            value: string;
-        }>;
-        time: string;
+export type HistoryType = {
+    params: object;
+    headers: object;
+    url: string;
+    body: object;
+    method: string;
+    tests: Array<{
+        section: string;
+        key: string;
+        operation: string;
+        value: string;
     }>;
-    setObject?: React.Dispatch<React.SetStateAction<any[]>>;
+    time: string;
+};
+type ArrayHistoryType = Array<HistoryType>;
+type normalParams = {
+    object?: ArrayHistoryType;
+    setObject?: React.Dispatch<React.SetStateAction<ArrayHistoryType>>;
+    defaultObject?: HistoryType;
+    setDefaultObject?: React.Dispatch<React.SetStateAction<HistoryType>>;
 };
 
-export function useHistorySaver(): normalParams {
-    const history: normalParams = useContext(Context);
-    useEffect(() => {
-        if (!localStorage.getItem("history")) {
-            localStorage.setItem("history", JSON.stringify([]));
-            return;
-        }
-        history.setObject(JSON.parse(localStorage.getItem("history") || "[]"));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    useEffect(() => {
-        history.object.length > 0 &&
-            localStorage.setItem("history", JSON.stringify(history.object));
-    }, [history]);
+export function useHistorySaver() {
+    const historySaver: normalParams = useContext(Context);
+    // useEffect(() => {
+    //     console.log(true);
+    // }, []);
 
-    return useContext(Context);
+    return historySaver;
 }
 
 export function HistoryContext({ children }) {
     const [object, setObject] = useState([]);
+    const [defaultObject, setDefaultObject] = useState<HistoryType>({
+        params: {},
+        headers: {},
+        body: {},
+        method: "",
+        tests: [],
+        time: "",
+        url: "",
+    });
     return (
-        <Context.Provider value={{ object, setObject }}>
+        <Context.Provider
+            value={{ object, setObject, defaultObject, setDefaultObject }}>
             {children}
         </Context.Provider>
     );

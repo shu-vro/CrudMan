@@ -2,21 +2,41 @@ import { useState, useRef } from "react";
 import SelectHeaderButton from "./SelectHeaderButton";
 import allHeaders from "../../../utils/data.json";
 
-export default function HeaderInput({ formRef, placeHolderNames }) {
+export default function HeaderInput({
+    formRef,
+    placeHolderNames,
+    defaultValue,
+}) {
     const [key, setKey] = useState("");
     const inputPlaceRef = useRef(null);
+    const [hasInput, setHasInput] = useState(true);
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input type="checkbox" defaultChecked />
+            <input
+                type="checkbox"
+                checked={hasInput}
+                onChange={() => {
+                    setHasInput(!hasInput);
+                }}
+            />
             <SelectHeaderButton
                 allHeaders={allHeaders}
                 placeholder={placeHolderNames[0]}
-                onInput={(e) => {
-                    setKey(e.target.value);
+                defaultValue={defaultValue?.[0]}
+                onInput={e => {
+                    setKey((e.target as HTMLInputElement).value);
+                    if ((e.target as HTMLInputElement).value !== "")
+                        setHasInput(true);
+                    else setHasInput(false);
                 }}
             />
-            <input type="text" name={key} placeholder={placeHolderNames[1]} />
+            <input
+                type="text"
+                name={key}
+                placeholder={placeHolderNames[1]}
+                defaultValue={defaultValue?.[1]}
+            />
             <button
                 type="button"
                 onClick={() => {
@@ -28,8 +48,7 @@ export default function HeaderInput({ formRef, placeHolderNames }) {
                             })
                         );
                     }, 500);
-                }}
-            >
+                }}>
                 &times;
             </button>
         </div>

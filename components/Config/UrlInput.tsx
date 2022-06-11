@@ -17,28 +17,12 @@ export default function UrlInput() {
     let { object: postBodyObject } = usePostBody();
     let urlData = useUrlData();
     let auth = useAuth();
-    let history = useHistorySaver();
+    let { setObject: setHistory } = useHistorySaver();
     let test = useTest();
     // const [headerCopy, setHeaderCopy] = useState({});
     // const [paramsCopy, setParamsCopy] = useState({});
-    let { setObject: setHistory } = history;
     const formRef = useRef(null);
     const [processing, setProcessing] = useState(false);
-
-    useEffect(() => {
-        // setHeaderCopy(() => {
-        //     let authHeaders = auth.headers;
-        //     let h = { ...headers, ...authHeaders };
-        //     delete h["setObject"];
-        //     delete h["methodFromAuthSlide"];
-        //     return h;
-        // });
-        // setParamsCopy(() => {
-        //     let authParams = auth.params;
-        //     let p = { ...paramsObject, ...authParams };
-        //     return p;
-        // });
-    }, [headersObject, paramsObject, auth]);
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -87,7 +71,6 @@ export default function UrlInput() {
                 time: new Date().toLocaleString(),
             },
         ]);
-        // setObject: setHistory,
     }
     useEffect(() => {
         handleInput();

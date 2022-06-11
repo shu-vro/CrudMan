@@ -6,12 +6,18 @@ export default function InputPlace({
     defaultValue,
 }) {
     const [key, setKey] = useState("");
-    const [hasInput, setHasInput] = useState(false);
+    const [hasInput, setHasInput] = useState(true);
     const inputPlaceRef = useRef(null);
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input type="checkbox" checked={hasInput} onChange={() => true} />
+            <input
+                type="checkbox"
+                checked={hasInput}
+                onChange={() => {
+                    setHasInput(!hasInput);
+                }}
+            />
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}
@@ -22,14 +28,14 @@ export default function InputPlace({
                     else setHasInput(false);
                 }}
                 name={key}
-                defaultValue={defaultValue[0]}
+                defaultValue={defaultValue?.[0]}
                 onChange={() => true}
             />
             <input
                 type="text"
                 name={key}
                 placeholder={placeHolderNames[1]}
-                defaultValue={defaultValue[1]}
+                defaultValue={defaultValue?.[1]}
                 onChange={() => true}
             />
             <button

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
+import { useHistorySaver } from "../../../utils/HistorySaver";
 import { useParams } from "../../../utils/Params";
 import { useUrlData } from "../../../utils/UrlData";
 import InputPlace from "./InputPlace";
@@ -8,15 +9,54 @@ export default function QuerySlide() {
     const formRef = useRef(null);
     let param = useParams();
     let urlData = useUrlData();
+    let historySaver = useHistorySaver();
     const [props, setProps] = useState({});
     const [urlDataParams, setUrlDataParams] = useState([]);
+
+    const [fields, setFields] = useState<
+        Array<{ id: string; entry?: [string?, any?] }>
+    >([{ id: v4(), entry: ["", ""] }]);
+
+    function addField() {
+        setFields([...fields, { id: v4(), entry: [] }]);
+    }
 
     useEffect(() => {
         setUrlDataParams(Object.entries(urlData.object.urlParams));
     }, [urlData]);
-    // useEffect(() => {
-    //     console.log(urlDataParams);
-    // }, [urlDataParams]);
+
+    /*
+    These lines should be in historySaver file, but due to bugs, we are migrating these codes in here!
+    */
+    useEffect(() => {
+        if (!localStorage.getItem("history")) {
+            localStorage.setItem("history", JSON.stringify([]));
+            return;
+        }
+        historySaver.setObject(
+            JSON.parse(localStorage.getItem("history") || "[]")
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        historySaver.object.length > 0 &&
+            localStorage.setItem(
+                "history",
+                JSON.stringify(historySaver.object)
+            );
+    }, [historySaver.object]);
+
+    useEffect(() => {
+        let entries = Object.entries(historySaver.defaultObject.params);
+        if (entries.length > 0) {
+            entries.forEach(data => {
+                setFields([{ id: v4(), entry: [data[0], data[1]] }]);
+            });
+        } else {
+            setFields([{ id: v4(), entry: ["", ""] }]);
+        }
+    }, [historySaver.defaultObject]);
 
     useEffect(() => {
         param.setObject(props);
@@ -49,11 +89,6 @@ export default function QuerySlide() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const [fields, setFields] = useState([v4()]);
-
-    function addField() {
-        setFields([...fields, v4()]);
-    }
 
     return (
         <>
@@ -72,10 +107,10 @@ export default function QuerySlide() {
                 ))} */}
                 {fields.map(field => (
                     <InputPlace
-                        key={field}
+                        key={field.id}
                         formRef={formRef}
                         placeHolderNames={["parameter", "value"]}
-                        defaultValue={[]}
+                        defaultValue={field.entry}
                     />
                 ))}
 

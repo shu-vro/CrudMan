@@ -186,6 +186,7 @@ $container-height: calc(100vh - $height - 1px);
                 font-size: 14px;
                 font-weight: bold;
                 cursor: pointer;
+                user-select: none;
 
                 @media screen and (max-width: 481px) {
                     & {

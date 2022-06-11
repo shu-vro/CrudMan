@@ -10,7 +10,7 @@ const Context = createContext({});
 
 export function useTheme(): {
     value?: string;
-    setValue?: (value: SetStateAction<string>) => void;
+    setValue?: React.Dispatch<React.SetStateAction<string>>;
 } {
     const themeManager: any = useContext(Context);
     useEffect(() => {
@@ -30,6 +30,7 @@ export function useTheme(): {
         document.body.className = localStorage.getItem("theme");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [themeManager]);
+
     return themeManager;
 }
 

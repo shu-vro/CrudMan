@@ -161,7 +161,8 @@ li.selected button {
 .statusBar {
     list-style-type: none;
     padding: 0;
-    margin: 10px 0;
+    margin: 10px 0 0;
+    font-size: 0.8rem;
 
     li {
         display: inline-block;
@@ -273,4 +274,13 @@ input::placeholder {
     cursor: pointer;
     display: block;
     margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--thin-border-color);
 }

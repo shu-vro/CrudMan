@@ -1,11 +1,14 @@
 {
     "cSpell.words": [
         "browserslist",
+        "crudman",
         "fullscreen",
         "getresponse",
         "noconflict",
+        "npmlist",
         "Parens",
         "postbody",
+        "tsbuildinfo",
         "vbscript"
     ],
     "typescript.tsdk": "node_modules/typescript/lib"

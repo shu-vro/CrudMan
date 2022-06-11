@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useHistorySaver } from "../../utils/HistorySaver";
 import RequestList from "./RequestList";
 
