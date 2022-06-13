@@ -36,7 +36,7 @@ function Sliders() {
         let testNum = test.props.length;
         setListBullets([paramsNum, headersNum, bodyNum, authNum, testNum]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params, headers, test, auth]);
+    }, [params.object, headers.object, test.props, auth]);
     return (
         <CommonSliderAssets
             lists={["Query", "Header", "Body", "Auth", "Test"]}

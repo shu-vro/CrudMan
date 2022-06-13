@@ -1,12 +1,15 @@
 import { useState, useRef } from "react";
 
 export default function InputPlace({
+    keyName,
     formRef,
     placeHolderNames,
     defaultValue,
+    removeField,
+    defaultChecked,
 }) {
     const [key, setKey] = useState("");
-    const [hasInput, setHasInput] = useState(true);
+    const [hasInput, setHasInput] = useState(defaultChecked || false);
     const inputPlaceRef = useRef(null);
 
     return (
@@ -41,7 +44,7 @@ export default function InputPlace({
             <button
                 type="button"
                 onClick={() => {
-                    inputPlaceRef.current.remove();
+                    removeField(keyName);
 
                     setTimeout(() => {
                         formRef.current?.dispatchEvent(

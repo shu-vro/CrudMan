@@ -6,10 +6,13 @@ export default function HeaderInput({
     formRef,
     placeHolderNames,
     defaultValue,
+    keyName,
+    removeField,
+    defaultChecked,
 }) {
     const [key, setKey] = useState("");
     const inputPlaceRef = useRef(null);
-    const [hasInput, setHasInput] = useState(true);
+    const [hasInput, setHasInput] = useState(defaultChecked || false);
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
@@ -40,7 +43,7 @@ export default function HeaderInput({
             <button
                 type="button"
                 onClick={() => {
-                    inputPlaceRef.current.remove();
+                    removeField(keyName);
                     setTimeout(() => {
                         formRef.current.dispatchEvent(
                             new Event("input", {
