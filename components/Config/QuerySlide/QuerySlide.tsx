@@ -13,12 +13,21 @@ export default function QuerySlide() {
     const [props, setProps] = useState({});
     const [urlDataParams, setUrlDataParams] = useState([]);
 
-    const [fields, setFields] = useState<
-        Array<{ id: string; entry?: [string?, any?] }>
-    >([{ id: v4(), entry: ["", ""] }]);
+    type FieldsType = Array<{
+        id: string;
+        entry?: [string?, any?];
+        defaultChecked?: boolean;
+    }>;
+    const [fields, setFields] = useState<FieldsType>([
+        { id: v4(), entry: ["", ""] },
+    ]);
 
     function addField() {
         setFields([...fields, { id: v4(), entry: [] }]);
+    }
+
+    function removeField(keyName: string) {
+        setFields(prev => prev.filter(field => field.id !== keyName));
     }
 
     useEffect(() => {
@@ -49,9 +58,17 @@ export default function QuerySlide() {
 
     useEffect(() => {
         let entries = Object.entries(historySaver.defaultObject.params);
+        setFields([]);
         if (entries.length > 0) {
             entries.forEach(data => {
-                setFields([{ id: v4(), entry: [data[0], data[1]] }]);
+                setFields(prev => [
+                    ...prev,
+                    {
+                        id: v4(),
+                        entry: [data[0], data[1]],
+                        defaultChecked: true,
+                    },
+                ]);
             });
         } else {
             setFields([{ id: v4(), entry: ["", ""] }]);
@@ -108,9 +125,12 @@ export default function QuerySlide() {
                 {fields.map(field => (
                     <InputPlace
                         key={field.id}
+                        keyName={field.id}
                         formRef={formRef}
                         placeHolderNames={["parameter", "value"]}
                         defaultValue={field.entry}
+                        removeField={removeField}
+                        defaultChecked={field.defaultChecked}
                     />
                 ))}
 
