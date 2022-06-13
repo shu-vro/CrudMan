@@ -14,6 +14,10 @@ export type HistoryType = {
         operation: string;
         value: string;
     }>;
+    auth: {
+        headers: object;
+        params: object;
+    };
     time: string;
 };
 type ArrayHistoryType = Array<HistoryType>;
@@ -43,6 +47,10 @@ export function HistoryContext({ children }) {
         tests: [],
         time: "",
         url: "",
+        auth: {
+            headers: {},
+            params: {},
+        },
     });
     return (
         <Context.Provider

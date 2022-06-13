@@ -18,7 +18,7 @@ export default function UrlInput() {
     let urlData = useUrlData();
     let auth = useAuth();
     let { setObject: setHistory } = useHistorySaver();
-    let test = useTest();
+    let { props: testProps } = useTest();
     // const [headerCopy, setHeaderCopy] = useState({});
     // const [paramsCopy, setParamsCopy] = useState({});
     const formRef = useRef(null);
@@ -67,8 +67,9 @@ export default function UrlInput() {
                 headers: headersObject,
                 url: entries.baseURL.toString(),
                 method: entries.method.toString(),
-                tests: test.props,
+                tests: testProps,
                 time: new Date().toLocaleString(),
+                auth: { headers: auth.headers, params: auth.params },
             },
         ]);
     }

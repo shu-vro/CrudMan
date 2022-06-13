@@ -1,19 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import allHeaders from "../../../utils/data.json";
 
-export default function SelectButton({ setSectionValueParent, ...rest }) {
+export default function SelectButton({
+    setSectionValueParent,
+    optionDefaultValue,
+    isInputDisabled = true,
+    ...rest
+}) {
     const inputRef = useRef();
     const optionsRef = useRef();
     const tdRef = useRef();
     const sectionRef = useRef();
-    const [sectionValue, setSectionValue] = useState("");
+    const [sectionValue, setSectionValue] = useState("Select");
     const [allParams, setAllParams] = useState([]);
-    const [inputDisabled, setInputDisabled] = useState(true);
+    const [inputDisabled, setInputDisabled] = useState(isInputDisabled);
 
     useEffect(() => {
         let input: HTMLInputElement = inputRef.current;
         let options: HTMLDivElement = optionsRef.current;
         let td: HTMLTableDataCellElement = tdRef.current;
+        let section: HTMLSelectElement = sectionRef.current;
 
         input.addEventListener("blur", () => {
             td.style.display = "none";
@@ -22,9 +28,10 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             }, 500);
         });
 
-        input.addEventListener("keydown", (e) => {
+        input.addEventListener("keydown", e => {
             if (e.key === "Escape" && input.value === "") {
-                setInputDisabled((prev) => !prev);
+                section.selectedIndex = 0;
+                setInputDisabled(prev => !prev);
             }
         });
 
@@ -67,13 +74,13 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
                     td.textContent = block.dataset.text;
                     td.style.display = "block";
                     input.focus();
-                    blocks.forEach((b) => {
+                    blocks.forEach(b => {
                         b.classList.remove("block");
                     });
                 });
             });
         });
-    }, []);
+    }, [setSectionValueParent]);
 
     useEffect(() => {
         let select: HTMLSelectElement = sectionRef.current;
@@ -88,7 +95,7 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             }
             setAllParams(params);
 
-            if (["Headers", "Json-Query"].find((option) => option === value)) {
+            if (["Headers", "Json-Query"].find(option => option === value)) {
                 value === "Json-Query"
                     ? (input.value = "json.")
                     : (input.value = "");
@@ -105,11 +112,11 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             <select
                 ref={sectionRef}
                 hidden={!inputDisabled}
-                onChange={(e) => {
+                defaultValue={optionDefaultValue}
+                onChange={e => {
                     setSectionValue(e.target.value);
                     setSectionValueParent(e.target.value);
-                }}
-            >
+                }}>
                 <option value="" defaultChecked>
                     Select
                 </option>
@@ -134,8 +141,7 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
                     <div
                         key={el.label}
                         className="option"
-                        data-text={`${el.description}`}
-                    >
+                        data-text={`${el.description}`}>
                         {el.label}
                     </div>
                 ))}
