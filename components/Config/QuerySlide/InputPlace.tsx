@@ -39,13 +39,11 @@ export default function InputPlace({
                 name={key}
                 placeholder={placeHolderNames[1]}
                 defaultValue={defaultValue?.[1]}
-                onChange={() => true}
             />
             <button
                 type="button"
                 onClick={() => {
                     removeField(keyName);
-
                     setTimeout(() => {
                         formRef.current?.dispatchEvent(
                             new Event("input", {

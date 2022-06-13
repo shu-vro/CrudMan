@@ -2,13 +2,33 @@ import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useTest } from "../../../utils/Test";
 import TestInput from "./TestInput";
+import { useHistorySaver } from "../../../utils/HistorySaver";
 
 export default function TestSlide() {
     const formRef = useRef(null);
-    let test = useTest();
+    const test = useTest();
+    const historySaver = useHistorySaver();
     let setObject = test.setObject;
     const [props, setProps] = useState([]);
-    const [fields, setFields] = useState([v4()]);
+    type FieldsType = Array<{
+        id: string;
+        entry?: {
+            section?: string;
+            key?: string;
+            operation?: string;
+            value?: string;
+        };
+        defaultChecked?: boolean;
+    }>;
+    const [fields, setFields] = useState<FieldsType>([]);
+
+    function addField() {
+        setFields(prev => [...prev, { id: v4(), entry: {} }]);
+    }
+
+    function removeField(keyName: string) {
+        setFields(prev => prev.filter(field => field.id !== keyName));
+    }
 
     // useEffect(() => {
     //     console.log(test);
@@ -54,7 +74,7 @@ export default function TestSlide() {
                     operation,
                     value,
                 };
-                setProps((prop) => {
+                setProps(prop => {
                     return [...prop, o];
                 });
             }
@@ -62,27 +82,47 @@ export default function TestSlide() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const addField = () => {
-        setFields([...fields, v4()]);
-    };
-
+    useEffect(() => {
+        let entries = Object.keys(historySaver.defaultObject.tests);
+        setFields([]);
+        if (entries.length > 0) {
+            entries.forEach(data => {
+                setFields(prev => [
+                    ...prev,
+                    {
+                        id: v4(),
+                        entry: {
+                            ...historySaver.defaultObject.tests[data],
+                        },
+                        defaultChecked: true,
+                    },
+                ]);
+            });
+        } else {
+            setFields([{ id: v4(), entry: {} }]);
+        }
+    }, [historySaver.defaultObject]);
+    console.log(fields);
     return (
         <>
             <form className="slide Test" id="config-test-slide" ref={formRef}>
                 <h2>Test Api</h2>
-                {fields.map((field) => (
+                {fields.map(field => (
                     <TestInput
-                        key={field}
+                        key={field.id}
+                        keyName={field.id}
                         formRef={formRef}
                         placeHolderNames={["Test Header", "value"]}
+                        removeField={removeField}
+                        defaultChecked={field.defaultChecked}
+                        entry={field.entry}
                     />
                 ))}
 
                 <button
                     type="button"
                     className="add-row-button"
-                    onClick={() => addField()}
-                >
+                    onClick={() => addField()}>
                     + Add Row
                 </button>
             </form>

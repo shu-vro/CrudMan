@@ -4,7 +4,14 @@ import SelectButtonValue from "./SelectButtonValue";
 import mimes from "../../../utils/mime.json";
 import statuses from "../../../utils/status.json";
 
-export default function TestInput({ formRef, placeHolderNames }) {
+export default function TestInput({
+    formRef,
+    placeHolderNames,
+    removeField,
+    keyName,
+    defaultChecked,
+    entry,
+}) {
     const inputPlaceRef = useRef(null);
     const [sectionValueParent, setSectionValueParent] = useState("");
     const [allHeaders, setAllHeaders] = useState([]);
@@ -28,9 +35,15 @@ export default function TestInput({ formRef, placeHolderNames }) {
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input type="checkbox" defaultChecked />
-            <SelectButton setSectionValueParent={setSectionValueParent} />
-            <select name="operation">
+            <input type="checkbox" defaultChecked={defaultChecked || false} />
+            <SelectButton
+                setSectionValueParent={setSectionValueParent}
+                defaultValue={entry.key}
+                optionDefaultValue={
+                    entry.section === "" ? entry.key : entry.section
+                }
+            />
+            <select name="operation" defaultValue={entry.operation}>
                 <option value="equals to">Equal</option>
                 <option value="not equals to">Not Equal</option>
                 <option value="count">Count</option>
@@ -45,11 +58,12 @@ export default function TestInput({ formRef, placeHolderNames }) {
             <SelectButtonValue
                 allProps={allHeaders}
                 placeholder={placeHolderNames[1]}
+                defaultValue={entry.value}
             />
             <button
                 type="button"
-                onClick={(e) => {
-                    inputPlaceRef.current.remove();
+                onClick={e => {
+                    removeField(keyName);
                     setTimeout(() => {
                         (formRef.current as HTMLFormElement).dispatchEvent(
                             new Event("input", {
@@ -57,8 +71,7 @@ export default function TestInput({ formRef, placeHolderNames }) {
                             })
                         );
                     }, 500);
-                }}
-            >
+                }}>
                 &times;
             </button>
         </div>

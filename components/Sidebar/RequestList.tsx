@@ -1,18 +1,15 @@
 import { usePostBody } from "../../utils/Body";
 import { useTest } from "../../utils/Test";
-import { useParams } from "../../utils/Params";
-import { useHeaders } from "../../utils/Headers";
 import { useUrlData } from "../../utils/UrlData";
 import { useHistorySaver } from "../../utils/HistorySaver";
 import { HistoryType } from "../../utils/HistorySaver";
-import { useEffect } from "react";
+import { useApiData } from "../../utils/ApiData";
 
 export default function RequestList({ history }: { history: HistoryType }) {
     const body = usePostBody();
     const urlData = useUrlData();
     const test = useTest();
-    const params = useParams();
-    const headers = useHeaders();
+    const apiData = useApiData();
     const historySaver = useHistorySaver();
 
     function handleClick() {

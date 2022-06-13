@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import allHeaders from "../../../utils/data.json";
 
-export default function SelectButton({ setSectionValueParent, ...rest }) {
+export default function SelectButton({
+    setSectionValueParent,
+    optionDefaultValue,
+    ...rest
+}) {
     const inputRef = useRef();
     const optionsRef = useRef();
     const tdRef = useRef();
@@ -22,9 +26,9 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             }, 500);
         });
 
-        input.addEventListener("keydown", (e) => {
+        input.addEventListener("keydown", e => {
             if (e.key === "Escape" && input.value === "") {
-                setInputDisabled((prev) => !prev);
+                setInputDisabled(prev => !prev);
             }
         });
 
@@ -67,7 +71,7 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
                     td.textContent = block.dataset.text;
                     td.style.display = "block";
                     input.focus();
-                    blocks.forEach((b) => {
+                    blocks.forEach(b => {
                         b.classList.remove("block");
                     });
                 });
@@ -88,7 +92,7 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             }
             setAllParams(params);
 
-            if (["Headers", "Json-Query"].find((option) => option === value)) {
+            if (["Headers", "Json-Query"].find(option => option === value)) {
                 value === "Json-Query"
                     ? (input.value = "json.")
                     : (input.value = "");
@@ -105,11 +109,11 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
             <select
                 ref={sectionRef}
                 hidden={!inputDisabled}
-                onChange={(e) => {
+                defaultValue={optionDefaultValue}
+                onChange={e => {
                     setSectionValue(e.target.value);
                     setSectionValueParent(e.target.value);
-                }}
-            >
+                }}>
                 <option value="" defaultChecked>
                     Select
                 </option>
@@ -134,8 +138,7 @@ export default function SelectButton({ setSectionValueParent, ...rest }) {
                     <div
                         key={el.label}
                         className="option"
-                        data-text={`${el.description}`}
-                    >
+                        data-text={`${el.description}`}>
                         {el.label}
                     </div>
                 ))}
