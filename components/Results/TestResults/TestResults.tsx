@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import Table from "../Table";
 import { useTest } from "../../../utils/Test";
 import { useApiData } from "../../../utils/ApiData";
-import {
-    stringToRegex,
-    getValueFromResponse,
-    checkRegexKeyInResponse,
-} from "../../../utils/utils";
+import { stringToRegex, checkRegexKeyInResponse } from "../../../utils/utils";
 
 export default function TestResults() {
     const [tests, setTests] = useState({});
@@ -818,10 +814,7 @@ export default function TestResults() {
                             }
                             break;
                         case "contains":
-                            if (
-                                getValueFromResponse(apiData?.data, value)
-                                    .length > 0
-                            ) {
+                            if (JSON.stringify(apiData?.data).includes(value)) {
                                 setTests(tests => ({
                                     ...tests,
                                     [text]: "passed",

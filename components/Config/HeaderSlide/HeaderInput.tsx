@@ -8,11 +8,11 @@ export default function HeaderInput({
     defaultValue,
     keyName,
     removeField,
-    defaultChecked,
+    defaultChecked = false,
 }) {
     const [key, setKey] = useState("");
     const inputPlaceRef = useRef(null);
-    const [hasInput, setHasInput] = useState(defaultChecked || false);
+    const [hasInput, setHasInput] = useState(defaultChecked);
 
     return (
         <div className="input-place" ref={inputPlaceRef}>

@@ -4,20 +4,22 @@ import allHeaders from "../../../utils/data.json";
 export default function SelectButton({
     setSectionValueParent,
     optionDefaultValue,
+    isInputDisabled = true,
     ...rest
 }) {
     const inputRef = useRef();
     const optionsRef = useRef();
     const tdRef = useRef();
     const sectionRef = useRef();
-    const [sectionValue, setSectionValue] = useState("");
+    const [sectionValue, setSectionValue] = useState("Select");
     const [allParams, setAllParams] = useState([]);
-    const [inputDisabled, setInputDisabled] = useState(true);
+    const [inputDisabled, setInputDisabled] = useState(isInputDisabled);
 
     useEffect(() => {
         let input: HTMLInputElement = inputRef.current;
         let options: HTMLDivElement = optionsRef.current;
         let td: HTMLTableDataCellElement = tdRef.current;
+        let section: HTMLSelectElement = sectionRef.current;
 
         input.addEventListener("blur", () => {
             td.style.display = "none";
@@ -28,6 +30,7 @@ export default function SelectButton({
 
         input.addEventListener("keydown", e => {
             if (e.key === "Escape" && input.value === "") {
+                section.selectedIndex = 0;
                 setInputDisabled(prev => !prev);
             }
         });
@@ -77,7 +80,7 @@ export default function SelectButton({
                 });
             });
         });
-    }, []);
+    }, [setSectionValueParent]);
 
     useEffect(() => {
         let select: HTMLSelectElement = sectionRef.current;

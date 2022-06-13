@@ -102,7 +102,7 @@ export default function TestSlide() {
             setFields([{ id: v4(), entry: {} }]);
         }
     }, [historySaver.defaultObject]);
-    console.log(fields);
+
     return (
         <>
             <form className="slide Test" id="config-test-slide" ref={formRef}>
