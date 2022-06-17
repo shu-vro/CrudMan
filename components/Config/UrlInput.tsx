@@ -46,6 +46,20 @@ export default function UrlInput() {
 
             res = res.data;
             setObject({ ...res, isFinished: true });
+            setHistory(prev => [
+                ...prev,
+                {
+                    params: paramsObject,
+                    body: postBodyObject,
+                    headers: headersObject,
+                    url: entries.baseURL.toString(),
+                    method: entries.method.toString(),
+                    tests: testProps,
+                    status: res.status,
+                    time: new Date().toLocaleString(),
+                    auth: { headers: auth.headers, params: auth.params },
+                },
+            ]);
             setProcessing(false);
         } catch (error) {
             console.log(error);
@@ -58,20 +72,21 @@ export default function UrlInput() {
                 isFinished: true,
             });
             setProcessing(false);
+            setHistory(prev => [
+                ...prev,
+                {
+                    params: paramsObject,
+                    body: postBodyObject,
+                    headers: headersObject,
+                    url: entries.baseURL.toString(),
+                    method: entries.method.toString(),
+                    tests: testProps,
+                    status: error.response.status,
+                    time: new Date().toLocaleString(),
+                    auth: { headers: auth.headers, params: auth.params },
+                },
+            ]);
         }
-        setHistory(prev => [
-            ...prev,
-            {
-                params: paramsObject,
-                body: postBodyObject,
-                headers: headersObject,
-                url: entries.baseURL.toString(),
-                method: entries.method.toString(),
-                tests: testProps,
-                time: new Date().toLocaleString(),
-                auth: { headers: auth.headers, params: auth.params },
-            },
-        ]);
     }
     useEffect(() => {
         handleInput();

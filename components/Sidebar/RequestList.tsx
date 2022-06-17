@@ -6,10 +6,7 @@ import { HistoryType } from "../../utils/HistorySaver";
 import { useApiData } from "../../utils/ApiData";
 
 export default function RequestList({ history }: { history: HistoryType }) {
-    const body = usePostBody();
     const urlData = useUrlData();
-    const test = useTest();
-    const apiData = useApiData();
     const historySaver = useHistorySaver();
 
     function handleClick() {
@@ -19,8 +16,13 @@ export default function RequestList({ history }: { history: HistoryType }) {
             url: history.url,
             method: history.method,
         }));
-        body.setObject(history.body);
         historySaver.setDefaultObject(history);
+    }
+
+    function handleRemove(id: string) {
+        let { object: data } = historySaver;
+        let newData = data.filter(h => h.time !== id);
+        historySaver.setObject(newData);
     }
 
     // useEffect(() => {
@@ -29,9 +31,18 @@ export default function RequestList({ history }: { history: HistoryType }) {
 
     return (
         <li onClick={handleClick} title={history.time}>
-            <span>{history.method}</span>
+            <span className={history.status > 400 ? "error" : ""}>
+                {history.method}
+            </span>
             <h4>{history.url}</h4>
-            <button type="button">&times;</button>
+            <button
+                type="button"
+                onClick={e => {
+                    e.stopPropagation();
+                    handleRemove(history.time);
+                }}>
+                &times;
+            </button>
         </li>
     );
 }
