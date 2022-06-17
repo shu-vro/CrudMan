@@ -13,20 +13,20 @@ export function stringToRegex(s: string): RegExp {
 export function getValueFromResponse(o: any[] | object, v: string) {
     return Array.of(o)
         .flat(Infinity)
-        .map((el) => {
-            return el[v];
+        .map(el => {
+            return el[v] || undefined;
         })
-        .filter((el) => el);
+        .filter(el => el);
 }
 
 export function checkRegexKeyInResponse(o: any[] | object, r: RegExp) {
     return Array.of(o)
         .flat(Infinity)
-        .map((el) => {
+        .map(el => {
             return Boolean(Object.keys(el).toString().match(r));
         })
-        .filter((el) => el)
-        .some((el) => el);
+        .filter(el => el)
+        .some(el => el);
 }
 
 export { ApiDataContext } from "./ApiData";

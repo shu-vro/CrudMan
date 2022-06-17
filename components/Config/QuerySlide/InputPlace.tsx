@@ -6,10 +6,10 @@ export default function InputPlace({
     placeHolderNames,
     defaultValue,
     removeField,
-    defaultChecked,
+    defaultChecked = false,
 }) {
     const [key, setKey] = useState("");
-    const [hasInput, setHasInput] = useState(defaultChecked || false);
+    const [hasInput, setHasInput] = useState(defaultChecked);
     const inputPlaceRef = useRef(null);
 
     return (

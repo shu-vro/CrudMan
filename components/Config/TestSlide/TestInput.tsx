@@ -42,6 +42,9 @@ export default function TestInput({
                 optionDefaultValue={
                     entry.section === "" ? entry.key : entry.section
                 }
+                isInputDisabled={
+                    !["Headers", "Json-Query"].includes(entry.section)
+                }
             />
             <select name="operation" defaultValue={entry.operation}>
                 <option value="equals to">Equal</option>
@@ -62,7 +65,7 @@ export default function TestInput({
             />
             <button
                 type="button"
-                onClick={e => {
+                onClick={() => {
                     removeField(keyName);
                     setTimeout(() => {
                         (formRef.current as HTMLFormElement).dispatchEvent(
