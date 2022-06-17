@@ -101,6 +101,13 @@ export default function TestSlide() {
         } else {
             setFields([{ id: v4(), entry: {} }]);
         }
+        setTimeout(() => {
+            formRef.current?.dispatchEvent(
+                new Event("input", {
+                    bubbles: true,
+                })
+            );
+        }, 500);
     }, [historySaver.defaultObject]);
 
     return (

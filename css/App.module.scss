@@ -338,6 +338,11 @@ $container-height: calc(100vh - $height - 1px);
 
                     span:nth-child(1) {
                         color: #6cff6c;
+                        font-weight: bold;
+
+                        &[class="error"] {
+                            color: red;
+                        }
                     }
                     h4 {
                         width: 80%;

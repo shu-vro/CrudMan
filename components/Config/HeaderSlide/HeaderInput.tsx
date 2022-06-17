@@ -44,13 +44,11 @@ export default function HeaderInput({
                 type="button"
                 onClick={() => {
                     removeField(keyName);
-                    setTimeout(() => {
-                        formRef.current.dispatchEvent(
-                            new Event("input", {
-                                bubbles: true,
-                            })
-                        );
-                    }, 500);
+                    formRef.current.dispatchEvent(
+                        new Event("input", {
+                            bubbles: true,
+                        })
+                    );
                 }}>
                 &times;
             </button>

@@ -5,11 +5,7 @@ import Histories from "./Histories";
 export default function Sidebar() {
     const sidebarRef = useRef(null);
     return (
-        <div
-            className={`${styles.sidebar} ${
-                process.env.NODE_ENV === "production" ? "inactive" : ""
-            }`}
-            ref={sidebarRef}>
+        <div className={`${styles.sidebar} inactive`} ref={sidebarRef}>
             <button
                 type="button"
                 className="closeButton"
