@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePostBody } from "../../../utils/Body";
+import { useHistorySaver } from "../../../utils/HistorySaver";
 import dynamic from "next/dynamic";
 import { useTheme } from "../../../utils/Theme";
 
@@ -21,6 +22,7 @@ const AceEditor = dynamic(
 
 export default function BodySlide() {
     const { value: theme } = useTheme();
+    const historySaver = useHistorySaver();
     const [annotations, setAnnotations] = useState([]);
     let postBody = usePostBody();
     const [postBodyCopy, setPostBodyCopy] = useState(
@@ -34,6 +36,12 @@ export default function BodySlide() {
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [postBody]);
+
+    useEffect(() => {
+        setPostBodyCopy(JSON.stringify(historySaver.defaultObject.body));
+        postBody.setObject(historySaver.defaultObject.body);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [historySaver.defaultObject]);
 
     return (
         <div className="slide Body">
@@ -55,8 +63,7 @@ export default function BodySlide() {
                     try {
                         let result = JSON.parse(value);
                         setAnnotations([]);
-                        let setObject = postBody.setObject;
-                        setObject(result);
+                        postBody.setObject(result);
                     } catch (error) {
                         setAnnotations(prev => {
                             let o = {

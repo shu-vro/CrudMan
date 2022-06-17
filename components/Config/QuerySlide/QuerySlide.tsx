@@ -73,6 +73,13 @@ export default function QuerySlide() {
         } else {
             setFields([{ id: v4(), entry: ["", ""] }]);
         }
+        setTimeout(() => {
+            formRef.current?.dispatchEvent(
+                new Event("input", {
+                    bubbles: true,
+                })
+            );
+        }, 500);
     }, [historySaver.defaultObject]);
 
     useEffect(() => {

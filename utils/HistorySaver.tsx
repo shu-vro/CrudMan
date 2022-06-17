@@ -19,6 +19,7 @@ export type HistoryType = {
         params: object;
     };
     time: string;
+    status: string | number;
 };
 type ArrayHistoryType = Array<HistoryType>;
 type normalParams = {
@@ -51,6 +52,7 @@ export function HistoryContext({ children }) {
             headers: {},
             params: {},
         },
+        status: 0,
     });
     return (
         <Context.Provider
