@@ -40,7 +40,6 @@ export default function BodySlide() {
     useEffect(() => {
         setPostBodyCopy(JSON.stringify(historySaver.defaultObject.body));
         postBody.setObject(historySaver.defaultObject.body);
-        console.log("hi");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [historySaver.defaultObject]);
 
