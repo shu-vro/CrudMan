@@ -7,12 +7,12 @@ export default function BearerSlide() {
     useEffect(() => {
         let methodFromAuthSlide: string = "bearer";
         const form: HTMLFormElement = formRef.current;
-        form.addEventListener("input", (e) => {
+        form.addEventListener("input", e => {
             e.preventDefault();
             let formData = new FormData(form);
             let token = formData.get("bearer_token");
             if (token === "")
-                return setObject((prev) => {
+                return setObject(prev => {
                     return {
                         ...prev,
                         headers: {},
@@ -22,7 +22,7 @@ export default function BearerSlide() {
                     };
                 });
             let Authorization = `${methodFromAuthSlide} ${token}`;
-            setObject((prev) => {
+            setObject(prev => {
                 return {
                     ...prev,
                     headers: { Authorization },
@@ -35,14 +35,13 @@ export default function BearerSlide() {
     }, [setObject]);
 
     return (
-        <form className="slide Bearer" ref={formRef}>
+        <form className="slide authSlide Bearer" ref={formRef}>
             <h3>Bearer Token</h3>
             <textarea
                 name="bearer_token"
                 id="bearer_token"
                 cols={40}
-                rows={10}
-            ></textarea>
+                rows={10}></textarea>
         </form>
     );
 }

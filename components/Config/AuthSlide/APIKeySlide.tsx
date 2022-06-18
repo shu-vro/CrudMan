@@ -10,7 +10,7 @@ export default function APIKeySlide() {
     useEffect(() => {
         let methodFromAuthSlide: string = "APIKey";
         const form: HTMLFormElement = formRef.current;
-        form.addEventListener("input", (e) => {
+        form.addEventListener("input", e => {
             e.preventDefault();
             let formData = new FormData(form);
             let key = formData.get("api_access_key");
@@ -24,7 +24,7 @@ export default function APIKeySlide() {
                     methodFromAuthSlide: "",
                 });
             if (checkbox === "on") {
-                setObject((prev) => {
+                setObject(prev => {
                     return {
                         ...prev,
                         headers: {},
@@ -34,7 +34,7 @@ export default function APIKeySlide() {
                     };
                 });
             } else {
-                setObject((prev) => {
+                setObject(prev => {
                     return {
                         ...prev,
                         headers: { [key as string]: value },
@@ -48,7 +48,7 @@ export default function APIKeySlide() {
     }, [setObject, setParams]);
     let id = useId();
     return (
-        <form className="slide APIKey" ref={formRef}>
+        <form className="slide authSlide APIKey" ref={formRef}>
             <h3>Basic Authentication</h3>
             <label htmlFor={id}>Include in Query</label>
             <input
