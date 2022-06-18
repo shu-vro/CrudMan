@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useHistorySaver } from "../../utils/HistorySaver";
+import { useHistorySaver } from "@utils/HistorySaver";
 import RequestList from "./RequestList";
 
 export default function Histories() {

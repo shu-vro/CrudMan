@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import styles from "../css/App.module.scss";
+import styles from "@styles/App.module.scss";
 
 export default function CommonSliderAssets({
     children,
@@ -19,7 +19,7 @@ export default function CommonSliderAssets({
 
         listsEl.forEach((list: HTMLLIElement) => {
             list.addEventListener("click", () => {
-                listsEl.forEach((l) => {
+                listsEl.forEach(l => {
                     l.classList.remove("selected");
                 });
                 list.classList.add("selected");
@@ -40,8 +40,7 @@ export default function CommonSliderAssets({
                     <li
                         className={li === defaultCheck ? "selected" : ""}
                         key={i}
-                        data-text={li}
-                    >
+                        data-text={li}>
                         <button type="button">{li}</button>
                         {listBullets[i] > 0 && <span>{listBullets[i]}</span>}
                     </li>

@@ -1,14 +1,14 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import styles from "../../css/App.module.scss";
-import { useApiData } from "../../utils/ApiData";
-import { useHeaders } from "../../utils/Headers";
-import { useAuth } from "../../utils/Auth";
-import { useParams } from "../../utils/Params";
-import { usePostBody } from "../../utils/Body";
-import { useUrlData } from "../../utils/UrlData";
-import { useHistorySaver } from "../../utils/HistorySaver";
+import styles from "@styles/App.module.scss";
+import { useApiData } from "@utils/ApiData";
+import { useHeaders } from "@utils/Headers";
+import { useAuth } from "@utils/Auth";
+import { useParams } from "@utils/Params";
+import { usePostBody } from "@utils/Body";
+import { useUrlData } from "@utils/UrlData";
+import { useHistorySaver } from "@utils/HistorySaver";
 import axios from "axios";
-import { useTest } from "../../utils/Test";
+import { useTest } from "@utils/Test";
 
 export default function UrlInput() {
     let { setObject } = useApiData();

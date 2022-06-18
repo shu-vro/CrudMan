@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
-import { useTest } from "../../../utils/Test";
+import { useTest } from "@utils/Test";
 import TestInput from "./TestInput";
-import { useHistorySaver } from "../../../utils/HistorySaver";
+import { useHistorySaver } from "@utils/HistorySaver";
 
 export default function TestSlide() {
     const formRef = useRef(null);

@@ -1,13 +1,3 @@
-// import { ParamContext } from "../utils/Params";
-// import { HeaderContext } from "../utils/Headers";
-// import { PostBodyContext } from "../utils/Body";
-// import { ApiDataContext } from "../utils/ApiData";
-// import { UrlDataContext } from "../utils/UrlData";
-// import { ThemeContext } from "../utils/Theme";
-// import { TestContext } from "../utils/Test";
-// import { CodeContext } from "../utils/Code";
-// import { AuthContext } from "../utils/Auth";
-// import { HistoryContext } from "../utils/HistorySaver";
 import {
     ApiDataContext,
     AuthContext,
@@ -19,7 +9,7 @@ import {
     TestContext,
     ThemeContext,
     UrlDataContext,
-} from "../utils/utils";
+} from "@utils/utils";
 import React from "react";
 
 export default function Wrapper({ children }) {

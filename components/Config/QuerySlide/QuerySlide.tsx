@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
-import { useHistorySaver } from "../../../utils/HistorySaver";
-import { useParams } from "../../../utils/Params";
-import { useUrlData } from "../../../utils/UrlData";
+import { useHistorySaver } from "@utils/HistorySaver";
+import { useParams } from "@utils/Params";
+import { useUrlData } from "@utils/UrlData";
 import InputPlace from "./InputPlace";
 
 export default function QuerySlide() {

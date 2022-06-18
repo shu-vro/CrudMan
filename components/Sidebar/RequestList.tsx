@@ -1,9 +1,6 @@
-import { usePostBody } from "../../utils/Body";
-import { useTest } from "../../utils/Test";
 import { useUrlData } from "../../utils/UrlData";
 import { useHistorySaver } from "../../utils/HistorySaver";
 import { HistoryType } from "../../utils/HistorySaver";
-import { useApiData } from "../../utils/ApiData";
 
 export default function RequestList({ history }: { history: HistoryType }) {
     const urlData = useUrlData();

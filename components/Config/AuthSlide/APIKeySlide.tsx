@@ -1,7 +1,7 @@
 import { useEffect, useRef, useId } from "react";
 import { InputAuth } from ".";
-import { useAuth } from "../../../utils/Auth";
-import { useParams } from "../../../utils/Params";
+import { useAuth } from "@utils/Auth";
+import { useParams } from "@utils/Params";
 
 export default function APIKeySlide() {
     const formRef = useRef(null);

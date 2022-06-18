@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { usePostBody } from "../../../utils/Body";
-import { useHistorySaver } from "../../../utils/HistorySaver";
+import { usePostBody } from "@utils/Body";
+import { useHistorySaver } from "@utils/HistorySaver";
 import dynamic from "next/dynamic";
-import { useTheme } from "../../../utils/Theme";
+import { useTheme } from "@utils/Theme";
 
 const AceEditor = dynamic(
     async () => {
