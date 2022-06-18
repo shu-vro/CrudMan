@@ -2,12 +2,11 @@
 
 ### Features added on last commit:
 
--   Added some functionalities in sidebar.
--   HistorySaver created and work properly.
--   Histories are saved in localStorage.
--   Histories synchronized with components.
--   Some new components are created for declaratively.
--   fixed #7
+-   History Saver is now Partially supported. OAuth2 slide is not supported yet.
+-   Fixed #21 Via [this pull](https://github.com/shu-vro/CrudMan/pull/22)
+-   fixed #14
+-   Added VS Code Path Trick w/ JavaScript
+-   Few bugs fixed
 
 ## Contributing
 
@@ -71,13 +70,8 @@ Please read the [CONTRIBUTING](./CONTRIBUTING.md) page for more info.
 │   │   └── Sidebar.tsx
 │   ├── Wrapper.tsx
 │   └── index.ts
-├── css
-│   ├── App.module.scss
-│   ├── globals.scss
-│   └── splitters.scss
 ├── image
 │   └── logo.svg
-├── jsconfig.json
 ├── next-env.d.ts
 ├── next.config.js
 ├── package-lock.json
@@ -121,6 +115,10 @@ Please read the [CONTRIBUTING](./CONTRIBUTING.md) page for more info.
 │   ├── workbox-74d02f44.js
 │   ├── workbox-74d02f44.js.map
 │   └── worker-development.js
+├── styles
+│   ├── App.module.scss
+│   ├── globals.scss
+│   └── splitters.scss
 ├── target
 │   └── npmlist.json
 ├── tsconfig.json
@@ -143,4 +141,6 @@ Please read the [CONTRIBUTING](./CONTRIBUTING.md) page for more info.
 │   └── utils.ts
 └── worker
     └── index.js
+
+24 directories, 101 files
 ```

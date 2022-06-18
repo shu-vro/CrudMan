@@ -11,7 +11,6 @@ export default function QuerySlide() {
     let urlData = useUrlData();
     let historySaver = useHistorySaver();
     const [props, setProps] = useState({});
-    // const [urlDataParams, setUrlDataParams] = useState([]);
 
     type FieldsType = Array<{
         id: string;
@@ -29,10 +28,6 @@ export default function QuerySlide() {
     function removeField(keyName: string) {
         setFields(prev => prev.filter(field => field.id !== keyName));
     }
-
-    // useEffect(() => {
-    //     setUrlDataParams(Object.entries(urlData.object.urlParams));
-    // }, [urlData]);
 
     /*
     These lines should be in historySaver file, but due to bugs, we are migrating these codes in here!

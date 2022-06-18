@@ -58,6 +58,7 @@ export default function UrlInput() {
                     status: res.status,
                     time: new Date().toLocaleString(),
                     auth: { headers: auth.headers, params: auth.params },
+                    authMethod: auth.methodFromAuthSlide,
                 },
             ]);
             setProcessing(false);
@@ -84,6 +85,7 @@ export default function UrlInput() {
                     status: error.response.status,
                     time: new Date().toLocaleString(),
                     auth: { headers: auth.headers, params: auth.params },
+                    authMethod: auth.methodFromAuthSlide,
                 },
             ]);
         }
