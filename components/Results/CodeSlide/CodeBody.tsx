@@ -22,13 +22,13 @@ const AceEditor = dynamic(
 );
 
 import { useState, useEffect } from "react";
-import { useTheme } from "../../../utils/Theme";
-import { useCode } from "../../../utils/Code";
-import { useParams } from "../../../utils/Params";
-import { useHeaders } from "../../../utils/Headers";
-import { useAuth } from "../../../utils/Auth";
-import { useUrlData } from "../../../utils/UrlData";
-import { usePostBody } from "../../../utils/Body";
+import { useTheme } from "@utils/Theme";
+import { useCode } from "@utils/Code";
+import { useParams } from "@utils/Params";
+import { useHeaders } from "@utils/Headers";
+import { useAuth } from "@utils/Auth";
+import { useUrlData } from "@utils/UrlData";
+import { usePostBody } from "@utils/Body";
 
 export default function CodeBody() {
     const { selectCode, setObject } = useCode();

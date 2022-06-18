@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import styles from "../../css/App.module.scss";
+import styles from "@styles/App.module.scss";
 
 declare module "react" {
     interface TableHTMLAttributes<T> {
@@ -35,8 +35,7 @@ export default function Table({ content, header = [], testing = false }) {
                                                 value === "passed"
                                                     ? "green"
                                                     : "red",
-                                        }}
-                                    >
+                                        }}>
                                         {value}
                                     </span>
                                 </td>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useApiData } from "../../utils/ApiData";
-import { useTest } from "../../utils/Test";
+import { useApiData } from "@utils/ApiData";
+import { useTest } from "@utils/Test";
 import CommonSliderAssets from "../CommonSliderAssets";
 import Table from "./Table";
 import StatusBar from "./StatusBar";
 import TestResults from "./TestResults/TestResults";
 import Code from "./CodeSlide/Code";
-import styles from "../../css/App.module.scss";
+import styles from "@styles/App.module.scss";
 import { Response } from "./index";
 
 export default function Results() {

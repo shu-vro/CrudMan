@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useTheme } from "../../../utils/Theme";
+import { useTheme } from "@utils/Theme";
 import Loader from "../Loader";
 
 const AceEditor = dynamic(

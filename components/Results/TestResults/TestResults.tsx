@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import { useTest } from "../../../utils/Test";
-import { useApiData } from "../../../utils/ApiData";
-import { stringToRegex, checkRegexKeyInResponse } from "../../../utils/utils";
+import { useTest } from "@utils/Test";
+import { useApiData } from "@utils/ApiData";
+import { stringToRegex, checkRegexKeyInResponse } from "@utils/utils";
 
 export default function TestResults() {
     const [tests, setTests] = useState({});
