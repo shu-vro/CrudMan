@@ -39,12 +39,8 @@ export default function BasicSlide() {
         });
     }, [setObject]);
 
-    // useEffect(() => {
-    //     console.log(auth);
-    // }, [auth]);
-
     return (
-        <form className="slide Basic" ref={formRef}>
+        <form className="slide authSlide Basic" ref={formRef}>
             <h3>Basic Authentication</h3>
             <InputAuth
                 FieldName="Username"
