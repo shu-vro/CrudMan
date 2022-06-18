@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@utils/Auth";
+import { useHistorySaver } from "@utils/HistorySaver";
 import {
     NoneSlide,
     BasicSlide,
@@ -10,8 +11,28 @@ import {
 
 export default function AuthSlide() {
     const auth = useAuth();
+    const selectRef = useRef(null);
+    const historySaver = useHistorySaver();
     let lists = ["None", "Basic", "Bearer", "APIKey", "OAuth2"];
     const [component, setComponent] = useState(null);
+
+    useEffect(() => {
+        (selectRef.current as HTMLSelectElement).selectedIndex =
+            lists.findIndex(
+                e =>
+                    e.toLowerCase() ===
+                    historySaver.defaultObject.authMethod.toLowerCase()
+            );
+
+        setTimeout(() => {
+            selectRef.current?.dispatchEvent(
+                new Event("change", {
+                    bubbles: true,
+                })
+            );
+        }, 100);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [historySaver.defaultObject]);
 
     function handleOptionChange(e: React.ChangeEvent<HTMLSelectElement>) {
         if (e.target.value === "Basic") {
@@ -43,6 +64,7 @@ export default function AuthSlide() {
                 className="select-transparent"
                 style={{ margin: "0 20px", display: "inline-block" }}
                 defaultValue={lists[0]}
+                ref={selectRef}
                 onChange={handleOptionChange}>
                 {lists.map((li: string, i: number) => (
                     <option key={i} value={li}>

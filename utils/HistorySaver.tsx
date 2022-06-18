@@ -20,6 +20,7 @@ export type HistoryType = {
     };
     time: string;
     status: string | number;
+    authMethod: string;
 };
 type ArrayHistoryType = Array<HistoryType>;
 type normalParams = {
@@ -53,6 +54,7 @@ export function HistoryContext({ children }) {
             params: {},
         },
         status: 0,
+        authMethod: "None",
     });
     return (
         <Context.Provider
