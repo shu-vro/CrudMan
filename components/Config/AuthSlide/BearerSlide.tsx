@@ -1,9 +1,33 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@utils/Auth";
+import { useHistorySaver } from "@utils/HistorySaver";
 
 export default function BearerSlide() {
     const formRef = useRef(null);
     const { setObject } = useAuth();
+    const historySaver = useHistorySaver();
+    const [defaultValue, setDefaultValue] = useState("");
+
+    useEffect(() => {
+        if (historySaver.defaultObject.authMethod !== "bearer") return;
+        if (
+            Object.entries(historySaver.defaultObject.auth.headers).length > 0
+        ) {
+            let [[_, b]] = Object.entries(
+                historySaver.defaultObject.auth.headers
+            );
+            setDefaultValue(b.replace("bearer ", ""));
+        } else {
+            setDefaultValue("");
+        }
+
+        formRef.current?.dispatchEvent(
+            new Event("input", {
+                bubbles: true,
+            })
+        );
+    }, [historySaver.defaultObject]);
+
     useEffect(() => {
         let methodFromAuthSlide: string = "bearer";
         const form: HTMLFormElement = formRef.current;
@@ -41,7 +65,8 @@ export default function BearerSlide() {
                 name="bearer_token"
                 id="bearer_token"
                 cols={40}
-                rows={10}></textarea>
+                rows={10}
+                defaultValue={defaultValue}></textarea>
         </form>
     );
 }
