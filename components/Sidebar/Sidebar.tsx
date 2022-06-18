@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import styles from "../../css/App.module.scss";
+import styles from "@styles/App.module.scss";
 import Histories from "./Histories";
 
 export default function Sidebar() {

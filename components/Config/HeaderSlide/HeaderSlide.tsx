@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
-import { useHeaders } from "../../../utils/Headers";
+import { useHeaders } from "@utils/Headers";
 import HeaderInput from "./HeaderInput";
-import { useHistorySaver } from "../../../utils/HistorySaver";
+import { useHistorySaver } from "@utils/HistorySaver";
 
 export default function QuerySlide() {
     const formRef = useRef(null);

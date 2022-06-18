@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import allHeaders from "../../../utils/data.json";
+import allHeaders from "@utils/data.json";
 
 export default function SelectButton({
     setSectionValueParent,

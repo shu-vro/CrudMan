@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useAuth } from "../../../utils/Auth";
+import { useAuth } from "@utils/Auth";
 
 export default function BearerSlide() {
     const formRef = useRef(null);

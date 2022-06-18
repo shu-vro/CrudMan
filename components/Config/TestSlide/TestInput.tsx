@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import SelectButton from "./SelectButton";
 import SelectButtonValue from "./SelectButtonValue";
-import mimes from "../../../utils/mime.json";
-import statuses from "../../../utils/status.json";
+import mimes from "@utils/mime.json";
+import statuses from "@utils/status.json";
 
 export default function TestInput({
     formRef,

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { InputAuth } from ".";
-import { useAuth } from "../../../utils/Auth";
+import { useAuth } from "@utils/Auth";
 
 export default function BasicSlide() {
     const formRef = useRef(null);

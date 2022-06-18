@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import SelectHeaderButton from "./SelectHeaderButton";
-import allHeaders from "../../../utils/data.json";
+import allHeaders from "@utils/data.json";
 
 export default function HeaderInput({
     formRef,

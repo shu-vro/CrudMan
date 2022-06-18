@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import styles from "../../css/App.module.scss";
+import styles from "@styles/App.module.scss";
 import UrlInput from "./UrlInput";
 import { QuerySlide, HeaderSlide, AuthSlide, BodySlide, TestSlide } from ".";
 import CommonSliderAssets from "../CommonSliderAssets";
-import { useParams } from "../../utils/Params";
-import { useHeaders } from "../../utils/Headers";
-import { useTest } from "../../utils/Test";
-import { useAuth } from "../../utils/Auth";
+import { useParams } from "@utils/Params";
+import { useHeaders } from "@utils/Headers";
+import { useTest } from "@utils/Test";
+import { useAuth } from "@utils/Auth";
 
 export default function Config() {
     return (
