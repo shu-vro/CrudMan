@@ -5,7 +5,7 @@ export default function OAuth2Slide() {
     const formRef = useRef(null);
 
     return (
-        <form className="slide OAuth2" ref={formRef}>
+        <form className="slide authSlide OAuth2" ref={formRef}>
             <h3>OAuth 2 Authentication</h3>
             <InputAuth FieldName="Access Token" name="oauth_access_token" />
             <InputAuth
@@ -18,14 +18,12 @@ export default function OAuth2Slide() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                }}
-            >
+                }}>
                 <label htmlFor="oauth_grant_type">Grant Type</label>
                 <select
                     name="oauth_grant_type"
                     id="oauth_grant_type"
-                    className="select-transparent"
-                >
+                    className="select-transparent">
                     <option value="code">Authorization Code</option>
                     <option value="code">Client Credentials</option>
                     <option value="code">Password Credentials</option>
@@ -47,14 +45,12 @@ export default function OAuth2Slide() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
-                }}
-            >
+                }}>
                 <label htmlFor="oauth_send_auth">Send Auth</label>
                 <select
                     name="oauth_send_auth"
                     id="oauth_send_auth"
-                    className="select-transparent"
-                >
+                    className="select-transparent">
                     <option value="code">As Auth Header</option>
                     <option value="code">As Request Body</option>
                 </select>
@@ -63,8 +59,7 @@ export default function OAuth2Slide() {
                 className="add-row-button"
                 style={{
                     margin: "20px auto",
-                }}
-            >
+                }}>
                 Generate Token
             </button>
         </form>
