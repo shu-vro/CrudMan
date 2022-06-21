@@ -1,14 +1,17 @@
 $height: 60px;
 $container-height: calc(100vh - $height - 1px);
+@mixin space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .nav {
     width: 100%;
     height: $height;
     background: var(--navbar-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 1px solid var(--thin-border-color);
+    @include space-between();
 
     div:nth-child(1) {
         color: white;
@@ -39,16 +42,24 @@ $container-height: calc(100vh - $height - 1px);
         }
     }
 
-    button {
-        font-size: 40px;
-        transform: scaleX(1.5);
-        padding: 0;
-        background: transparent;
-        color: inherit;
-        border: none;
-        outline: none;
-        margin-right: 30px;
-        cursor: pointer;
+    div[class="button-section"] {
+        @include space-between();
+        button {
+            font-size: 40px;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            border: none;
+            outline: none;
+            margin-right: 30px;
+            cursor: pointer;
+
+            &[class="nav-button"] {
+                transform: scaleX(1.5);
+                font-size: 40px;
+                fill: var(--general-text-color);
+            }
+        }
     }
 }
 
@@ -330,9 +341,7 @@ $container-height: calc(100vh - $height - 1px);
                 li {
                     position: relative;
                     list-style: none;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    @include space-between();
                     flex-direction: row;
                     cursor: pointer;
 

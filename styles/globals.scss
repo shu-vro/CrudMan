@@ -31,6 +31,10 @@ body {
     accent-color: var(--blue-color);
 }
 
+* {
+    transition: background 0.3s 0s linear;
+}
+
 body.light {
     --navbar-color: #c1c1c1f5;
     --background-color: #d1d1d1;
