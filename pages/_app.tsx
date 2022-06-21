@@ -35,34 +35,29 @@ function MyApp({ Component, pageProps }) {
                 />
                 <meta name="theme-color" content="#151619" />
 
-                <link rel="apple-touch-icon" href="/icons/icon-72x72.png" />
+                <link rel="apple-touch-icon" href="/icons/icon_x72.png" />
                 <link
                     rel="apple-touch-icon"
                     sizes="152x152"
-                    href="/icons/icon-152x152.png"
+                    href="/icons/icon_x152.png"
                 />
                 <link
                     rel="apple-touch-icon"
-                    sizes="180x180"
-                    href="/icons/icon-192x192.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="167x167"
-                    href="/icons/icon-152x152.png"
+                    sizes="192x192"
+                    href="/icons/icon_x192.png"
                 />
 
                 <link
                     rel="icon"
                     type="image/png"
                     sizes="32x32"
-                    href="/icons/icon-32x32.png"
+                    href="/icons/icon_x32.png"
                 />
                 <link
                     rel="icon"
                     type="image/png"
                     sizes="16x16"
-                    href="/icons/icon-16x16.png"
+                    href="/icons/icon_x16.png"
                 />
                 <link rel="manifest" href="/manifest.json" />
                 <link
@@ -80,7 +75,7 @@ function MyApp({ Component, pageProps }) {
                 />
                 <meta
                     name="twitter:image"
-                    content={`${myAppLocation}/icons/icon-192x192.png`}
+                    content={`${myAppLocation}/icons/icon_x192.png`}
                 />
                 <meta name="twitter:creator" content="@DavidWShadow" />
                 <meta property="og:type" content="website" />
@@ -93,7 +88,7 @@ function MyApp({ Component, pageProps }) {
                 <meta property="og:url" content={myAppLocation} />
                 <meta
                     property="og:image"
-                    content={`${myAppLocation}/icons/icon-192x192.png`}
+                    content={`${myAppLocation}/icons/icon_x192.png`}
                 />
                 <title>
                     CrudMan - An Online Ecosystem For Building And Testing
