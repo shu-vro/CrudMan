@@ -2,10 +2,7 @@
 
 ### Features added on last commit:
 
--   History Saver is now Partially supported. OAuth2 slide is not supported yet.
--   Fixed #21 Via [this pull](https://github.com/shu-vro/CrudMan/pull/22)
--   fixed #14
--   Added VS Code Path Trick w/ JavaScript
+-   Responsive Issue resolved for mobile devices.
 -   Few bugs fixed
 
 ## Contributing
