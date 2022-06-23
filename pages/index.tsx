@@ -4,42 +4,27 @@ import Splitter from "../plugins/Splitters";
 import { useEffect, useState } from "react";
 
 function App() {
-    const [vertical, setVertical] = useState({
-        state: true,
-        sizeX: 787,
-    });
+    const [vertical, setVertical] = useState(787);
+    const [toggleVertical, setToggleVertical] = useState(false);
     useEffect(() => {
-        setVertical({
-            state: true,
-            sizeX: window.innerWidth,
+        setVertical(window.innerWidth);
+
+        window.addEventListener("resize", () => {
+            setVertical(window.innerWidth);
         });
-        function handleEvent() {
-            if (window.matchMedia(`(max-width: 786px)`).matches) {
-                setVertical({
-                    state: false,
-                    sizeX: window.innerWidth,
-                });
-            } else {
-                setVertical({
-                    state: true,
-                    sizeX: window.innerWidth,
-                });
-            }
-        }
-        window.addEventListener("resize", handleEvent);
-        return window.removeEventListener("resize", handleEvent);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <Wrapper>
-            <Nav />
+            <Nav
+                setVertical={setVertical}
+                setToggleVertical={setToggleVertical}
+            />
             <Sidebar />
             <Splitter
                 position={
-                    vertical.state && vertical.sizeX > 786
-                        ? "vertical"
-                        : "horizontal"
+                    vertical > 786 && toggleVertical ? "vertical" : "horizontal"
                 }
                 primaryPaneWidth="50%"
                 primaryPaneMinWidth="30%"

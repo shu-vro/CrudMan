@@ -53,18 +53,13 @@ $container-height: calc(100vh - $height - 1px);
             outline: none;
             margin-right: 30px;
             cursor: pointer;
-
-            &[class="nav-button"] {
-                transform: scaleX(1.5);
-                font-size: 40px;
-                fill: var(--general-text-color);
-            }
         }
     }
-}
 
-.container {
     @media screen and (max-width: 786px) {
+        [class="vanish"] {
+            display: none;
+        }
     }
 }
 
