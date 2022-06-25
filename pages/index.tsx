@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 function App() {
     const [vertical, setVertical] = useState(787);
-    const [toggleVertical, setToggleVertical] = useState(false);
+    const [toggleVertical, setToggleVertical] = useState(true);
     useEffect(() => {
         setVertical(window.innerWidth);
 

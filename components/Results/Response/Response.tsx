@@ -13,7 +13,7 @@ const AceEditor = dynamic(
     },
     {
         ssr: false,
-        loading: () => <div>Loading editor...</div>,
+        loading: () => <Loader />,
     }
 );
 

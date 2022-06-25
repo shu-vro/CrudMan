@@ -3,6 +3,7 @@ import { usePostBody } from "@utils/Body";
 import { useHistorySaver } from "@utils/HistorySaver";
 import dynamic from "next/dynamic";
 import { useTheme } from "@utils/Theme";
+import Loader from "components/Results/Loader";
 
 const AceEditor = dynamic(
     async () => {
@@ -16,7 +17,7 @@ const AceEditor = dynamic(
     },
     {
         ssr: false,
-        loading: () => <div>Loading editor...</div>,
+        loading: () => <Loader />,
     }
 );
 

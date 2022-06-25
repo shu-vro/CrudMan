@@ -17,7 +17,7 @@ const AceEditor = dynamic(
     },
     {
         ssr: false,
-        loading: () => <div>Loading editor...</div>,
+        loading: () => <Loader />,
     }
 );
 
@@ -29,6 +29,7 @@ import { useHeaders } from "@utils/Headers";
 import { useAuth } from "@utils/Auth";
 import { useUrlData } from "@utils/UrlData";
 import { usePostBody } from "@utils/Body";
+import Loader from "../Loader";
 
 export default function CodeBody() {
     const { selectCode, setObject } = useCode();
