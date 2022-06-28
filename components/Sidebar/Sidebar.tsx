@@ -8,14 +8,14 @@ export default function Sidebar() {
         <div className={`${styles.sidebar} inactive`} ref={sidebarRef}>
             <button
                 type="button"
-                className="closeButton"
+                className={styles.closeButton}
                 onClick={() => {
                     sidebarRef.current.classList.add("inactive");
                 }}>
                 &times;
             </button>
-            <div className="sidebar-flex">
-                <div className="sidebar-buttons">
+            <div className={styles.sidebar_flex}>
+                <div className={styles.sidebar_buttons}>
                     <span>History</span>
                     <span>Environments</span>
                 </div>

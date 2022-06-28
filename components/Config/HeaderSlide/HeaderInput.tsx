@@ -29,9 +29,25 @@ export default function HeaderInput({
                 defaultValue={defaultValue?.[0]}
                 onInput={e => {
                     setKey((e.target as HTMLInputElement).value);
-                    if ((e.target as HTMLInputElement).value !== "")
+                    if ((e.target as HTMLInputElement).value !== "") {
                         setHasInput(true);
-                    else setHasInput(false);
+                        setTimeout(() => {
+                            formRef.current?.dispatchEvent(
+                                new Event("input", {
+                                    bubbles: true,
+                                })
+                            );
+                        }, 0);
+                    } else {
+                        setHasInput(false);
+                        setTimeout(() => {
+                            formRef.current?.dispatchEvent(
+                                new Event("input", {
+                                    bubbles: true,
+                                })
+                            );
+                        }, 0);
+                    }
                 }}
             />
             <input

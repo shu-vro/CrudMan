@@ -40,9 +40,13 @@ $container-height: calc(100vh - $height - 1px);
                 color: var(--blue-color);
             }
         }
+
+        @media screen and (max-width: 375px) {
+            margin-left: 20px;
+        }
     }
 
-    div[class="button-section"] {
+    .button_section {
         @include space-between();
         button {
             font-size: 40px;
@@ -228,7 +232,7 @@ $container-height: calc(100vh - $height - 1px);
     background: var(--background-color);
     z-index: 100;
 
-    div[class="loader-circle"] {
+    .loader_circle {
         $radius: 30px;
         width: $radius;
         height: $radius;
@@ -263,7 +267,7 @@ $container-height: calc(100vh - $height - 1px);
         right: calc(min(350px, 100%) * -1);
     }
 
-    button[class="closeButton"] {
+    button.closeButton {
         transform: "none";
         font-size: 50px;
         display: block;
@@ -290,7 +294,7 @@ $container-height: calc(100vh - $height - 1px);
         padding: 5px 10px;
     }
 
-    div[class="sidebar-flex"] {
+    .sidebar_flex {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -300,7 +304,7 @@ $container-height: calc(100vh - $height - 1px);
         border-left: 1px solid var(--thin-border-color);
         $left: 40px;
 
-        div[class="sidebar-buttons"] {
+        .sidebar_buttons {
             width: 40px;
 
             span {
@@ -322,13 +326,13 @@ $container-height: calc(100vh - $height - 1px);
             }
         }
 
-        div[class="histories"] {
+        .sidebar_histories {
             width: calc(100% - $left);
             height: 100%;
             overflow-x: hidden;
             overflow-y: auto;
             border-left: 1px solid var(--thin-border-color);
-            ul[class="list-requests"] {
+            ul.list_requests {
                 position: relative;
                 width: 100%;
                 padding: 0;

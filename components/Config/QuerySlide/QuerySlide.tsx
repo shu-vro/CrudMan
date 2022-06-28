@@ -116,14 +116,6 @@ export default function QuerySlide() {
                 id="config-query-slide"
                 ref={formRef}>
                 <h2>Query Parameters</h2>
-                {/* {urlDataParams.map(data => (
-                    <InputPlace
-                        key={data[0]}
-                        formRef={formRef}
-                        placeHolderNames={["parameter", "value"]}
-                        defaultValue={[data[0], data[1]]}
-                    />
-                ))} */}
                 {fields.map(field => (
                     <InputPlace
                         key={field.id}

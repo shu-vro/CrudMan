@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useHistorySaver } from "@utils/HistorySaver";
 import RequestList from "./RequestList";
+import styles from "@styles/App.module.scss";
 
 export default function Histories() {
     const listRequestRef = useRef(null);
@@ -20,9 +21,9 @@ export default function Histories() {
     }
 
     return (
-        <div className="histories">
+        <div className={styles.sidebar_histories}>
             <input type="search" onInput={handleSearch} placeholder="Search" />
-            <ul className="list-requests" ref={listRequestRef}>
+            <ul className={styles.list_requests} ref={listRequestRef}>
                 {history.object
                     .slice()
                     .reverse()

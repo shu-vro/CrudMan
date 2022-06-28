@@ -30,7 +30,7 @@ export default function Nav({ setVertical, setToggleVertical }) {
                     <span>MAN</span>
                 </h1>
             </div>
-            <div className="button-section">
+            <div className={styles.button_section}>
                 <button
                     type="button"
                     onClick={async () => {

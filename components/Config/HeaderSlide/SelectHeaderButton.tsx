@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import styles from "@styles/App.module.scss";
 
 export default function SelectHeaderButton({ allHeaders, ...rest }) {
     const [first, setFirst] = useState();
@@ -18,7 +19,7 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
             }, 500);
         });
 
-        input.addEventListener("input", (e) => {
+        input.addEventListener("input", e => {
             let value = input.value.toUpperCase();
             if (value === "") {
                 options.style.display = "none";
@@ -45,7 +46,7 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
                     interface eventInitDictParams {
                         bubbles: boolean;
                         target: {
-                            value: string,
+                            value: string;
                         };
                     }
                     let eventInitDict: eventInitDictParams = {
@@ -57,7 +58,7 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
                     td.textContent = block.dataset.text;
                     td.style.display = "block";
                     input.focus();
-                    blocks.forEach((b) => {
+                    blocks.forEach(b => {
                         b.classList.remove("block");
                     });
                 });
@@ -69,17 +70,16 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
         <div className="select-container">
             <input type="text" name={first} ref={inputRef} {...rest} />
             <div className="options" ref={optionsRef}>
-                {allHeaders.map((el) => (
+                {allHeaders.map(el => (
                     <div
                         key={el.label}
                         className="option"
-                        data-text={`${el.description}`}
-                    >
+                        data-text={`${el.description}`}>
                         {el.label}
                     </div>
                 ))}
             </div>
-            <div className="tooltip-description" ref={tdRef}></div>
+            <div className={styles.tooltip_description} ref={tdRef}></div>
         </div>
     );
 }

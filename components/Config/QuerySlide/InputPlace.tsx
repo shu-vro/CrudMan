@@ -26,9 +26,25 @@ export default function InputPlace({
                 placeholder={placeHolderNames[0]}
                 onInput={e => {
                     setKey((e.target as HTMLInputElement).value);
-                    if ((e.target as HTMLInputElement).value !== "")
+                    if ((e.target as HTMLInputElement).value !== "") {
                         setHasInput(true);
-                    else setHasInput(false);
+                        setTimeout(() => {
+                            formRef.current?.dispatchEvent(
+                                new Event("input", {
+                                    bubbles: true,
+                                })
+                            );
+                        }, 0);
+                    } else {
+                        setHasInput(false);
+                        setTimeout(() => {
+                            formRef.current?.dispatchEvent(
+                                new Event("input", {
+                                    bubbles: true,
+                                })
+                            );
+                        }, 0);
+                    }
                 }}
                 name={key}
                 defaultValue={defaultValue?.[0]}
