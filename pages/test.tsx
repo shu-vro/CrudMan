@@ -1,70 +1,31 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { v4 } from "uuid";
-
-var o: {
-    params: object;
-    setParams: React.Dispatch<React.SetStateAction<{}>>;
-} = {
-    params: {},
-    setParams: () => true,
-};
-const Context = createContext(o);
-
-function ContextProvider({ children }) {
-    const [params, setParams] = useState({});
-
-    useEffect(() => {
-        console.log(params);
-    }, [params]);
-    return (
-        <Context.Provider value={{ params, setParams }}>
-            {children}
-        </Context.Provider>
-    );
-}
+import React from "react";
 
 export default function Test() {
-    const [fields, setFields] = useState([v4()]);
-
-    return (
-        <ContextProvider>
-            <form>
-                {fields.map(e => {
-                    return <Input key={e} />;
-                })}
-                <button
-                    onClick={() => {
-                        setFields([...fields, v4()]);
-                    }}
-                    type="button">
-                    Click to add
-                </button>
-            </form>
-        </ContextProvider>
-    );
-}
-
-function Input() {
-    const [f, setF] = useState("");
-    const { params, setParams } = useContext(Context);
+    const d = React.useRef(null);
+    const [value, setValue] = React.useState("");
     return (
         <>
-            <input
-                type="text"
-                onChange={e => {
-                    setF(e.target.value);
-                    setParams({ [e.target.value]: [params[f]] });
+            <div
+                style={{
+                    WebkitUserModify: "read-write",
                 }}
-                value={params[f]}
-            />{" "}
-            <input
-                type="checkbox"
-                value={params[f]}
-                onChange={({ target }) => {
-                    setParams({ [f]: target.checked });
-                }}
-            />{" "}
-            <br />
+                ref={d}
+                spellCheck={false}
+                placeholder="Enter URL"
+                onInput={e => {
+                    let p = e.target as HTMLDivElement;
+                    let n = p.textContent.replaceAll(
+                        /{{.*\w}}/g,
+                        "<span class='env'>$&</span>"
+                    );
+                    p.innerHTML = n;
+                    setValue(p.textContent);
+                    setTimeout(() => {
+                        d.current.focus();
+                    }, 0);
+                }}>
+                Hello world!
+            </div>
         </>
     );
 }

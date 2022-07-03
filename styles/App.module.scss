@@ -91,6 +91,10 @@ $container-height: calc(100vh - $height - 1px);
     margin: 0;
     margin-top: 10px;
     padding: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
 
     & > * {
         margin: 0;
@@ -102,11 +106,11 @@ $container-height: calc(100vh - $height - 1px);
         background: var(--input-bg);
         font-family: "Montserrat", "Gill Sans", "Gill Sans MT", Calibri,
             "Trebuchet MS", sans-serif;
-        width: calc(100% - 135px);
         color: var(--theme);
         outline: none;
         border: none;
         padding: 0 10px;
+        flex-grow: 1;
 
         &:-webkit-autofill,
         &:-webkit-autofill:focus {
@@ -119,11 +123,10 @@ $container-height: calc(100vh - $height - 1px);
         color: var(--theme);
         border: none;
         outline: none;
-        height: 40px;
         font-size: 14px;
-        width: 52px;
         font-weight: bold;
         cursor: pointer;
+        padding: 0 10px;
         transition: 0.25s;
 
         &:hover {
@@ -132,7 +135,6 @@ $container-height: calc(100vh - $height - 1px);
 
         &:disabled {
             background: #a1a1a1;
-            cursor: default;
         }
     }
 
@@ -253,7 +255,7 @@ $container-height: calc(100vh - $height - 1px);
 }
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     height: 100%;
@@ -261,7 +263,8 @@ $container-height: calc(100vh - $height - 1px);
     background: var(--navbar-color);
     z-index: 100;
     font-size: 13px;
-    transition: right 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    overflow-x: hidden;
+    transition: right 0.3s 0s cubic-bezier(0.215, 0.61, 0.355, 1);
 
     &[class~="inactive"] {
         right: calc(min(350px, 100%) * -1);

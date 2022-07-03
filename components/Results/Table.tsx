@@ -1,17 +1,10 @@
 import { ReactNode } from "react";
 import styles from "@styles/App.module.scss";
 
-declare module "react" {
-    interface TableHTMLAttributes<T> {
-        rules?: string;
-        [propName: string]: any;
-    }
-}
-
 export default function Table({ content, header = [], testing = false }) {
     let object2Array: [string, ReactNode][] = Object.entries(content);
     return (
-        <table rules="all" frame="none" className={styles.table}>
+        <table rules="all" className={styles.table}>
             <thead>
                 <tr>
                     <th>{header[0]}</th>
