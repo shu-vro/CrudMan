@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "@styles/App.module.scss";
+import axios from "axios";
 import { useApiData } from "@utils/ApiData";
 import { useHeaders } from "@utils/Headers";
 import { useAuth } from "@utils/Auth";
@@ -7,7 +8,6 @@ import { useParams } from "@utils/Params";
 import { usePostBody } from "@utils/Body";
 import { useUrlData } from "@utils/UrlData";
 import { useHistorySaver } from "@utils/HistorySaver";
-import axios from "axios";
 import { useTest } from "@utils/Test";
 
 export default function UrlInput() {
@@ -19,77 +19,9 @@ export default function UrlInput() {
     let auth = useAuth();
     let { setObject: setHistory } = useHistorySaver();
     let { props: testProps } = useTest();
-    // const [headerCopy, setHeaderCopy] = useState({});
-    // const [paramsCopy, setParamsCopy] = useState({});
     const formRef = useRef(null);
+    const cancelControllerSource = useRef<any>();
     const [processing, setProcessing] = useState(false);
-
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        setProcessing(true);
-        let form = formRef.current;
-        let formData = new FormData(form);
-        let entries = Object.fromEntries(formData.entries());
-        setObject(prev => ({ ...prev, isFinished: false }));
-        // setObject((prev) => { second })
-
-        try {
-            let res = await axios.get("/api/headerParser", {
-                params: {
-                    params: { ...paramsObject, ...auth.params },
-                    headers: { ...headersObject, ...auth.headers },
-                    body: postBodyObject,
-                    url: entries.baseURL,
-                    method: entries.method,
-                },
-            });
-
-            res = res.data;
-            setObject({ ...res, isFinished: true });
-            setHistory(prev => [
-                ...prev,
-                {
-                    params: paramsObject,
-                    body: postBodyObject,
-                    headers: headersObject,
-                    url: entries.baseURL.toString(),
-                    method: entries.method.toString(),
-                    tests: testProps,
-                    status: res.status,
-                    time: new Date().toLocaleString(),
-                    auth: { headers: auth.headers, params: auth.params },
-                    authMethod: auth.methodFromAuthSlide,
-                },
-            ]);
-            setProcessing(false);
-        } catch (error) {
-            console.log(error);
-            setObject({
-                elapsedTime: 0,
-                data: { message: error.message },
-                headers: error.config.headers,
-                status: error.response.status,
-                statusText: error.response.statusText,
-                isFinished: true,
-            });
-            setProcessing(false);
-            setHistory(prev => [
-                ...prev,
-                {
-                    params: paramsObject,
-                    body: postBodyObject,
-                    headers: headersObject,
-                    url: entries.baseURL.toString(),
-                    method: entries.method.toString(),
-                    tests: testProps,
-                    status: error.response.status,
-                    time: new Date().toLocaleString(),
-                    auth: { headers: auth.headers, params: auth.params },
-                    authMethod: auth.methodFromAuthSlide,
-                },
-            ]);
-        }
-    }
     useEffect(() => {
         handleInput();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,6 +40,81 @@ export default function UrlInput() {
             url: baseURL.toString(),
             method: method.toString(),
         });
+    }
+
+    async function handleSubmit() {
+        setProcessing(true);
+        let form = formRef.current;
+        let formData = new FormData(form);
+        let entries = Object.fromEntries(formData.entries());
+        setObject(prev => ({ ...prev, isFinished: false }));
+
+        try {
+            cancelControllerSource.current = axios.CancelToken.source();
+            let { data: res } = await axios.get("/api/headerParser", {
+                cancelToken: cancelControllerSource.current.token,
+                params: {
+                    params: { ...paramsObject, ...auth.params },
+                    headers: { ...headersObject, ...auth.headers },
+                    body: postBodyObject,
+                    url: entries.baseURL,
+                    method: entries.method,
+                },
+            });
+
+            setObject({ ...res, isFinished: true });
+            setHistory(prev => [
+                ...prev,
+                {
+                    params: paramsObject,
+                    body: postBodyObject,
+                    headers: headersObject,
+                    url: entries.baseURL.toString(),
+                    method: entries.method.toString(),
+                    tests: testProps,
+                    status: res.status,
+                    time: new Date()
+                        .toISOString()
+                        .replace("T", " ")
+                        .replace("Z", ""),
+                    auth: { headers: auth.headers, params: auth.params },
+                    authMethod: auth.methodFromAuthSlide,
+                },
+            ]);
+            setProcessing(false);
+        } catch (error) {
+            console.log(error);
+            setObject({
+                elapsedTime: 0,
+                headers: error.config?.headers || {},
+                status: error.response?.status || 499,
+                statusText: error.response?.statusText || error.code,
+                isFinished: true,
+            });
+            setProcessing(false);
+            setHistory(prev => [
+                ...prev,
+                {
+                    params: paramsObject,
+                    body: postBodyObject,
+                    headers: headersObject,
+                    url: entries.baseURL.toString(),
+                    method: entries.method.toString(),
+                    tests: testProps,
+                    status: error.response?.status || 499,
+                    time: new Date()
+                        .toISOString()
+                        .replace("T", " ")
+                        .replace("Z", ""),
+                    auth: { headers: auth.headers, params: auth.params },
+                    authMethod: auth.methodFromAuthSlide,
+                },
+            ]);
+        }
+    }
+
+    function handleCancel() {
+        cancelControllerSource.current.cancel();
     }
 
     return (
@@ -134,9 +141,22 @@ export default function UrlInput() {
                 value={urlData.object.url}
                 onChange={() => true}
             />
-            <button type="submit" disabled={processing}>
-                Send
-            </button>
+            {processing ? (
+                <button
+                    type="button"
+                    disabled={!processing}
+                    className={styles.buttonDisabled}
+                    onClick={handleCancel}>
+                    Cancel
+                </button>
+            ) : (
+                <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={processing}>
+                    Send
+                </button>
+            )}
         </form>
     );
 }

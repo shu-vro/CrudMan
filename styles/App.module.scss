@@ -133,7 +133,7 @@ $container-height: calc(100vh - $height - 1px);
             background: var(--button-color-hover);
         }
 
-        &:disabled {
+        &.buttonDisabled {
             background: #a1a1a1;
         }
     }
