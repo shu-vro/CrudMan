@@ -96,7 +96,8 @@ export default function QuerySlide() {
             setProps({});
             for (let i = 0; i < inputPlace.length; i++) {
                 const place = inputPlace[i];
-                let isChecked = place.childNodes[0].checked;
+                let isChecked =
+                    place.childNodes[0].querySelector("input").checked;
                 if (isChecked !== true) continue;
                 let key = place.childNodes[1].value;
                 let value = place.childNodes[2].value;

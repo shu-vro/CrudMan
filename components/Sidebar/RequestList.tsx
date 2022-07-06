@@ -22,18 +22,19 @@ export default function RequestList({ history }: { history: HistoryType }) {
         historySaver.setObject(newData);
     }
 
-    // useEffect(() => {
-    //     console.log(params, body, test, headers, urlData, history);
-    // }, [params, body, test, headers, urlData, history]);
-
     return (
-        <li onClick={handleClick} title={history.time}>
-            <span className={history.status > 400 ? "error" : ""}>
+        <li onClick={handleClick}>
+            <span
+                className={`${
+                    Number(history.status) > 400 ? "error" : ""
+                } requestMethod`}>
                 {history.method}
             </span>
-            <h4>{history.url}</h4>
+            <h4 data-tip={history.time}>{history.url}</h4>
             <button
                 type="button"
+                data-tip="Delete"
+                data-place="left"
                 onClick={e => {
                     e.stopPropagation();
                     handleRemove(history.time);

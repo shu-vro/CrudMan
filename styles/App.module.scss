@@ -111,11 +111,6 @@ $container-height: calc(100vh - $height - 1px);
         border: none;
         padding: 0 10px;
         flex-grow: 1;
-
-        &:-webkit-autofill,
-        &:-webkit-autofill:focus {
-            transition: background-color 600000s 0s, color 600000s 0s;
-        }
     }
 
     & > button {
@@ -215,9 +210,38 @@ $container-height: calc(100vh - $height - 1px);
     margin: 0 auto;
 
     td {
+        position: relative;
         width: 50%;
         padding: 5px 20px;
         word-break: break-word;
+        overflow-x: hidden;
+
+        span:nth-child(1) {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 13px;
+        }
+
+        button {
+            position: absolute;
+            height: 19px;
+            top: 50%;
+            right: -25px;
+            transform: translateY(-50%);
+            outline: none;
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            transition: right 0.15s ease;
+        }
+
+        &:hover {
+            button {
+                right: 0px;
+            }
+        }
     }
 }
 
@@ -312,20 +336,20 @@ $container-height: calc(100vh - $height - 1px);
 
             span {
                 position: relative;
-                background: var(--slide-bg-color);
                 color: var(--general-text-color);
                 padding: 10px 5px;
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
                 border-radius: 5px;
+                border: none;
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-color: var(--thin-border-color);
                 outline: none;
                 display: block;
                 margin: 10px auto;
-                border: 2px solid var(--thin-border-color);
                 cursor: pointer;
-                writing-mode: vertical-rl;
                 text-align: center;
-                transform: rotate(180deg);
             }
         }
 
@@ -347,7 +371,7 @@ $container-height: calc(100vh - $height - 1px);
                     flex-direction: row;
                     cursor: pointer;
 
-                    span:nth-child(1) {
+                    span[class$="requestMethod"] {
                         color: #6cff6c;
                         font-weight: bold;
 

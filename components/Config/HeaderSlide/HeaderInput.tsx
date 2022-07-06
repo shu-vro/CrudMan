@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import SelectHeaderButton from "./SelectHeaderButton";
 import allHeaders from "@utils/data.json";
+import Checkbox from "components/Checkbox";
 
 export default function HeaderInput({
     formRef,
@@ -16,7 +17,7 @@ export default function HeaderInput({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input
+            <Checkbox
                 type="checkbox"
                 checked={hasInput}
                 onChange={() => {

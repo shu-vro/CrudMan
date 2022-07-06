@@ -8,6 +8,9 @@
 # testing
 /coverage
 pages/test.tsx
+**/*.cpuprofile
+**/*.heapprofile
+**/*.heapsnapshot
 
 # next.js
 /.next/

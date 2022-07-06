@@ -33,6 +33,7 @@ export default function Nav({ setVertical, setToggleVertical }) {
             <div className={styles.button_section}>
                 <button
                     type="button"
+                    data-tip="Install App"
                     onClick={async () => {
                         if (deferredPrompt !== null) {
                             deferredPrompt.prompt();
@@ -42,12 +43,12 @@ export default function Nav({ setVertical, setToggleVertical }) {
                             }
                         }
                     }}>
-                    <InstallSvg />
+                    {deferredPrompt && <InstallSvg />}
                 </button>
                 <button
                     type="button"
                     className="theme-button"
-                    title={`Toggle theme to ${
+                    data-tip={`Toggle theme to ${
                         themeManager.value === "light" ? "Dark" : "Light"
                     }`}
                     onClick={() => {
@@ -74,7 +75,7 @@ export default function Nav({ setVertical, setToggleVertical }) {
                 </button>
                 <button
                     type="button"
-                    title="Toggle Layout"
+                    data-tip="Toggle Layout"
                     className="vanish"
                     onClick={() => {
                         setToggleVertical(prev => !prev);

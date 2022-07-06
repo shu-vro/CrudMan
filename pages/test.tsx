@@ -1,8 +1,9 @@
 import React from "react";
 
 export default function Test() {
-    const d = React.useRef(null);
+    const d = React.useRef<HTMLDivElement>();
     const [value, setValue] = React.useState("");
+    let a = `{{hi}}`;
     return (
         <>
             <div
@@ -16,7 +17,7 @@ export default function Test() {
                     let p = e.target as HTMLDivElement;
                     let n = p.textContent.replaceAll(
                         /{{.*\w}}/g,
-                        "<span class='env'>$&</span>"
+                        "<mark>$&</mark>"
                     );
                     p.innerHTML = n;
                     setValue(p.textContent);
@@ -24,7 +25,7 @@ export default function Test() {
                         d.current.focus();
                     }, 0);
                 }}>
-                Hello world!
+                Hello world! {a}
             </div>
         </>
     );

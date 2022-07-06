@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Table from "../Table";
+import Table from "../Table/Table";
 import { useTest } from "@utils/Test";
 import { useApiData } from "@utils/ApiData";
 import { stringToRegex, checkRegexKeyInResponse } from "@utils/utils";

@@ -49,7 +49,8 @@ export default function TestSlide() {
 
             for (let i = 0; i < inputPlaces.length; i++) {
                 const place = inputPlaces[i];
-                let isPresent = place.childNodes[0].checked;
+                let isPresent =
+                    place.childNodes[0].querySelector("input").checked;
 
                 if (!isPresent) continue;
 

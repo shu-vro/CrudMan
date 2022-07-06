@@ -17,12 +17,13 @@ export default function AuthSlide() {
     const [component, setComponent] = useState(null);
 
     useEffect(() => {
+        let index = lists.findIndex(
+            e =>
+                e.toLowerCase() ===
+                historySaver.defaultObject.authMethod.toLowerCase()
+        );
         (selectRef.current as HTMLSelectElement).selectedIndex =
-            lists.findIndex(
-                e =>
-                    e.toLowerCase() ===
-                    historySaver.defaultObject.authMethod.toLowerCase()
-            );
+            index < 0 ? 0 : index;
 
         setTimeout(() => {
             selectRef.current?.dispatchEvent(

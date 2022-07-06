@@ -1,19 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "@styles/App.module.scss";
 
 export default function SelectHeaderButton({ allHeaders, ...rest }) {
-    const [first, setFirst] = useState();
     const inputRef = useRef();
     const optionsRef = useRef();
-    const tdRef = useRef();
+    const tipRef = useRef();
 
     useEffect(() => {
         let input: HTMLInputElement = inputRef.current;
         let options: HTMLDivElement = optionsRef.current;
-        let td: HTMLTableDataCellElement = tdRef.current;
+        let tip: HTMLTableDataCellElement = tipRef.current;
 
         input.addEventListener("blur", () => {
-            td.style.display = "none";
+            tip.style.display = "none";
             setTimeout(() => {
                 options.style.display = "none";
             }, 500);
@@ -55,8 +54,8 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
                     };
                     input.dispatchEvent(new Event("input", eventInitDict));
                     options.style.display = "none";
-                    td.textContent = block.dataset.text;
-                    td.style.display = "block";
+                    tip.textContent = block.dataset.text;
+                    tip.style.display = "block";
                     input.focus();
                     blocks.forEach(b => {
                         b.classList.remove("block");
@@ -68,7 +67,7 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
 
     return (
         <div className="select-container">
-            <input type="text" name={first} ref={inputRef} {...rest} />
+            <input type="text" ref={inputRef} {...rest} />
             <div className="options" ref={optionsRef}>
                 {allHeaders.map(el => (
                     <div
@@ -79,7 +78,7 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
                     </div>
                 ))}
             </div>
-            <div className={styles.tooltip_description} ref={tdRef}></div>
+            <div className="tooltip-description" ref={tipRef}></div>
         </div>
     );
 }

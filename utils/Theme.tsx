@@ -1,10 +1,4 @@
-import {
-    createContext,
-    useContext,
-    useState,
-    SetStateAction,
-    useEffect,
-} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const Context = createContext({});
 
@@ -22,7 +16,9 @@ export function useTheme(): {
                     : "dark"
             );
         }
-        themeManager.setValue(localStorage.getItem("theme"));
+        console.log(themeManager);
+        Object.keys(themeManager).length > 0 &&
+            themeManager.setValue(localStorage.getItem("theme"));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

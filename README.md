@@ -7,7 +7,12 @@
 
 ### Features added on last commit:
 
--   Responsive Issue resolved for mobile devices.
+-   Added some svg buttons
+-   Added icons
+-   Added tooltip
+-   Styled checkbox added
+-   Icons updated
+-   Added slide options buttons
 -   Few bugs fixed
 
 ## [View App](https://crudman.netlify.app/)

@@ -111,7 +111,7 @@ export default function SelectButton({
         <div className="select-container">
             <select
                 ref={sectionRef}
-                hidden={!inputDisabled}
+                className={!inputDisabled ? "hidden" : ""}
                 defaultValue={optionDefaultValue}
                 onChange={e => {
                     setSectionValue(e.target.value);
@@ -132,7 +132,7 @@ export default function SelectButton({
                 type="text"
                 ref={inputRef}
                 placeholder={"Test " + sectionValue}
-                title="Escape button for more categories."
+                data-tip="Escape button for more categories. (on focused empty input)"
                 hidden={inputDisabled}
                 {...rest}
             />

@@ -24,6 +24,7 @@ body {
     --input-place-hover-bg: #282a36;
     --theme: #ffffff;
     --input-bg: #000000;
+    --green: lime;
 
     background: var(--background-color);
     width: 100vw;
@@ -51,6 +52,7 @@ body.light {
     --theme: #000000;
     --input-bg: #ffffff;
     --input-place-hover-bg: #ced1e3;
+    --green: #149d14;
     font-weight: 500;
 }
 
@@ -75,6 +77,24 @@ li.selected button {
     overflow-x: auto;
     z-index: 1;
     background: var(--slide-bg-color);
+
+    .slide-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+
+        button {
+            background: transparent;
+            font-size: 20px;
+            margin: 0;
+            padding: 0 5px;
+            cursor: pointer;
+            color: var(--button-text-color);
+            border: none;
+            outline: none;
+        }
+    }
 
     &.authSlide {
         position: relative;
@@ -108,7 +128,7 @@ li.selected button {
             margin: 0;
             outline: none;
             border: none;
-            width: 30%;
+            width: 40%;
             background: transparent;
             border-bottom: 2px solid var(--thin-border-color);
             font-size: 15px;
@@ -179,7 +199,7 @@ li.selected button {
         padding: 0 10px;
 
         span.status {
-            color: #00cd00;
+            color: var(--green);
 
             &:where(.error) {
                 color: red;
@@ -190,6 +210,17 @@ li.selected button {
 
 .select-container {
     position: relative;
+    width: 40%;
+
+    select {
+        display: block;
+        margin: auto;
+        width: 90%;
+
+        &.hidden {
+            display: none;
+        }
+    }
 
     input {
         width: 100% !important;
@@ -270,10 +301,6 @@ li.selected button {
     }
 }
 
-input::placeholder {
-    font-style: italic;
-}
-
 .select-transparent {
     background: var(--slide-bg-color);
     color: var(--general-text-color);
@@ -293,4 +320,17 @@ input::placeholder {
 
 ::-webkit-scrollbar-thumb {
     background: var(--thin-border-color);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input::placeholder {
+    font-style: italic;
+}
+
+.zmore {
+    z-index: 100000 !important;
 }

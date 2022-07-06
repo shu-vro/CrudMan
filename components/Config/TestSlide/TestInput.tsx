@@ -3,6 +3,7 @@ import SelectButton from "./SelectButton";
 import SelectButtonValue from "./SelectButtonValue";
 import mimes from "@utils/mime.json";
 import statuses from "@utils/status.json";
+import Checkbox from "components/Checkbox";
 
 export default function TestInput({
     formRef,
@@ -35,7 +36,10 @@ export default function TestInput({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input type="checkbox" defaultChecked={defaultChecked || false} />
+            <Checkbox
+                type="checkbox"
+                defaultChecked={defaultChecked || false}
+            />
             <SelectButton
                 setSectionValueParent={setSectionValueParent}
                 defaultValue={entry.key}

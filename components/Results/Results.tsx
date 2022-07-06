@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useApiData } from "@utils/ApiData";
 import { useTest } from "@utils/Test";
 import CommonSliderAssets from "../CommonSliderAssets";
-import Table from "./Table";
+import Table from "./Table/Table";
 import StatusBar from "./StatusBar";
 import TestResults from "./TestResults/TestResults";
 import Code from "./CodeSlide/Code";

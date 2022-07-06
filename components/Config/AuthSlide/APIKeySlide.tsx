@@ -1,8 +1,9 @@
-import { useEffect, useRef, useId, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InputAuth } from ".";
 import { useAuth } from "@utils/Auth";
 import { useParams } from "@utils/Params";
 import { useHistorySaver } from "@utils/HistorySaver";
+import Checkbox from "components/Checkbox";
 
 export default function APIKeySlide() {
     const formRef = useRef(null);
@@ -43,8 +44,6 @@ export default function APIKeySlide() {
         let methodFromAuthSlide: string = "APIKey";
         const form: HTMLFormElement = formRef.current;
 
-        //
-
         form.addEventListener("input", e => {
             e.preventDefault();
             let formData = new FormData(form);
@@ -81,17 +80,21 @@ export default function APIKeySlide() {
             }
         });
     }, [setObject, setParams]);
-    let id = useId();
+
+    const a = useAuth();
+    useEffect(() => {
+        console.log(a);
+    }, [a]);
+
     return (
         <form className="slide authSlide APIKey" ref={formRef}>
             <h3>Basic Authentication</h3>
-            <label htmlFor={id}>Include in Query</label>
-            <input
+            {/* <label>Include in Query</label> */}
+            <Checkbox
+                label="Include In Query"
                 type="checkbox"
                 name="api_access_checkbox"
-                id={id}
                 value="on"
-                title="Either to store the API key in the query or in headers."
                 ref={includeRef}
             />
             <InputAuth

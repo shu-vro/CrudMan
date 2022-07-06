@@ -1,3 +1,4 @@
+import Checkbox from "components/Checkbox";
 import { useState, useRef } from "react";
 
 export default function InputPlace({
@@ -14,7 +15,7 @@ export default function InputPlace({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <input
+            <Checkbox
                 type="checkbox"
                 checked={hasInput}
                 onChange={() => {
