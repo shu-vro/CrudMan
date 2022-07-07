@@ -51,7 +51,7 @@ export default function Response({ data, isFinished }) {
                     <button
                         type="button"
                         data-tip="Download Response"
-                        data-place="bottom"
+                        data-place="left"
                         onClick={e => {
                             var dataStr =
                                 "data:text/json;charset=utf-8," +

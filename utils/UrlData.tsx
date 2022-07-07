@@ -4,14 +4,14 @@ const Context = createContext({});
 
 interface urlProps {
     object?: {
-        urlParams?: string;
+        urlParams?: Object;
         url?: string;
         method?: string;
         baseURL?: string;
     };
     setObject?: React.Dispatch<
         React.SetStateAction<{
-            urlParams: {};
+            urlParams: Object;
             baseURL: string;
             url: string;
             method: string;

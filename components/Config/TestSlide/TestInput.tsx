@@ -77,7 +77,7 @@ export default function TestInput({
                                 bubbles: true,
                             })
                         );
-                    }, 500);
+                    }, 200);
                 }}>
                 &times;
             </button>

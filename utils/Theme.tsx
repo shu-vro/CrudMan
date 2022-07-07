@@ -16,7 +16,6 @@ export function useTheme(): {
                     : "dark"
             );
         }
-        console.log(themeManager);
         Object.keys(themeManager).length > 0 &&
             themeManager.setValue(localStorage.getItem("theme"));
         // eslint-disable-next-line react-hooks/exhaustive-deps

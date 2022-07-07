@@ -48,6 +48,6 @@ export default async function handler(req, res: NextApiResponse) {
                 elapsedTime,
             });
         }
-        console.log("error!", error);
+        console.log("error!");
     }
 }

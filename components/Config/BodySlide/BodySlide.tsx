@@ -13,6 +13,7 @@ const AceEditor = dynamic(
         require("ace-builds/src-noconflict/theme-xcode");
         require("ace-builds/src-noconflict/ext-searchbox");
         require("ace-builds/src-noconflict/keybinding-vscode");
+        require("ace-builds/src-noconflict/ext-language_tools");
         return ace;
     },
     {
@@ -85,6 +86,9 @@ export default function BodySlide() {
                     showLineNumbers: true,
                     useWorker: false,
                     tabSize: 4,
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: true,
+                    enableSnippets: true,
                 }}
                 keyboardHandler="vscode"
                 value={postBodyCopy}

@@ -4,6 +4,8 @@ import { useHistorySaver } from "@utils/HistorySaver";
 import { useParams } from "@utils/Params";
 import { useUrlData } from "@utils/UrlData";
 import InputPlace from "./InputPlace";
+import Checkbox from "components/Checkbox";
+import GraphQlEditor from "./GraphQlEditor";
 
 export default function QuerySlide() {
     const formRef = useRef(null);
@@ -11,6 +13,7 @@ export default function QuerySlide() {
     let urlData = useUrlData();
     let historySaver = useHistorySaver();
     const [props, setProps] = useState({});
+    const [graphqlEnabled, setGraphqlEnabled] = useState(false);
 
     type FieldsType = Array<{
         id: string;
@@ -51,8 +54,8 @@ export default function QuerySlide() {
             );
     }, [historySaver.object]);
 
-    useEffect(() => {
-        let entries = Object.entries(historySaver.defaultObject.params);
+    function setParamsFollowingObject(object: object) {
+        let entries = Object.entries(object);
         setFields([]);
         if (entries.length > 0) {
             entries.forEach(data => {
@@ -75,8 +78,13 @@ export default function QuerySlide() {
                 })
             );
         }, 500);
+    }
+
+    useEffect(() => {
+        setParamsFollowingObject(historySaver.defaultObject.params);
     }, [historySaver.defaultObject]);
 
+    // Setting params through props
     useEffect(() => {
         param.setObject(props);
         urlData.setObject(prev => ({
@@ -87,36 +95,62 @@ export default function QuerySlide() {
     }, [props]);
 
     useEffect(() => {
-        /**
-         * @type {HTMLFormElement}
-         */
-        let form = formRef.current;
-        form.addEventListener("input", () => {
-            let inputPlace = form.querySelectorAll(".input-place");
-            setProps({});
-            for (let i = 0; i < inputPlace.length; i++) {
-                const place = inputPlace[i];
-                let isChecked =
-                    place.childNodes[0].querySelector("input").checked;
-                if (isChecked !== true) continue;
-                let key = place.childNodes[1].value;
-                let value = place.childNodes[2].value;
-                let o = {
-                    [key]: value,
-                };
-                setProps(prop => ({ ...prop, ...o }));
-            }
-        });
+        if (!graphqlEnabled) {
+            setParamsFollowingObject(urlData.object.urlParams);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [graphqlEnabled]);
 
-    return (
+    return graphqlEnabled ? (
+        <>
+            <div className="slide Query slide-selected">
+                <Checkbox
+                    type="checkbox"
+                    label="Disable Graphql"
+                    checked
+                    onChange={e => {
+                        param.setObject(prev => {
+                            delete prev["query"];
+                            return prev;
+                        });
+                        setGraphqlEnabled(!graphqlEnabled);
+                    }}
+                />
+                <GraphQlEditor />
+            </div>
+        </>
+    ) : (
         <>
             <form
                 className="slide Query slide-selected"
                 id="config-query-slide"
-                ref={formRef}>
-                <h2>Query Parameters</h2>
+                ref={formRef}
+                onInput={() => {
+                    let inputPlace =
+                        formRef.current.querySelectorAll(".input-place");
+                    setProps({});
+                    for (let i = 0; i < inputPlace.length; i++) {
+                        const place = inputPlace[i];
+                        let isChecked =
+                            place.childNodes[0].querySelector("input").checked;
+                        if (isChecked !== true) continue;
+                        let key = place.childNodes[1].value;
+                        let value = place.childNodes[2].value;
+                        let o = {
+                            [key]: value,
+                        };
+                        setProps(prop => ({ ...prop, ...o }));
+                    }
+                }}>
+                <Checkbox
+                    type="checkbox"
+                    label="Enable Graphql"
+                    onChange={e => {
+                        setGraphqlEnabled(!graphqlEnabled);
+                    }}
+                />
+
+                <h2>{graphqlEnabled ? "GraphQl Query" : "Query Parameters"}</h2>
                 {fields.map(field => (
                     <InputPlace
                         key={field.id}
