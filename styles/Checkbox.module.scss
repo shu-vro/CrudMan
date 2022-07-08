@@ -9,6 +9,10 @@
     align-items: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
+
+    span {
+        padding-left: 1rem;
+    }
     input,
     svg {
         width: 21px;

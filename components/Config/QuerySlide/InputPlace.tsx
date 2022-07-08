@@ -61,11 +61,13 @@ export default function InputPlace({
                 type="button"
                 onClick={() => {
                     removeField(keyName);
-                    formRef.current?.dispatchEvent(
-                        new Event("input", {
-                            bubbles: true,
-                        })
-                    );
+                    setTimeout(() => {
+                        formRef.current?.dispatchEvent(
+                            new Event("input", {
+                                bubbles: true,
+                            })
+                        );
+                    }, 100);
                 }}>
                 &times;
             </button>

@@ -34,10 +34,6 @@ body {
     accent-color: var(--blue-color);
 }
 
-* {
-    transition: background 0.3s 0s linear;
-}
-
 body.light {
     --navbar-color: #c1c1c1f5;
     --background-color: #d1d1d1;
@@ -329,6 +325,15 @@ input:-webkit-autofill:focus {
 
 input::placeholder {
     font-style: italic;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    user-select: none;
 }
 
 .zmore {
