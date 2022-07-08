@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import Loader from "components/Results/Loader";
 import { useParams } from "@utils/Params";
 import { useTheme } from "@utils/Theme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AceEditor = dynamic(
     async () => {
@@ -51,7 +51,7 @@ export default function GraphQlEditor() {
                     enableLiveAutocompletion: true,
                     enableSnippets: true,
                     showLineNumbers: true,
-                    tabSize: 2,
+                    tabSize: 4,
                     useWorker: false,
                 }}
             />

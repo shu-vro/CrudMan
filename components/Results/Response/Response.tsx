@@ -3,6 +3,7 @@ import { useTheme } from "@utils/Theme";
 import Loader from "../Loader";
 import { CopySvg, CorrectSvg, DownloadSvg } from "components/Nav/ButtonSvg";
 import { useState } from "react";
+import { v4 } from "uuid";
 
 const AceEditor = dynamic(
     async () => {
@@ -62,7 +63,7 @@ export default function Response({ data, isFinished }) {
                             dlAnchorElem.setAttribute("href", dataStr);
                             dlAnchorElem.setAttribute(
                                 "download",
-                                "results.json"
+                                `${v4()}.json`
                             );
                             dlAnchorElem.click();
                             dlAnchorElem.remove();
