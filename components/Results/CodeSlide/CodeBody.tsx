@@ -1,26 +1,5 @@
 import dynamic from "next/dynamic";
 
-const AceEditor = dynamic(
-    async () => {
-        let ace = await import("react-ace");
-        require("ace-builds/src-noconflict/mode-vbscript");
-        require("ace-builds/src-noconflict/mode-json");
-        require("ace-builds/src-noconflict/mode-javascript");
-        require("ace-builds/src-noconflict/mode-python");
-        require("ace-builds/src-noconflict/mode-dart");
-        require("ace-builds/src-noconflict/mode-csharp");
-        require("ace-builds/src-noconflict/theme-dracula");
-        require("ace-builds/src-noconflict/theme-xcode");
-        require("ace-builds/src-noconflict/ext-searchbox");
-        require("ace-builds/src-noconflict/keybinding-vscode");
-        return ace;
-    },
-    {
-        ssr: false,
-        loading: () => <Loader />,
-    }
-);
-
 import { useState, useEffect } from "react";
 import { useTheme } from "@utils/Theme";
 import { useCode } from "@utils/Code";
@@ -29,7 +8,7 @@ import { useHeaders } from "@utils/Headers";
 import { useAuth } from "@utils/Auth";
 import { useUrlData } from "@utils/UrlData";
 import { usePostBody } from "@utils/Body";
-import Loader from "../Loader";
+import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
 
 export default function CodeBody() {
     const { selectCode, setObject } = useCode();
@@ -196,7 +175,7 @@ print(response.text)`;
     --data-raw '${copyBodyString}'
     --header 'Content-Type: application/json'
 ${headerString}`;
-            setConfig({ mode: "vbscript", boilerplate });
+            setConfig({ mode: "shell", boilerplate });
         } else if (selectCode === "PowerShell") {
             let headerString = Object.entries(copyHeaders)
                 .map(i => {
@@ -218,31 +197,16 @@ $response = Invoke-RestMethod -Uri $reqUrl -Method ${
                     : ""
             }
 $response | ConvertTo-Json`;
-            setConfig({ mode: "vbscript", boilerplate });
+            setConfig({ mode: "powershell", boilerplate });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectCode, headers, body, urlData, auth, queryParams]);
 
     return (
-        <AceEditor
-            placeholder="Type code."
-            mode={config.mode}
-            theme={theme === "dark" ? "dracula" : "xcode"}
-            fontSize={14}
-            width="100%"
-            height="calc(100% - 100px)"
-            showPrintMargin={true}
-            showGutter={true}
-            highlightActiveLine={true}
-            wrapEnabled={true}
-            keyboardHandler="vscode"
-            readOnly={true}
-            setOptions={{
-                showLineNumbers: true,
-                useWorker: false,
-                tabSize: 4,
-            }}
+        <MonacoCodeEditor
             value={config.boilerplate}
+            readOnly={true}
+            language={config.mode}
         />
     );
 }

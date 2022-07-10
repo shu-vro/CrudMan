@@ -1,5 +1,8 @@
 import "@styles/globals.scss";
 import "@styles/splitters.scss";
+// import "codemirror/lib/codemirror.css";
+// import "codemirror/theme/dracula.css";
+// import "codemirror/addon/hint/show-hint.css";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
