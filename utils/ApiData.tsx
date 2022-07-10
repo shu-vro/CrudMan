@@ -4,7 +4,7 @@ const Context = createContext({});
 
 interface ObjectType {
     headers?: object;
-    data?: object | any[];
+    data?: any;
     elapsedTime?: number;
     status?: number;
     statusText?: string;

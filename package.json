@@ -11,6 +11,7 @@
         "prettify": "prettier --config .prettierrc --ignore-path .prettierignore ./"
     },
     "dependencies": {
+        "@monaco-editor/react": "^4.4.5",
         "ace-builds": "^1.7.1",
         "axios": "^0.27.2",
         "next": "12.1.5",

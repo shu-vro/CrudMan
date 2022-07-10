@@ -42,7 +42,11 @@ export default function Results() {
                 listBullets={listBullets}
                 defaultCheck="Response">
                 <Response
-                    data={apiData?.data || {}}
+                    data={`${
+                        typeof apiData?.data !== "object"
+                            ? apiData?.data || JSON.stringify({})
+                            : JSON.stringify(apiData?.data || {}, null, 4)
+                    }`}
                     isFinished={apiData?.isFinished}
                 />
                 <Headers headers={apiData?.headers || {}} />

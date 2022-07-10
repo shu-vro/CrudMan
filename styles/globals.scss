@@ -74,6 +74,18 @@ li.selected button {
     z-index: 1;
     background: var(--slide-bg-color);
 
+    h2 .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+
+        &.red {
+            background: red;
+        }
+    }
+
     .slide-options {
         display: flex;
         justify-content: space-between;
@@ -338,4 +350,10 @@ h6 {
 
 .zmore {
     z-index: 100000 !important;
+}
+
+.transparent-editor .monaco-editor,
+.transparent-editor .monaco-editor-background,
+.transparent-editor .monaco-editor .margin {
+    background: transparent !important;
 }
