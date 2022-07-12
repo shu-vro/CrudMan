@@ -1,52 +1,60 @@
 import Loader from "../Loader";
-import { CopySvg, CorrectSvg, DownloadSvg } from "components/Nav/ButtonSvg";
-import { useState } from "react";
+import { DownloadSvg, PreviewSvg } from "components/Nav/ButtonSvg";
 import { v4 } from "uuid";
 import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
+import CopyButton from "../CopyButton";
+import { useEffect, useState } from "react";
+import styles from "@styles/App.module.scss";
+import { extractFileNameFromContentType } from "@utils/utils";
 
-export default function Response({ data, isFinished }) {
-    const [copied, setCopied] = useState(false);
+export default function Response({ data, contentType, isFinished }) {
+    let lang = extractFileNameFromContentType(contentType);
+    const [openPreview, setOpenPreview] = useState(false);
+    let preview = false;
+
+    if (lang === "html") {
+        preview = true;
+    }
+
+    useEffect(() => {
+        if (!isFinished) {
+            setOpenPreview(false);
+        }
+    }, [isFinished]);
+
     return (
         <div className="slide Response slide-selected">
             {!isFinished && <Loader />}
             <div className="slide-options">
-                <h2>Response</h2>
+                <h2>
+                    Response <div className="name">{lang}</div>
+                </h2>
                 <div className="slide-option-buttons">
-                    <button
-                        type="button"
-                        data-tip="Copy"
-                        data-place="bottom"
-                        onClick={async e => {
-                            try {
-                                await navigator.clipboard.writeText(data);
-
-                                setCopied(true);
-                                setTimeout(() => {
-                                    setCopied(false);
-                                }, 1500);
-                            } catch (error) {
-                                alert(
-                                    `Your device is not compatible to copy code. \nThis error may occur if you are using this website without "https" protocol or with an insecure device.\n\nError Message: ${error.message}`
-                                );
-                            }
-                        }}>
-                        {copied ? <CorrectSvg /> : <CopySvg />}
-                    </button>
+                    {preview && (
+                        <button
+                            type="button"
+                            data-tip="Preview"
+                            data-place="left"
+                            onClick={() => {
+                                setOpenPreview(!openPreview);
+                            }}>
+                            <PreviewSvg />
+                        </button>
+                    )}
+                    <CopyButton data={data} />
                     <button
                         type="button"
                         data-tip="Download Response"
                         data-place="left"
-                        onClick={e => {
+                        onClick={() => {
                             var dataStr =
-                                "data:text/json;charset=utf-8," +
-                                encodeURIComponent(
-                                    JSON.stringify(data, null, 4)
-                                );
+                                "data:text/plain;charset=utf-8," +
+                                encodeURIComponent(data);
                             var dlAnchorElem = document.createElement("a");
                             dlAnchorElem.setAttribute("href", dataStr);
                             dlAnchorElem.setAttribute(
                                 "download",
-                                `${v4()}.json`
+                                `${v4()}.txt`
                             );
                             dlAnchorElem.click();
                             dlAnchorElem.remove();
@@ -55,7 +63,15 @@ export default function Response({ data, isFinished }) {
                     </button>
                 </div>
             </div>
-            <MonacoCodeEditor value={data} readOnly />
+            {openPreview && isFinished ? (
+                <iframe
+                    sandbox=" allow-scripts"
+                    className={styles.previewPanel}
+                    src="about:blank"
+                    srcDoc={data}></iframe>
+            ) : (
+                <MonacoCodeEditor value={data} readOnly language={lang} />
+            )}
         </div>
     );
 }

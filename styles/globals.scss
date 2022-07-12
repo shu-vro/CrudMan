@@ -74,15 +74,26 @@ li.selected button {
     z-index: 1;
     background: var(--slide-bg-color);
 
-    h2 .dot {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--green);
+    h2 {
+        margin-left: 1rem;
 
-        &.red {
-            background: red;
+        .name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--green);
+            display: inline-block;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green);
+
+            &.red {
+                background: red;
+            }
         }
     }
 

@@ -42,7 +42,8 @@ export default function UrlInput() {
         });
     }
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault();
         setProcessing(true);
         let form = formRef.current;
         let formData = new FormData(form);
@@ -83,7 +84,6 @@ export default function UrlInput() {
             ]);
             setProcessing(false);
         } catch (error) {
-            console.log(error);
             setObject({
                 elapsedTime: 0,
                 headers: error.config?.headers || {},

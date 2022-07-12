@@ -1,8 +1,5 @@
 import "@styles/globals.scss";
 import "@styles/splitters.scss";
-// import "codemirror/lib/codemirror.css";
-// import "codemirror/theme/dracula.css";
-// import "codemirror/addon/hint/show-hint.css";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
@@ -12,6 +9,7 @@ function MyApp({ Component, pageProps }) {
             <Head>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                <meta httpEquiv="Cache-Control" content="max-age=200" />
                 <meta name="application-name" content="CrudMan" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta

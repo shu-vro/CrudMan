@@ -17,8 +17,8 @@ export default function MonacoCodeEditor({ value, readOnly = false, ...rest }) {
                 wordWrap: "on",
                 tabSize: 4,
                 contextmenu: true,
+                fontSize: 13,
                 readOnly,
-                domReadOnly: readOnly,
             }}
             value={value}
             loading={<Loader />}
