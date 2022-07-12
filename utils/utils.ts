@@ -28,6 +28,14 @@ export function checkRegexKeyInResponse(o: any[] | object, r: RegExp) {
         .filter(el => el)
         .some(el => el);
 }
+export function extractFileNameFromContentType(contentType) {
+    if (contentType) {
+        const contentTypeParts = contentType.split(";");
+        const fileName = contentTypeParts[0].split("/")[1];
+        return fileName;
+    }
+    return "";
+}
 
 export { ApiDataContext } from "./ApiData";
 export { ThemeContext } from "./Theme";

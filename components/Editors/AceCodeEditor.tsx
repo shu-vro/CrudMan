@@ -38,7 +38,7 @@ export default function AceCodeEditor({ value, ...rest }) {
             placeholder="Type code."
             mode="json"
             theme={theme === "dark" ? "dracula" : "xcode"}
-            fontSize={14}
+            fontSize={13}
             width="100%"
             height="calc(100% - 100px)"
             showPrintMargin={true}

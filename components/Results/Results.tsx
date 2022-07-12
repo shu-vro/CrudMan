@@ -48,6 +48,7 @@ export default function Results() {
                             : JSON.stringify(apiData?.data || {}, null, 4)
                     }`}
                     isFinished={apiData?.isFinished}
+                    contentType={apiData?.headers?.[`content-type`]}
                 />
                 <Headers headers={apiData?.headers || {}} />
                 <div className="slide Cookies">
