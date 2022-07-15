@@ -1,11 +1,13 @@
 import { useRef } from "react";
 import { useHistorySaver } from "@utils/HistorySaver";
 import RequestList from "./RequestList";
-import styles from "@styles/App.module.scss";
+import styles from "@styles/Sidebar.module.scss";
+import { FiDelete } from "react-icons/fi";
+import Tooltip from "components/Tooltip";
 
 export default function Histories() {
     const listRequestRef = useRef(null);
-    const history = useHistorySaver();
+    const historySaver = useHistorySaver();
 
     function handleSearch(e: React.FormEvent<HTMLInputElement>) {
         let listRequests: HTMLLIElement = listRequestRef.current;
@@ -22,15 +24,29 @@ export default function Histories() {
 
     return (
         <div className={styles.sidebar_histories}>
-            <input type="search" onInput={handleSearch} placeholder="Search" />
+            <div className={styles.inputAndButton}>
+                <input
+                    type="search"
+                    onInput={handleSearch}
+                    placeholder="Search"
+                />
+                <button
+                    type="button"
+                    onClick={() => {
+                        historySaver.setObject([]);
+                    }}>
+                    <FiDelete data-tip="Clear All" data-place="left" />
+                </button>
+            </div>
             <ul className={styles.list_requests} ref={listRequestRef}>
-                {history.object
+                {historySaver.object
                     .slice()
                     .reverse()
                     .map(h => (
                         <RequestList key={h.time} history={h} />
                     ))}
             </ul>
+            <Tooltip />
         </div>
     );
 }

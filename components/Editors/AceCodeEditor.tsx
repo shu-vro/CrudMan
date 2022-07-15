@@ -38,7 +38,7 @@ export default function AceCodeEditor({ value, ...rest }) {
             placeholder="Type code."
             mode="json"
             theme={theme === "dark" ? "dracula" : "xcode"}
-            fontSize={13}
+            fontSize={14}
             width="100%"
             height="calc(100% - 100px)"
             showPrintMargin={true}
@@ -48,7 +48,7 @@ export default function AceCodeEditor({ value, ...rest }) {
             setOptions={{
                 showLineNumbers: true,
                 useWorker: false,
-                tabSize: 4,
+                tabSize: 2,
                 enableBasicAutocompletion: true,
                 enableLiveAutocompletion: true,
                 enableSnippets: true,

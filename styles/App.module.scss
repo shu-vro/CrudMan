@@ -49,12 +49,10 @@ $container-height: calc(100vh - $height - 1px);
     .button_section {
         @include space-between();
         button {
-            font-size: 40px;
+            font-size: 25px;
             padding: 0;
             background: transparent;
             color: inherit;
-            border: none;
-            outline: none;
             margin-right: 30px;
             cursor: pointer;
         }
@@ -116,11 +114,8 @@ $container-height: calc(100vh - $height - 1px);
     & > button {
         background: var(--blue-color);
         color: var(--theme);
-        border: none;
-        outline: none;
         font-size: 14px;
         font-weight: bold;
-        cursor: pointer;
         padding: 0 10px;
         transition: 0.25s;
 
@@ -185,14 +180,11 @@ $container-height: calc(100vh - $height - 1px);
             button {
                 background: none;
                 color: inherit;
-                border: none;
                 border-bottom: 1px solid var(--thin-border-color);
-                outline: none;
                 padding: 10px;
                 padding-bottom: 5px;
                 font-size: 14px;
                 font-weight: bold;
-                cursor: pointer;
                 user-select: none;
 
                 @media screen and (max-width: 481px) {
@@ -200,46 +192,6 @@ $container-height: calc(100vh - $height - 1px);
                         padding: 0;
                     }
                 }
-            }
-        }
-    }
-}
-
-.table {
-    width: 90%;
-    margin: 0 auto;
-
-    td {
-        position: relative;
-        width: 50%;
-        padding: 5px 20px;
-        word-break: break-word;
-        overflow-x: hidden;
-
-        span:nth-child(1) {
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: white;
-            font-size: 13px;
-        }
-
-        button {
-            position: absolute;
-            height: 19px;
-            top: 50%;
-            right: -25px;
-            transform: translateY(-50%);
-            outline: none;
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            transition: right 0.15s ease;
-        }
-
-        &:hover {
-            button {
-                right: 0px;
             }
         }
     }
@@ -274,145 +226,6 @@ $container-height: calc(100vh - $height - 1px);
         }
         100% {
             transform: rotate(360deg);
-        }
-    }
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: min(350px, 100%);
-    background: var(--navbar-color);
-    z-index: 100;
-    font-size: 13px;
-    overflow-x: hidden;
-    transition: right 0.3s 0s cubic-bezier(0.215, 0.61, 0.355, 1);
-
-    &[class~="inactive"] {
-        right: calc(min(350px, 100%) * -1);
-    }
-
-    button.closeButton {
-        transform: "none";
-        font-size: 50px;
-        display: block;
-        margin-left: auto;
-        padding: 0;
-        background: transparent;
-        color: inherit;
-        border: none;
-        outline: none;
-        margin-right: 25px;
-        height: $height;
-        cursor: pointer;
-    }
-
-    input[type="search"] {
-        background: transparent;
-        width: 100%;
-        font-family: inherit;
-        outline: none;
-        border: none;
-        border-top: 1px solid var(--thin-border-color);
-        border-bottom: 1px solid var(--thin-border-color);
-        color: inherit;
-        padding: 5px 10px;
-    }
-
-    .sidebar_flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 100%;
-        height: $container-height;
-        flex-direction: row;
-        border-left: 1px solid var(--thin-border-color);
-        $left: 40px;
-
-        .sidebar_buttons {
-            width: 40px;
-
-            span {
-                position: relative;
-                color: var(--general-text-color);
-                padding: 10px 5px;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-                border: none;
-                border-top: 1px solid;
-                border-bottom: 1px solid;
-                border-color: var(--thin-border-color);
-                outline: none;
-                display: block;
-                margin: 10px auto;
-                cursor: pointer;
-                text-align: center;
-            }
-        }
-
-        .sidebar_histories {
-            width: calc(100% - $left);
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            border-left: 1px solid var(--thin-border-color);
-            ul.list_requests {
-                position: relative;
-                width: 100%;
-                padding: 0;
-
-                li {
-                    position: relative;
-                    list-style: none;
-                    @include space-between();
-                    flex-direction: row;
-                    cursor: pointer;
-
-                    span[class$="requestMethod"] {
-                        color: #6cff6c;
-                        font-weight: bold;
-
-                        &[class*="error"] {
-                            color: red;
-                        }
-                    }
-                    h4 {
-                        width: 80%;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: inline-block;
-                        margin: 0;
-                        resize: none;
-                    }
-
-                    button {
-                        border: 2px solid red;
-                        background: transparent;
-                        outline: none;
-                        font-size: 20px;
-                        position: relative;
-                        right: -50px;
-                        color: inherit;
-                        transition: right 0.2s ease-in-out;
-                        cursor: pointer;
-                        color: red;
-                        border-radius: 100px;
-                    }
-
-                    &:hover {
-                        h4 {
-                            color: var(--theme);
-                        }
-                        button {
-                            right: 0;
-                        }
-                    }
-                }
-            }
         }
     }
 }

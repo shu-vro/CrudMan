@@ -36,6 +36,13 @@ export function extractFileNameFromContentType(contentType) {
     }
     return "";
 }
+export function extractContentType(contentType) {
+    if (contentType) {
+        const contentTypeParts = contentType.split(";");
+        return contentTypeParts[0];
+    }
+    return "";
+}
 
 export { ApiDataContext } from "./ApiData";
 export { ThemeContext } from "./Theme";
@@ -47,3 +54,4 @@ export { CodeContext } from "./Code";
 export { PostBodyContext } from "./Body";
 export { AuthContext } from "./Auth";
 export { TestContext } from "./Test";
+export { EnvironmentContext } from "./Env";

@@ -1,0 +1,219 @@
+@import "./App.module.scss";
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(350px, 100%);
+    background: var(--navbar-color);
+    z-index: 100;
+    font-size: 13px;
+    overflow-x: hidden;
+    transition: right 0.3s 0s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+    &[class~="inactive"] {
+        right: calc(min(350px, 100%) * -1);
+    }
+
+    button.closeButton {
+        transform: "none";
+        font-size: 30px;
+        display: block;
+        margin-left: auto;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        margin-right: 25px;
+        height: $height;
+    }
+
+    .inputAndButton {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid var(--thin-border-color);
+        border-bottom: 1px solid var(--thin-border-color);
+
+        input[type="search"] {
+            background: transparent;
+            width: 100%;
+            font-family: inherit;
+            outline: none;
+            border: none;
+            color: inherit;
+            padding: 5px 10px;
+        }
+
+        button {
+            color: red;
+            font-size: 18px;
+        }
+    }
+
+    .sidebar_flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: $container-height;
+        flex-direction: row;
+        border-left: 1px solid var(--thin-border-color);
+        $left: 40px;
+
+        .sidebar_buttons {
+            width: 40px;
+
+            span {
+                position: relative;
+                color: var(--general-text-color);
+                padding: 10px 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                border: none;
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-color: var(--thin-border-color);
+                outline: none;
+                display: block;
+                margin: 10px auto;
+                cursor: pointer;
+                font-size: 18px;
+                text-align: center;
+
+                &:hover {
+                    color: var(--theme);
+                }
+            }
+        }
+
+        .sidebar_histories,
+        .sidebar_environments {
+            width: calc(100% - $left);
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            border-left: 1px solid var(--thin-border-color);
+
+            ul.list_requests {
+                position: relative;
+                width: 100%;
+                padding: 0;
+            }
+
+            li,
+            .helperButtons {
+                position: relative;
+                list-style: none;
+                @include space-between();
+                flex-direction: row;
+                cursor: pointer;
+                margin-bottom: 5px;
+
+                .iconSvg {
+                    color: inherit;
+                    font-size: 18px;
+                    margin: 0 15px;
+                }
+
+                .moreOptions {
+                    position: absolute;
+                    bottom: 0px;
+                    right: 10px;
+                    cursor: pointer;
+                    background: var(--slide-bg-color);
+                    color: var(--general-text-color);
+                    font-size: 20px;
+                    border-radius: 5px;
+                    border: 1px solid;
+                    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+                    border-color: var(--thin-border-color);
+                    outline: none;
+                    text-align: center;
+                    opacity: 0;
+                    user-select: none;
+                    position: none;
+                    transition: 0.25s ease;
+
+                    &.activate {
+                        opacity: 1;
+                        user-select: auto;
+                        pointer-events: all;
+                        bottom: 25px;
+                    }
+
+                    .overlay {
+                        position: fixed;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                        z-index: -1;
+                    }
+
+                    .moreOptionsButton {
+                        display: block;
+                        padding: 5px 10px;
+                        color: inherit;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        transition: 0.2s ease;
+
+                        &:hover {
+                            font-weight: bolder;
+                            color: var(--theme);
+                        }
+
+                        &:nth-child(1) {
+                            border-bottom: 1px solid var(--thin-border-color);
+                        }
+
+                        span {
+                            margin-left: 10px;
+                        }
+                    }
+                }
+
+                span[class$="requestMethod"] {
+                    color: #6cff6c;
+                    font-weight: bold;
+
+                    &[class*="error"] {
+                        color: red;
+                    }
+                }
+                h4 {
+                    width: 80%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: inline-block;
+                    margin: 0;
+                    resize: none;
+                }
+
+                .removeButton {
+                    font-size: 20px;
+                    position: relative;
+                    right: -50px;
+                    color: inherit;
+                    transition: right 0.2s ease-in-out;
+                    border-radius: 100px;
+                    color: red;
+                }
+
+                &:hover {
+                    h4 {
+                        color: var(--theme);
+                    }
+                    button {
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

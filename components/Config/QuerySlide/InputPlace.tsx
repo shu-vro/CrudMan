@@ -1,5 +1,6 @@
 import Checkbox from "components/Checkbox";
 import { useState, useRef } from "react";
+import { FiDelete } from "react-icons/fi";
 
 export default function InputPlace({
     keyName,
@@ -69,7 +70,7 @@ export default function InputPlace({
                         );
                     }, 100);
                 }}>
-                &times;
+                <FiDelete />
             </button>
         </div>
     );

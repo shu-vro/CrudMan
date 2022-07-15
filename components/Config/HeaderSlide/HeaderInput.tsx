@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import SelectHeaderButton from "./SelectHeaderButton";
 import allHeaders from "@utils/data.json";
 import Checkbox from "components/Checkbox";
+import { FiDelete } from "react-icons/fi";
 
 export default function HeaderInput({
     formRef,
@@ -69,7 +70,7 @@ export default function HeaderInput({
                         );
                     }, 100);
                 }}>
-                &times;
+                <FiDelete />
             </button>
         </div>
     );

@@ -47,11 +47,7 @@ export default function QuerySlide() {
     }, []);
 
     useEffect(() => {
-        historySaver.object.length > 0 &&
-            localStorage.setItem(
-                "history",
-                JSON.stringify(historySaver.object)
-            );
+        localStorage.setItem("history", JSON.stringify(historySaver.object));
     }, [historySaver.object]);
 
     function setParamsFollowingObject(object: object) {

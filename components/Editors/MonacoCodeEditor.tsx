@@ -15,9 +15,9 @@ export default function MonacoCodeEditor({ value, readOnly = false, ...rest }) {
             options={{
                 minimap: { enabled: true, scale: 1, showSlider: "always" },
                 wordWrap: "on",
-                tabSize: 4,
+                tabSize: 2,
                 contextmenu: true,
-                fontSize: 13,
+                fontSize: 14,
                 readOnly,
             }}
             value={value}

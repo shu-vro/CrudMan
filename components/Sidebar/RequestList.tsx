@@ -1,6 +1,8 @@
-import { useUrlData } from "../../utils/UrlData";
-import { useHistorySaver } from "../../utils/HistorySaver";
-import { HistoryType } from "../../utils/HistorySaver";
+import { useUrlData } from "@utils/UrlData";
+import { useHistorySaver } from "@utils/HistorySaver";
+import { HistoryType } from "@utils/HistorySaver";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import styles from "@styles/Sidebar.module.scss";
 
 export default function RequestList({ history }: { history: HistoryType }) {
     const urlData = useUrlData();
@@ -32,6 +34,7 @@ export default function RequestList({ history }: { history: HistoryType }) {
             </span>
             <h4 data-tip={history.time}>{history.url}</h4>
             <button
+                className={styles.removeButton}
                 type="button"
                 data-tip="Delete"
                 data-place="left"
@@ -39,7 +42,7 @@ export default function RequestList({ history }: { history: HistoryType }) {
                     e.stopPropagation();
                     handleRemove(history.time);
                 }}>
-                &times;
+                <RiDeleteBin5Line />
             </button>
         </li>
     );

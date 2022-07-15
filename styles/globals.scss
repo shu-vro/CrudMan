@@ -104,14 +104,10 @@ li.selected button {
         flex-direction: row;
 
         button {
-            background: transparent;
             font-size: 20px;
             margin: 0;
             padding: 0 5px;
-            cursor: pointer;
             color: var(--button-text-color);
-            border: none;
-            outline: none;
         }
     }
 
@@ -159,14 +155,10 @@ li.selected button {
         }
 
         button {
-            background: transparent;
             font-size: 20px;
             margin: 0;
             padding: 0 5px;
-            cursor: pointer;
-            color: var(--button-text-color);
-            border: none;
-            outline: none;
+            color: red;
         }
 
         select {
@@ -359,8 +351,15 @@ h6 {
     user-select: none;
 }
 
-.zmore {
-    z-index: 100000 !important;
+button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+svg {
+    outline: none;
 }
 
 .transparent-editor .monaco-editor,

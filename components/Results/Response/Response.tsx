@@ -1,19 +1,41 @@
 import Loader from "../Loader";
-import { DownloadSvg, PreviewSvg } from "components/Nav/ButtonSvg";
 import { v4 } from "uuid";
 import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
 import CopyButton from "../CopyButton";
 import { useEffect, useState } from "react";
 import styles from "@styles/App.module.scss";
-import { extractFileNameFromContentType } from "@utils/utils";
+import {
+    extractFileNameFromContentType,
+    extractContentType,
+} from "@utils/utils";
+import { ImDownload } from "react-icons/im";
+import { IoEyeOutline } from "react-icons/io5";
+import fileExtensions from "@utils/fileExtensions.json";
 
 export default function Response({ data, contentType, isFinished }) {
     let lang = extractFileNameFromContentType(contentType);
+    let mimetype = ".json";
     const [openPreview, setOpenPreview] = useState(false);
     let preview = false;
+    let endLoop = false;
+    let rawContentType = extractContentType(contentType);
 
     if (lang === "html") {
         preview = true;
+    }
+
+    for (let i = 0; i < fileExtensions.length; i++) {
+        const ext = fileExtensions[i];
+        for (let i = 0; i < ext.contentType.length; i++) {
+            const ct = ext.contentType[i];
+
+            if (rawContentType === ct) {
+                mimetype = ext.label;
+                endLoop = true;
+                break;
+            }
+        }
+        if (endLoop) break;
     }
 
     useEffect(() => {
@@ -22,12 +44,14 @@ export default function Response({ data, contentType, isFinished }) {
         }
     }, [isFinished]);
 
+    console.log(mimetype);
+
     return (
         <div className="slide Response slide-selected">
             {!isFinished && <Loader />}
             <div className="slide-options">
                 <h2>
-                    Response <div className="name">{lang}</div>
+                    Response <div className="name">{mimetype}</div>
                 </h2>
                 <div className="slide-option-buttons">
                     {preview && (
@@ -38,7 +62,7 @@ export default function Response({ data, contentType, isFinished }) {
                             onClick={() => {
                                 setOpenPreview(!openPreview);
                             }}>
-                            <PreviewSvg />
+                            <IoEyeOutline />
                         </button>
                     )}
                     <CopyButton data={data} />
@@ -47,19 +71,19 @@ export default function Response({ data, contentType, isFinished }) {
                         data-tip="Download Response"
                         data-place="left"
                         onClick={() => {
-                            var dataStr =
-                                "data:text/plain;charset=utf-8," +
-                                encodeURIComponent(data);
+                            var dataStr = `data:${extractContentType(
+                                contentType
+                            )};charset=utf-8,${encodeURIComponent(data)}`;
                             var dlAnchorElem = document.createElement("a");
                             dlAnchorElem.setAttribute("href", dataStr);
                             dlAnchorElem.setAttribute(
                                 "download",
-                                `${v4()}.txt`
+                                `${v4()}${mimetype}`
                             );
                             dlAnchorElem.click();
                             dlAnchorElem.remove();
                         }}>
-                        <DownloadSvg />
+                        <ImDownload />
                     </button>
                 </div>
             </div>

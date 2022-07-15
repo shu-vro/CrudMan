@@ -74,7 +74,7 @@
     },
     {
         "label": "image/jpeg",
-        "description": "Mime type for extension: \n.jpeg .jpg\n"
+        "description": "Mime type for extension: .jpeg or .jpg"
     },
     {
         "label": "text/javascript",
@@ -90,7 +90,7 @@
     },
     {
         "label": "audio/midi",
-        "description": "Mime type for extension: \n.mid .midi\n"
+        "description": "Mime type for extension: .mid .midi"
     },
     {
         "label": "text/javascript",
