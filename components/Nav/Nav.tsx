@@ -91,6 +91,11 @@ export default function Nav({ setVertical, setToggleVertical }) {
                         document
                             .querySelector(`.${SideStyles.sidebar}`)
                             .classList.remove("inactive");
+
+                        document.querySelector(
+                            `.${SideStyles.overlay}`
+                            // @ts-ignore
+                        ).style.display = "block";
                     }}>
                     <FaBars />
                 </button>

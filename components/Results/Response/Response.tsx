@@ -44,8 +44,6 @@ export default function Response({ data, contentType, isFinished }) {
         }
     }, [isFinished]);
 
-    console.log(mimetype);
-
     return (
         <div className="slide Response slide-selected">
             {!isFinished && <Loader />}

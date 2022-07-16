@@ -5,6 +5,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { BsLayers } from "react-icons/bs";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { MdOutlineCancel } from "react-icons/md";
 
 export default function EnvironmentList({ env }: { env: EnvironmentType }) {
     const [activateOptions, setActivateOptions] = useState(false);
@@ -28,7 +29,6 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
                     className={`${styles.moreOptions} ${
                         activateOptions ? styles.activate : ""
                     }`}>
-                    {activateOptions && <div className={styles.overlay}></div>}
                     <button className={styles.moreOptionsButton} type="button">
                         <FiEdit />
                         <span>Edit</span>
@@ -36,6 +36,10 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
                     <button className={styles.moreOptionsButton} type="button">
                         <RiDeleteBin5Line />
                         <span>Remove</span>
+                    </button>
+                    <button className={styles.moreOptionsButton} type="button">
+                        <MdOutlineCancel />
+                        <span>Cancel</span>
                     </button>
                 </div>
                 <BiDotsVerticalRounded

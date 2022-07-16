@@ -22,30 +22,7 @@ export function useEnvironment() {
 }
 
 export function EnvironmentContext({ children }) {
-    const [object, setObject] = useState<ArrayEnvironmentType>([
-        {
-            name: "local",
-            variables: [
-                {
-                    key: "a",
-                    value: "local",
-                },
-                {
-                    key: "c",
-                    value: "out of the world",
-                },
-            ],
-        },
-        // {
-        //     name: "global",
-        //     variables: [
-        //         {
-        //             key: "b",
-        //             value: "global",
-        //         },
-        //     ],
-        // },
-    ]);
+    const [object, setObject] = useState<ArrayEnvironmentType>([]);
     return (
         <Context.Provider value={{ object, setObject }}>
             {children}

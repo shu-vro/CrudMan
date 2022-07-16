@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useHistorySaver } from "@utils/HistorySaver";
+import { useEnvironment } from "@utils/Env";
 import { useParams } from "@utils/Params";
 import { useUrlData } from "@utils/UrlData";
 import InputPlace from "./InputPlace";
@@ -12,6 +13,7 @@ export default function QuerySlide() {
     let param = useParams();
     let urlData = useUrlData();
     let historySaver = useHistorySaver();
+    let environment = useEnvironment();
     const [props, setProps] = useState({});
     const [graphqlEnabled, setGraphqlEnabled] = useState(false);
 
@@ -32,9 +34,9 @@ export default function QuerySlide() {
         setFields(prev => prev.filter(field => field.id !== keyName));
     }
 
-    /*
-    These lines should be in historySaver file, but due to bugs, we are migrating these codes in here!
-    */
+    /**
+     * These lines should be in `historySaver` and `environment` file, but due to bugs, we are migrating these codes in here!
+     */
     useEffect(() => {
         if (!localStorage.getItem("history")) {
             localStorage.setItem("history", JSON.stringify([]));
@@ -43,12 +45,50 @@ export default function QuerySlide() {
         historySaver.setObject(
             JSON.parse(localStorage.getItem("history") || "[]")
         );
+        if (!localStorage.getItem("env")) {
+            localStorage.setItem(
+                "env",
+                JSON.stringify(
+                    process.env.NODE_ENV === "development"
+                        ? [
+                              {
+                                  name: "local",
+                                  variables: [
+                                      {
+                                          key: "a",
+                                          value: "local",
+                                      },
+                                      {
+                                          key: "c",
+                                          value: "out of the world",
+                                      },
+                                  ],
+                              },
+                              // {
+                              //     name: "global",
+                              //     variables: [
+                              //         {
+                              //             key: "b",
+                              //             value: "global",
+                              //         },
+                              //     ],
+                              // },
+                          ]
+                        : []
+                )
+            );
+            return;
+        }
+        environment.setObject(JSON.parse(localStorage.getItem("env") || "[]"));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         localStorage.setItem("history", JSON.stringify(historySaver.object));
     }, [historySaver.object]);
+    useEffect(() => {
+        localStorage.setItem("env", JSON.stringify(environment.object));
+    }, [environment.object]);
 
     function setParamsFollowingObject(object: object) {
         let entries = Object.entries(object);

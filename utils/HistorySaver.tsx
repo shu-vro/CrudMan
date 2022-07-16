@@ -30,6 +30,10 @@ type normalParams = {
     setDefaultObject?: React.Dispatch<React.SetStateAction<HistoryType>>;
 };
 
+/**
+ * More at components/Config/QuerySlide/QuerySlide.tsx:40
+ * @returns {normalParams}
+ */
 export function useHistorySaver() {
     const historySaver: normalParams = useContext(Context);
     // useEffect(() => {

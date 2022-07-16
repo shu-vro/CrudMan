@@ -1,0 +1,121 @@
+@mixin fixed_position {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+$w: min(480px, 100%);
+
+.newEnvForm {
+    @include fixed_position();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    z-index: -10000;
+    transition: 0.2s;
+
+    &.active {
+        opacity: 1;
+        user-select: auto;
+        pointer-events: all;
+        z-index: initial;
+
+        .form {
+            transform: translateY(0);
+        }
+    }
+
+    .layer {
+        @include fixed_position();
+        background: var(--input-bg);
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    .form {
+        position: relative !important;
+        width: $w;
+        max-height: 420px;
+        height: initial;
+        background: var(--slide-bg-color);
+        border-radius: 10px;
+        transform: translateY(100px);
+        transition: 0.2s ease;
+
+        .input__place {
+            justify-content: center;
+            width: 90%;
+            margin: auto;
+            padding: 0;
+            border-radius: 5px;
+            border: 1px solid var(--thin-border-color);
+
+            &:hover {
+                background: none;
+            }
+
+            label {
+                width: 75px;
+                font-size: 1.1rem;
+            }
+            input {
+                border: none;
+                height: 35px;
+                width: calc($w - 10rem);
+
+                &:nth-child(2) {
+                    border-left: 2px solid var(--thin-border-color);
+                }
+
+                &:focus {
+                    border: none;
+                    border-left: 2px solid var(--thin-border-color);
+                }
+            }
+        }
+
+        .variable__list {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            h3 {
+                margin-left: 30px;
+            }
+            .button__list {
+                & > * {
+                    font-size: 20px;
+                    display: inline-block;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .notice {
+            text-align: center;
+            opacity: 0.5;
+        }
+
+        .env_form_footer {
+            margin: 20px;
+            button {
+                display: inline-block;
+                font-size: 1.2rem;
+                border-radius: 5px;
+                padding: 5px 10px;
+
+                &:nth-child(1) {
+                    background: var(--blue-color);
+                }
+
+                &:nth-child(2) {
+                    background: var(--slide-bg-color);
+                }
+            }
+        }
+    }
+}

@@ -2,10 +2,12 @@ import { useRef } from "react";
 import { useEnvironment } from "@utils/Env";
 import EnvironmentList from "./EnvironmentList";
 import styles from "@styles/Sidebar.module.scss";
+import ModalStyles from "@styles/ModalForms.module.scss";
 import { v4 } from "uuid";
 import { TbPackgeExport } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
 import Tooltip from "components/Tooltip";
+import NewEnvForm from "./NewEnvForm";
 
 export default function Environments() {
     const listRequestRef = useRef(null);
@@ -24,6 +26,17 @@ export default function Environments() {
         }
     }
 
+    function createNewEnv() {
+        // let newEnv = {
+        //     name: "",
+        //     variables: [],
+        // };
+        // environment.setObject([...environment.object, newEnv]);
+        document
+            .querySelector(`.${ModalStyles.newEnvForm}`)
+            ?.classList.add(ModalStyles.active);
+    }
+
     return (
         <div className={styles.sidebar_environments}>
             <div className={styles.inputAndButton}>
@@ -33,17 +46,23 @@ export default function Environments() {
                     placeholder="Search"
                 />
             </div>
-            <div className={styles.helperButtons}>
+            <div className={styles.helperButtons} onClick={createNewEnv}>
                 <span className={styles.iconSvg}>
                     <AiOutlinePlus />
                 </span>
-                <h4>New</h4>
+                <h4
+                    style={{
+                        margin: `5px 0 10px`,
+                    }}>
+                    New
+                </h4>
                 <button
                     type="button"
                     className={styles.iconSvg}
                     data-tip="Export to file"
                     data-place="left"
-                    onClick={() => {
+                    onClick={e => {
+                        e.stopPropagation();
                         var dataStr =
                             "data:text/json;charset=utf-8," +
                             encodeURIComponent(
@@ -67,6 +86,7 @@ export default function Environments() {
                     ))}
             </ul>
             <Tooltip />
+            <NewEnvForm />
         </div>
     );
 }

@@ -12,6 +12,16 @@
     overflow-x: hidden;
     transition: right 0.3s 0s cubic-bezier(0.215, 0.61, 0.355, 1);
 
+    & > .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        display: block;
+    }
+
     &[class~="inactive"] {
         right: calc(min(350px, 100%) * -1);
     }
@@ -133,7 +143,7 @@
                     text-align: center;
                     opacity: 0;
                     user-select: none;
-                    position: none;
+                    pointer-events: none;
                     transition: 0.25s ease;
 
                     &.activate {
@@ -141,15 +151,6 @@
                         user-select: auto;
                         pointer-events: all;
                         bottom: 25px;
-                    }
-
-                    .overlay {
-                        position: fixed;
-                        width: 100%;
-                        height: 100%;
-                        top: 0;
-                        left: 0;
-                        z-index: -1;
                     }
 
                     .moreOptionsButton {
@@ -160,11 +161,11 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+                        z-index: 2;
                         transition: 0.2s ease;
 
                         &:hover {
-                            font-weight: bolder;
-                            color: var(--theme);
+                            color: var(--blue-color);
                         }
 
                         &:nth-child(1) {
