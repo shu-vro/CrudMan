@@ -27,13 +27,8 @@ export default function Environments() {
     }
 
     function createNewEnv() {
-        // let newEnv = {
-        //     name: "",
-        //     variables: [],
-        // };
-        // environment.setObject([...environment.object, newEnv]);
         document
-            .querySelector(`.${ModalStyles.newEnvForm}`)
+            .getElementById("newEnvForm")
             ?.classList.add(ModalStyles.active);
     }
 
@@ -86,7 +81,7 @@ export default function Environments() {
                     ))}
             </ul>
             <Tooltip />
-            <NewEnvForm />
+            <NewEnvForm id="newEnvForm" defaultEnv={null} />
         </div>
     );
 }

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 type deviceType = "mobile" | "desktop";
-export default function useRecognizeMobile(): deviceType {
-    const [device, setDevice] = useState<deviceType>("desktop");
+export default function useDeviceType(): deviceType {
+    const [device, setDevice] = useState<deviceType>("mobile");
     function _deviceType(): deviceType {
         const ua = navigator.userAgent;
         if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {

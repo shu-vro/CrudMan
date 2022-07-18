@@ -1,15 +1,22 @@
 import styles from "@styles/ModalForms.module.scss";
-import { useEnvironment } from "@utils/Env";
-import { useId, useRef, useState } from "react";
+import { EnvironmentType, useEnvironment } from "@utils/Env";
+import { useEffect, useId, useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiDelete } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { v4 } from "uuid";
 
-export default function NewEnvForm() {
+export default function NewEnvForm({
+    defaultEnv,
+    id,
+    ...rest
+}: {
+    defaultEnv: EnvironmentType | null;
+    id: string;
+    [x: string]: any;
+}) {
     const formRef = useRef(null);
     const labelRef = useRef(null);
-    const id = useId();
     const environment = useEnvironment();
     type FieldsType = Array<{
         id: string;
@@ -17,6 +24,27 @@ export default function NewEnvForm() {
         defaultChecked?: boolean;
     }>;
     const [fields, setFields] = useState<FieldsType>([]);
+    const [notice, setNotice] = useState("");
+
+    useEffect(() => {
+        if (fields.length === 0)
+            setNotice("Please click + sign to add new Environment variable");
+        else setNotice("");
+    }, [fields]);
+
+    useEffect(() => {
+        if (defaultEnv) {
+            let newFields = [];
+            defaultEnv.variables.forEach(variable => {
+                newFields.push({
+                    id: v4(),
+                    entry: [variable.key, variable.value],
+                });
+            });
+            setFields(newFields);
+        }
+    }, [defaultEnv]);
+
     function addField() {
         setFields([...fields, { id: v4(), entry: [] }]);
     }
@@ -30,16 +58,31 @@ export default function NewEnvForm() {
     }
 
     function cancelEnv() {
-        document
-            .querySelector(`.${styles.newEnvForm}`)
-            ?.classList.remove(styles.active);
+        document.getElementById(id)?.classList.remove(styles.active);
     }
 
     function saveEnv() {
         const name = labelRef.current.value;
+        let nameExists = environment.object.findIndex(v => {
+            return v.name === name;
+        });
+        if (nameExists > -1 && !defaultEnv) {
+            setNotice("Label name exists!");
+            setTimeout(() => {
+                setNotice("");
+            }, 2000);
+            return;
+        }
         const form = formRef.current;
         let variables = [];
         const arrayEl = form.querySelectorAll(`.${styles.input__place}`);
+        if (arrayEl.length <= 1) {
+            setNotice("Provide at least one variable");
+            setTimeout(() => {
+                setNotice("");
+            }, 2000);
+            return;
+        }
         arrayEl.forEach((f: HTMLDivElement, index) => {
             if (index === 0) return;
             const key = (f.childNodes[0] as HTMLInputElement).value;
@@ -50,12 +93,20 @@ export default function NewEnvForm() {
             name,
             variables,
         };
-        environment.setObject([...environment.object, newEnv]);
+        if (defaultEnv) {
+            environment.setObject(prev => {
+                prev[nameExists] = newEnv;
+                let newArray = [...prev];
+                return newArray;
+            });
+        } else {
+            environment.setObject([...environment.object, newEnv]);
+        }
         cancelEnv();
     }
     return (
         <>
-            <div className={styles.newEnvForm}>
+            <div className={styles.newEnvForm} id={id} {...rest}>
                 <div className={styles.layer}></div>
                 <form className={`slide ${styles.form}`} ref={formRef}>
                     <h2>New Environment</h2>
@@ -66,6 +117,8 @@ export default function NewEnvForm() {
                             id={`${id}__label`}
                             required
                             ref={labelRef}
+                            defaultValue={defaultEnv?.name}
+                            readOnly={defaultEnv ? true : false}
                         />
                     </div>
 
@@ -86,13 +139,10 @@ export default function NewEnvForm() {
                             key={field.id}
                             keyName={field.id}
                             removeField={removeField}
+                            entry={[field.entry[0], field.entry[1]]}
                         />
                     ))}
-                    {fields.length < 1 && (
-                        <h2 className={styles.notice}>
-                            Please click + sign to add new Environment variable
-                        </h2>
-                    )}
+                    <h2 className={styles.notice}>{notice}</h2>
                     <div className={styles.env_form_footer}>
                         <button type="button" onClick={saveEnv}>
                             Save
@@ -114,12 +164,12 @@ function Input({ keyName, entry = ["", ""], removeField }) {
                 <input
                     type="text"
                     placeholder="Variable"
-                    defaultValue={entry[0]}
+                    defaultValue={entry?.[0]}
                 />
                 <input
                     type="text"
                     placeholder="Value"
-                    defaultValue={entry[1]}
+                    defaultValue={entry?.[1]}
                 />
                 <button
                     type="button"

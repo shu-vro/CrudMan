@@ -11,6 +11,8 @@ import {
 import { ImDownload } from "react-icons/im";
 import { IoEyeOutline } from "react-icons/io5";
 import fileExtensions from "@utils/fileExtensions.json";
+import useDeviceType from "hooks/useDeviceType";
+import AceCodeEditor from "components/Editors/AceCodeEditor";
 
 export default function Response({ data, contentType, isFinished }) {
     let lang = extractFileNameFromContentType(contentType);
@@ -19,6 +21,7 @@ export default function Response({ data, contentType, isFinished }) {
     let preview = false;
     let endLoop = false;
     let rawContentType = extractContentType(contentType);
+    const isMobile = useDeviceType();
 
     if (lang === "html") {
         preview = true;
@@ -91,6 +94,8 @@ export default function Response({ data, contentType, isFinished }) {
                     className={styles.previewPanel}
                     src="about:blank"
                     srcDoc={data}></iframe>
+            ) : isMobile === "mobile" ? (
+                <AceCodeEditor mode={lang} readOnly value={data} />
             ) : (
                 <MonacoCodeEditor value={data} readOnly language={lang} />
             )}

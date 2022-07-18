@@ -16,13 +16,13 @@ $w: min(480px, 100%);
     user-select: none;
     pointer-events: none;
     z-index: -10000;
-    transition: 0.2s;
+    transition: 0.2s ease, z-index 0s;
 
     &.active {
         opacity: 1;
         user-select: auto;
         pointer-events: all;
-        z-index: initial;
+        z-index: 2;
 
         .form {
             transform: translateY(0);

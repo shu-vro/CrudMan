@@ -1,7 +1,12 @@
 {
     "name": "crudman-next",
-    "version": "0.1.2",
+    "version": "0.1.0",
     "private": true,
+    "homepage": "https://crudman.netlify.app/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shu-vro/CrudMan.git"
+    },
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -9,7 +14,7 @@
         "lint": "next lint",
         "tsc": "clear && tsc",
         "prettify": "prettier --config .prettierrc --ignore-path .prettierignore ./",
-        "release": "standard-version"
+        "changelog": "changelog generate"
     },
     "dependencies": {
         "@monaco-editor/react": "^4.4.5",
@@ -33,6 +38,6 @@
         "eslint-config-next": "12.1.5",
         "prettier": "^2.7.1",
         "sass": "^1.53.0",
-        "standard-version": "^9.5.0"
+        "generate-changelog": "^1.8.0"
     }
 }

@@ -9,6 +9,8 @@ import { useAuth } from "@utils/Auth";
 import { useUrlData } from "@utils/UrlData";
 import { usePostBody } from "@utils/Body";
 import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
+import AceCodeEditor from "components/Editors/AceCodeEditor";
+import useDeviceType from "hooks/useDeviceType";
 
 export default function CodeBody() {
     const { selectCode, setObject } = useCode();
@@ -201,12 +203,26 @@ $response | ConvertTo-Json`;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectCode, headers, body, urlData, auth, queryParams]);
+    const isMobile = useDeviceType();
 
     return (
-        <MonacoCodeEditor
-            value={config.boilerplate}
-            readOnly={true}
-            language={config.mode}
-        />
+        // <MonacoCodeEditor
+        //     value={config.boilerplate}
+        //     readOnly={true}
+        //     language={config.mode}
+        // />
+        isMobile === "mobile" ? (
+            <AceCodeEditor
+                mode={config.mode}
+                readOnly
+                value={config.boilerplate}
+            />
+        ) : (
+            <MonacoCodeEditor
+                value={config.boilerplate}
+                readOnly
+                language={config.mode}
+            />
+        )
     );
 }

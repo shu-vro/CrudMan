@@ -46,37 +46,7 @@ export default function QuerySlide() {
             JSON.parse(localStorage.getItem("history") || "[]")
         );
         if (!localStorage.getItem("env")) {
-            localStorage.setItem(
-                "env",
-                JSON.stringify(
-                    process.env.NODE_ENV === "development"
-                        ? [
-                              {
-                                  name: "local",
-                                  variables: [
-                                      {
-                                          key: "a",
-                                          value: "local",
-                                      },
-                                      {
-                                          key: "c",
-                                          value: "out of the world",
-                                      },
-                                  ],
-                              },
-                              // {
-                              //     name: "global",
-                              //     variables: [
-                              //         {
-                              //             key: "b",
-                              //             value: "global",
-                              //         },
-                              //     ],
-                              // },
-                          ]
-                        : []
-                )
-            );
+            localStorage.setItem("env", JSON.stringify([]));
             return;
         }
         environment.setObject(JSON.parse(localStorage.getItem("env") || "[]"));

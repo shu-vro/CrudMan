@@ -3,13 +3,13 @@ import { usePostBody } from "@utils/Body";
 import { useHistorySaver } from "@utils/HistorySaver";
 import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
 import AceCodeEditor from "components/Editors/AceCodeEditor";
-import useRecognizeMobile from "hooks/useRecognizeMobile";
+import useDeviceType from "hooks/useDeviceType";
 
 export default function BodySlide() {
     const historySaver = useHistorySaver();
     const [annotations, setAnnotations] = useState([]);
     const [valid, setValid] = useState(true);
-    const isMobile = useRecognizeMobile();
+    const isMobile = useDeviceType();
     let postBody = usePostBody();
     const [postBodyCopy, setPostBodyCopy] = useState(
         JSON.stringify(postBody.object, null, 4)
@@ -29,21 +29,7 @@ export default function BodySlide() {
                 Json Content{" "}
                 <span className={`dot ${valid ? "" : "red"}`}></span>
             </h2>
-            {isMobile !== "mobile" ? (
-                <MonacoCodeEditor
-                    value={postBodyCopy}
-                    onChange={e => {
-                        setPostBodyCopy(e);
-                        try {
-                            postBody.setObject(JSON.parse(e));
-                        } catch (error) {}
-                    }}
-                    onValidate={e => {
-                        if (e.length > 0) setValid(false);
-                        else setValid(true);
-                    }}
-                />
-            ) : (
+            {isMobile === "mobile" ? (
                 <AceCodeEditor
                     value={postBodyCopy}
                     annotations={annotations}
@@ -72,6 +58,20 @@ export default function BodySlide() {
                             });
                             setValid(false);
                         }
+                    }}
+                />
+            ) : (
+                <MonacoCodeEditor
+                    value={postBodyCopy}
+                    onChange={e => {
+                        setPostBodyCopy(e);
+                        try {
+                            postBody.setObject(JSON.parse(e));
+                        } catch (error) {}
+                    }}
+                    onValidate={e => {
+                        if (e.length > 0) setValid(false);
+                        else setValid(true);
                     }}
                 />
             )}
