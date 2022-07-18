@@ -1,6 +1,6 @@
 {
     "name": "crudman-next",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": true,
     "scripts": {
         "dev": "next dev",
@@ -8,7 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "tsc": "clear && tsc",
-        "prettify": "prettier --config .prettierrc --ignore-path .prettierignore ./"
+        "prettify": "prettier --config .prettierrc --ignore-path .prettierignore ./",
+        "release": "standard-version"
     },
     "dependencies": {
         "@monaco-editor/react": "^4.4.5",
@@ -31,6 +32,7 @@
         "eslint": "8.14.0",
         "eslint-config-next": "12.1.5",
         "prettier": "^2.7.1",
-        "sass": "^1.53.0"
+        "sass": "^1.53.0",
+        "standard-version": "^9.5.0"
     }
 }
