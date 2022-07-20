@@ -45,7 +45,7 @@ export default function Results() {
                     data={`${
                         typeof apiData?.data !== "object"
                             ? apiData?.data || JSON.stringify({})
-                            : JSON.stringify(apiData?.data || {}, null, 4)
+                            : JSON.stringify(apiData?.data || {}, null, 2)
                     }`}
                     isFinished={apiData?.isFinished}
                     contentType={apiData?.headers?.[`content-type`]}

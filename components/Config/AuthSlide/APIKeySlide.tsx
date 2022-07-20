@@ -90,7 +90,7 @@ export default function APIKeySlide() {
                 type="checkbox"
                 name="api_access_checkbox"
                 value="on"
-                ref={includeRef}
+                Ref={includeRef}
             />
             <InputAuth
                 FieldName="Key"

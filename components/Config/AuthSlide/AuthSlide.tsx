@@ -32,6 +32,12 @@ export default function AuthSlide() {
                 })
             );
         }, 100);
+        auth.setObject(prev => ({
+            ...prev,
+            headers: historySaver.defaultObject.auth.headers,
+            params: historySaver.defaultObject.auth.params,
+            methodFromAuthSlide: historySaver.defaultObject.authMethod,
+        }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [historySaver.defaultObject]);
 

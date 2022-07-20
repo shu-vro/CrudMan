@@ -10,6 +10,7 @@ export default function TestResults() {
     let { object: apiData } = useApiData();
 
     useEffect(() => {
+        if (!apiData.isFinished) return;
         let headers = apiData?.headers || {};
         setTests({});
 

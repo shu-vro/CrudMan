@@ -12,12 +12,12 @@ export default function BodySlide() {
     const isMobile = useDeviceType();
     let postBody = usePostBody();
     const [postBodyCopy, setPostBodyCopy] = useState(
-        JSON.stringify(postBody.object, null, 4)
+        JSON.stringify(postBody.object, null, 2)
     );
 
     useEffect(() => {
         setPostBodyCopy(
-            JSON.stringify(historySaver.defaultObject.body, null, 4)
+            JSON.stringify(historySaver.defaultObject.body, null, 2)
         );
         postBody.setObject(historySaver.defaultObject.body);
         // eslint-disable-next-line react-hooks/exhaustive-deps

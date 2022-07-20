@@ -55,8 +55,8 @@ export default function CodeBody() {
         // }?${searchParams.toString()}`;
         let url = `${urlData.baseURL}?${searchParams.toString()}`;
 
-        let copyBodyString = JSON.stringify(copyBody, null, 4);
-        let copyHeaderString = JSON.stringify(copyHeaders, null, 4);
+        let copyBodyString = JSON.stringify(copyBody, null, 2);
+        let copyHeaderString = JSON.stringify(copyHeaders, null, 2);
         let methodString = urlData.method.toUpperCase();
         if (selectCode === "C# HttpClient") {
             let headerString = Object.entries(copyHeaders)
