@@ -1,6 +1,6 @@
 import styles from "@styles/ModalForms.module.scss";
 import { EnvironmentType, useEnvironment } from "@utils/Env";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiDelete } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -9,10 +9,12 @@ import { v4 } from "uuid";
 export default function NewEnvForm({
     defaultEnv,
     id,
+    isSelected,
     ...rest
 }: {
     defaultEnv: EnvironmentType | null;
     id: string;
+    isSelected?: Boolean;
     [x: string]: any;
 }) {
     const formRef = useRef(null);
@@ -83,7 +85,7 @@ export default function NewEnvForm({
             }, 2000);
             return;
         }
-        arrayEl.forEach((f: HTMLDivElement, index) => {
+        arrayEl.forEach((f: HTMLDivElement, index: Number) => {
             if (index === 0) return;
             const key = (f.childNodes[0] as HTMLInputElement).value;
             const value = (f.childNodes[1] as HTMLInputElement).value;
@@ -99,6 +101,18 @@ export default function NewEnvForm({
                 let newArray = [...prev];
                 return newArray;
             });
+            if (isSelected && defaultEnv.name !== "global") {
+                environment.setDefaultObject([
+                    environment.object.find(({ name }) => name === "global"),
+                    newEnv,
+                ]);
+            } else if (isSelected) {
+                environment.setDefaultObject(prev => {
+                    prev[0] = newEnv;
+                    let newArray = [...prev];
+                    return newArray;
+                });
+            }
         } else {
             environment.setObject([...environment.object, newEnv]);
         }

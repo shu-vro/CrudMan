@@ -215,6 +215,11 @@
                     }
                 }
             }
+            #select_button {
+                width: 100%;
+                background: var(--navbar-color);
+                text-align: center;
+            }
         }
     }
 }

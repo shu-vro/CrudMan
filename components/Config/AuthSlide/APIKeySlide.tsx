@@ -81,11 +81,6 @@ export default function APIKeySlide() {
         });
     }, [setObject, setParams]);
 
-    const a = useAuth();
-    useEffect(() => {
-        console.log(a);
-    }, [a]);
-
     return (
         <form className="slide authSlide APIKey" ref={formRef}>
             <h3>Basic Authentication</h3>

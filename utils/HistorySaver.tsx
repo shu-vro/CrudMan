@@ -32,7 +32,7 @@ type normalParams = {
 
 /**
  * More at components/Config/QuerySlide/QuerySlide.tsx:40
- * @returns {normalParams}
+ * @returns object with history, setHistory, defaultHistory, setDefaultHistory
  */
 export function useHistorySaver() {
     const historySaver: normalParams = useContext(Context);

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useEnvironment } from "@utils/Env";
 import EnvironmentList from "./EnvironmentList";
 import styles from "@styles/Sidebar.module.scss";
@@ -11,7 +11,12 @@ import NewEnvForm from "./NewEnvForm";
 
 export default function Environments() {
     const listRequestRef = useRef(null);
+    const selectEnvRef = useRef(null);
     const environment = useEnvironment();
+
+    useEffect(() => {
+        console.log(environment.defaultObject);
+    }, [environment.defaultObject]);
 
     function handleSearch(e: React.FormEvent<HTMLInputElement>) {
         let listRequests: HTMLLIElement = listRequestRef.current;
@@ -32,6 +37,15 @@ export default function Environments() {
             ?.classList.add(ModalStyles.active);
     }
 
+    function selectEnv() {
+        let element: HTMLSelectElement = selectEnvRef.current;
+        let index = element.selectedIndex;
+        environment.setDefaultObject([
+            environment.object.find(({ name }) => name === "global"),
+            environment.object[index],
+        ]);
+    }
+
     return (
         <div className={styles.sidebar_environments}>
             <div className={styles.inputAndButton}>
@@ -41,6 +55,26 @@ export default function Environments() {
                     placeholder="Search"
                 />
             </div>
+            <select
+                name="envSelect"
+                ref={selectEnvRef}
+                className="select-transparent"
+                id={styles.select_button}
+                onChange={selectEnv}>
+                <option value="" defaultChecked hidden>
+                    Select Environment
+                </option>
+                {environment.object.map(env => {
+                    if (env.name === "global") {
+                        return;
+                    }
+                    return (
+                        <option value={env.name} key={env.name}>
+                            {env.name}
+                        </option>
+                    );
+                })}
+            </select>
             <div className={styles.helperButtons} onClick={createNewEnv}>
                 <span className={styles.iconSvg}>
                     <AiOutlinePlus />
@@ -73,12 +107,9 @@ export default function Environments() {
                 </button>
             </div>
             <ul className={styles.list_requests} ref={listRequestRef}>
-                {environment.object
-                    .slice()
-                    .reverse()
-                    .map(env => (
-                        <EnvironmentList key={env.name} env={env} />
-                    ))}
+                {environment.object.map(env => (
+                    <EnvironmentList key={env.name} env={env} />
+                ))}
             </ul>
             <Tooltip />
             <NewEnvForm id="newEnvForm" defaultEnv={null} />

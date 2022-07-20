@@ -13,8 +13,16 @@ type ArrayEnvironmentType = Array<EnvironmentType>;
 type normalParams = {
     object?: ArrayEnvironmentType;
     setObject?: React.Dispatch<React.SetStateAction<ArrayEnvironmentType>>;
+    defaultObject?: ArrayEnvironmentType;
+    setDefaultObject?: React.Dispatch<
+        React.SetStateAction<ArrayEnvironmentType>
+    >;
 };
 
+/**
+ * More at components/Config/QuerySlide/QuerySlide.tsx:40
+ * @returns object with history, setHistory, defaultHistory, setDefaultHistory
+ */
 export function useEnvironment() {
     const historySaver: normalParams = useContext(Context);
 
@@ -22,9 +30,23 @@ export function useEnvironment() {
 }
 
 export function EnvironmentContext({ children }) {
-    const [object, setObject] = useState<ArrayEnvironmentType>([]);
+    const defaultEnv = {
+        name: "global",
+        variables: [
+            {
+                key: "Variable",
+                value: "Value",
+            },
+        ],
+    };
+    const [object, setObject] = useState<ArrayEnvironmentType>([defaultEnv]);
+    const [defaultObject, setDefaultObject] = useState<ArrayEnvironmentType>(
+        []
+    );
+
     return (
-        <Context.Provider value={{ object, setObject }}>
+        <Context.Provider
+            value={{ object, setObject, defaultObject, setDefaultObject }}>
             {children}
         </Context.Provider>
     );

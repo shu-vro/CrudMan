@@ -23,10 +23,29 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
     }
 
     function editEnv() {
-        console.log("hi");
         document
             .getElementById(prefix + env.name)
             ?.classList.add(ModalStyles.active);
+    }
+
+    function isSelected(envName: String) {
+        return environment.defaultObject.some(({ name }) => name === envName);
+    }
+
+    function selectEnv() {
+        if (env.name !== "global") {
+            const select = document.getElementById(
+                styles.select_button
+            ) as HTMLSelectElement;
+            let index = environment.object.findIndex(
+                ({ name }) => name === env.name
+            );
+            select.selectedIndex = index;
+            environment.setDefaultObject([
+                environment.object.find(({ name }) => name === "global"),
+                env,
+            ]);
+        }
     }
     return (
         <li>
@@ -36,7 +55,8 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
             <h4
                 style={{
                     margin: `5px 0 10px`,
-                }}>
+                }}
+                onClick={selectEnv}>
                 {env.name}
             </h4>
             <span
@@ -55,13 +75,15 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
                         <FiEdit />
                         <span>Edit</span>
                     </button>
-                    <button
-                        className={styles.moreOptionsButton}
-                        type="button"
-                        onClick={removeEnv}>
-                        <RiDeleteBin5Line />
-                        <span>Remove</span>
-                    </button>
+                    {env.name !== "global" && (
+                        <button
+                            className={styles.moreOptionsButton}
+                            type="button"
+                            onClick={removeEnv}>
+                            <RiDeleteBin5Line />
+                            <span>Remove</span>
+                        </button>
+                    )}
                     <button className={styles.moreOptionsButton} type="button">
                         <MdOutlineCancel />
                         <span>Cancel</span>
@@ -72,7 +94,11 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
                     data-place="left"
                 />
             </span>
-            <NewEnvForm id={prefix + env.name} defaultEnv={env} />
+            <NewEnvForm
+                id={prefix + env.name}
+                defaultEnv={env}
+                isSelected={isSelected(env.name)}
+            />
         </li>
     );
 }

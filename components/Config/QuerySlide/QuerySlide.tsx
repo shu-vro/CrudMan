@@ -50,6 +50,9 @@ export default function QuerySlide() {
             return;
         }
         environment.setObject(JSON.parse(localStorage.getItem("env") || "[]"));
+        environment.setDefaultObject([
+            JSON.parse(localStorage.getItem("env"))?.[0],
+        ]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
