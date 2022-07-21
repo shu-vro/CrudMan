@@ -10,6 +10,7 @@ interface ObjectType {
     statusText?: string;
     size?: number;
     isFinished?: boolean;
+    arrayBuffer?: ArrayBuffer;
 }
 interface normalParams {
     object?: ObjectType;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useEnvironment } from "@utils/Env";
 import EnvironmentList from "./EnvironmentList";
 import styles from "@styles/Sidebar.module.scss";
@@ -13,10 +13,6 @@ export default function Environments() {
     const listRequestRef = useRef(null);
     const selectEnvRef = useRef(null);
     const environment = useEnvironment();
-
-    useEffect(() => {
-        console.log(environment.defaultObject);
-    }, [environment.defaultObject]);
 
     function handleSearch(e: React.FormEvent<HTMLInputElement>) {
         let listRequests: HTMLLIElement = listRequestRef.current;

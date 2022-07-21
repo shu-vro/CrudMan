@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "@styles/Sidebar.module.scss";
 import Histories from "./Histories";
 import Environments from "./Environments";

@@ -15,7 +15,7 @@ export default function Tooltip() {
             {ready && (
                 <ReactTooltip
                     place="bottom"
-                    effect="float"
+                    effect="solid"
                     type={theme === "dark" ? "light" : "dark"}
                 />
             )}

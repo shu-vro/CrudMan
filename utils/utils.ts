@@ -28,13 +28,21 @@ export function checkRegexKeyInResponse(o: any[] | object, r: RegExp) {
         .filter(el => el)
         .some(el => el);
 }
-export function extractFileNameFromContentType(contentType) {
+
+/**
+ *
+ * @param contentType Content-Type header
+ * @returns {Array} file category and type
+ */
+export function extractFileNameAndTypeFromContentType(
+    contentType
+): [String, String] {
     if (contentType) {
         const contentTypeParts = contentType.split(";");
-        const fileName = contentTypeParts[0].split("/")[1];
+        const fileName = contentTypeParts[0].split("/");
         return fileName;
     }
-    return "";
+    return ["", ""];
 }
 export function extractContentType(contentType) {
     if (contentType) {

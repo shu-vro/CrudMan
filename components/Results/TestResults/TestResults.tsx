@@ -1,20 +1,33 @@
 import { useEffect, useState } from "react";
+import Mustache from "mustache";
 import Table from "../Table/Table";
 import { useTest } from "@utils/Test";
 import { useApiData } from "@utils/ApiData";
+import { useEnvironment } from "@utils/Env";
 import { stringToRegex, checkRegexKeyInResponse } from "@utils/utils";
 
 export default function TestResults() {
     const [tests, setTests] = useState({});
     let { props } = useTest();
     let { object: apiData } = useApiData();
+    const environment = useEnvironment();
 
     useEffect(() => {
         if (!apiData.isFinished) return;
         let headers = apiData?.headers || {};
         setTests({});
 
-        props.forEach(prop => {
+        let propsCopy = [...props];
+        try {
+            propsCopy = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(propsCopy),
+                    environment.variables
+                )
+            );
+        } catch (error) {}
+
+        propsCopy.forEach(prop => {
             let propName = prop.key.toLowerCase();
             let section = prop.section;
             let operation = prop.operation;

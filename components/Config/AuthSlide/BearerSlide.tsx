@@ -28,38 +28,35 @@ export default function BearerSlide() {
         );
     }, [historySaver.defaultObject]);
 
-    useEffect(() => {
-        let methodFromAuthSlide: string = "bearer";
-        const form: HTMLFormElement = formRef.current;
-        form.addEventListener("input", e => {
-            e.preventDefault();
-            let formData = new FormData(form);
-            let token = formData.get("bearer_token");
-            if (token === "")
-                return setObject(prev => {
+    return (
+        <form
+            className="slide authSlide Bearer"
+            ref={formRef}
+            onInput={() => {
+                let methodFromAuthSlide: string = "bearer";
+                let formData = new FormData(formRef.current);
+                let token = formData.get("bearer_token");
+                if (token === "")
+                    return setObject(prev => {
+                        return {
+                            ...prev,
+                            headers: {},
+                            params: {},
+                            setObject,
+                            methodFromAuthSlide,
+                        };
+                    });
+                let Authorization = `${methodFromAuthSlide} ${token}`;
+                setObject(prev => {
                     return {
                         ...prev,
-                        headers: {},
+                        headers: { Authorization },
                         params: {},
                         setObject,
                         methodFromAuthSlide,
                     };
                 });
-            let Authorization = `${methodFromAuthSlide} ${token}`;
-            setObject(prev => {
-                return {
-                    ...prev,
-                    headers: { Authorization },
-                    params: {},
-                    setObject,
-                    methodFromAuthSlide,
-                };
-            });
-        });
-    }, [setObject]);
-
-    return (
-        <form className="slide authSlide Bearer" ref={formRef}>
+            }}>
             <h3>Bearer Token</h3>
             <textarea
                 name="bearer_token"

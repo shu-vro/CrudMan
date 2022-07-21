@@ -62,6 +62,16 @@ export default function QuerySlide() {
     useEffect(() => {
         localStorage.setItem("env", JSON.stringify(environment.object));
     }, [environment.object]);
+    useEffect(() => {
+        let envVars = {};
+        environment.defaultObject.forEach(env => {
+            env.variables.forEach(variable => {
+                envVars[variable.key] = variable.value;
+            });
+        });
+        environment.setVariables(envVars);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [environment.defaultObject]);
 
     function setParamsFollowingObject(object: object) {
         let entries = Object.entries(object);

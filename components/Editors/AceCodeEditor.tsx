@@ -1,5 +1,5 @@
 import React from "react";
-// import { IAceEditorProps } from "react-ace";
+import { IAceEditorProps } from "react-ace";
 import dynamic from "next/dynamic";
 import { useTheme } from "@utils/Theme";
 import Loader from "components/Results/Loader";
@@ -31,7 +31,7 @@ const AceEditor = dynamic(
     }
 );
 
-export default function AceCodeEditor({ value, ...rest }) {
+export default function AceCodeEditor({ value, ...rest }: IAceEditorProps) {
     const { value: theme } = useTheme();
     return (
         <AceEditor

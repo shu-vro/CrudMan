@@ -20,6 +20,16 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
             ({ name }) => name !== env.name
         );
         environment.setObject(filtered);
+        if (
+            environment.defaultObject.findIndex(
+                ({ name }) => name === env.name
+            ) > -1
+        ) {
+            const globalEnv = environment.defaultObject.find(
+                ({ name }) => name === "global"
+            );
+            environment.setDefaultObject([globalEnv]);
+        }
     }
 
     function editEnv() {

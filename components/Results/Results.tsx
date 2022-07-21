@@ -49,6 +49,7 @@ export default function Results() {
                     }`}
                     isFinished={apiData?.isFinished}
                     contentType={apiData?.headers?.[`content-type`]}
+                    arrayBuffer={apiData?.arrayBuffer}
                 />
                 <Headers headers={apiData?.headers || {}} />
                 <div className="slide Cookies">

@@ -17,6 +17,8 @@ type normalParams = {
     setDefaultObject?: React.Dispatch<
         React.SetStateAction<ArrayEnvironmentType>
     >;
+    variables?: Object;
+    setVariables?: React.Dispatch<React.SetStateAction<Object>>;
 };
 
 /**
@@ -43,10 +45,18 @@ export function EnvironmentContext({ children }) {
     const [defaultObject, setDefaultObject] = useState<ArrayEnvironmentType>(
         []
     );
+    const [variables, setVariables] = useState({});
 
     return (
         <Context.Provider
-            value={{ object, setObject, defaultObject, setDefaultObject }}>
+            value={{
+                object,
+                setObject,
+                defaultObject,
+                setDefaultObject,
+                variables,
+                setVariables,
+            }}>
             {children}
         </Context.Provider>
     );

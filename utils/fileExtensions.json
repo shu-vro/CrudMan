@@ -25,7 +25,10 @@
     { "label": ".gz", "contentType": ["application/gzip"] },
     { "label": ".gif", "contentType": ["image/gif"] },
     { "label": ".html", "contentType": ["text/html"] },
-    { "label": ".ico", "contentType": ["image/vnd.microsoft.icon"] },
+    {
+        "label": ".ico",
+        "contentType": ["image/vnd.microsoft.icon", "image/x-icon"]
+    },
     { "label": ".ics", "contentType": ["text/calendar"] },
     { "label": ".jar", "contentType": ["application/java-archive"] },
     { "label": ".jpeg", "contentType": ["image/jpeg"] },

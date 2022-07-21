@@ -40,49 +40,45 @@ export default function APIKeySlide() {
         );
     }, [historySaver.defaultObject]);
 
-    useEffect(() => {
-        let methodFromAuthSlide: string = "APIKey";
-        const form: HTMLFormElement = formRef.current;
-
-        form.addEventListener("input", e => {
-            e.preventDefault();
-            let formData = new FormData(form);
-            let key = formData.get("api_access_key").toString();
-            let checkbox = formData.get("api_access_checkbox");
-            let value = formData.get("api_access_value");
-            if (key === "")
-                return setObject({
-                    headers: {},
-                    params: {},
-                    setObject,
-                    methodFromAuthSlide: "",
-                });
-            if (checkbox === "on") {
-                setObject(prev => {
-                    return {
-                        ...prev,
+    return (
+        <form
+            className="slide authSlide APIKey"
+            ref={formRef}
+            onInput={() => {
+                let methodFromAuthSlide: string = "APIKey";
+                let formData = new FormData(formRef.current);
+                let key = formData.get("api_access_key").toString();
+                let checkbox = formData.get("api_access_checkbox");
+                let value = formData.get("api_access_value").toString();
+                if (key === "")
+                    return setObject({
                         headers: {},
-                        params: { [key]: value },
-                        setObject,
-                        methodFromAuthSlide,
-                    };
-                });
-            } else {
-                setObject(prev => {
-                    return {
-                        ...prev,
-                        headers: { [key]: value },
                         params: {},
                         setObject,
-                        methodFromAuthSlide,
-                    };
-                });
-            }
-        });
-    }, [setObject, setParams]);
-
-    return (
-        <form className="slide authSlide APIKey" ref={formRef}>
+                        methodFromAuthSlide: "",
+                    });
+                if (checkbox === "on") {
+                    setObject(prev => {
+                        return {
+                            ...prev,
+                            headers: {},
+                            params: { [key]: value },
+                            setObject,
+                            methodFromAuthSlide,
+                        };
+                    });
+                } else {
+                    setObject(prev => {
+                        return {
+                            ...prev,
+                            headers: { [key]: value },
+                            params: {},
+                            setObject,
+                            methodFromAuthSlide,
+                        };
+                    });
+                }
+            }}>
             <h3>Basic Authentication</h3>
             {/* <label>Include in Query</label> */}
             <Checkbox
