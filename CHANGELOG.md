@@ -1,12 +1,22 @@
-## Chores
+# CHANGELOG (Updated on 23-Jul-2022)
 
--   **release:**
-    -   0.1.2 ([768f840f](https://github.com/shu-vro/CrudMan/commit/768f840f60b4d96de5bfbb23061a9dcb102f266a))
-    -   0.1.1 ([9ad5a29d](https://github.com/shu-vro/CrudMan/commit/9ad5a29d4f1d622067761085a8ad36cfabb46e6b))
+## v1.0.0
 
-### v0.1.1
+### What's Changed
 
-## What's Changed
+-   Add:theme, install Pwa Button. Edit:image,manifest fixed #27 by @shu-vro in https://github.com/shu-vro/CrudMan/pull/28
+-   View Dimension is not correct on mobile devices. by @shu-vro in https://github.com/shu-vro/CrudMan/pull/32
+-   Add cancel button by @shu-vro in https://github.com/shu-vro/CrudMan/pull/36
+-   Shu-vro/issue8 by @shu-vro in https://github.com/shu-vro/CrudMan/pull/37
+-   Editor modified by @shu-vro in https://github.com/shu-vro/CrudMan/pull/38
+-   Needed `Language detection` in response tab by @shu-vro in https://github.com/shu-vro/CrudMan/pull/40
+-   Shu-vro/issue9 by @shu-vro in https://github.com/shu-vro/CrudMan/pull/42
+
+**Full Changelog**: https://github.com/shu-vro/CrudMan/compare/v0.1.1...v1.0.0
+
+## v0.1.1
+
+### What's Changed
 
 -   Fixed #12 by @shu-vro in https://github.com/shu-vro/CrudMan/pull/13
 -   Issue fixer#14 by @shu-vro in https://github.com/shu-vro/CrudMan/pull/15
@@ -20,9 +30,9 @@
 
 **Full Changelog**: https://github.com/shu-vro/CrudMan/compare/v0.1.0...v0.1.1
 
-### v0.1.0 (2022-07-18)
+## v0.1.0 (2022-07-18)
 
-## What's Changed
+### What's Changed
 
 -   Create CODE_OF_CONDUCT.md by @shu-vro in https://github.com/shu-vro/CrudMan/pull/6
 -   Create LICENSE by @shu-vro in https://github.com/shu-vro/CrudMan/pull/10
