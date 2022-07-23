@@ -179,7 +179,7 @@
                 }
 
                 span[class$="requestMethod"] {
-                    color: #6cff6c;
+                    color: var(--green);
                     font-weight: bold;
 
                     &[class*="error"] {

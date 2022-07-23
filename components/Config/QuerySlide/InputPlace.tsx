@@ -1,6 +1,10 @@
+import { useEnvironment } from "@utils/Env";
+import { defineTooltip } from "@utils/utils";
 import Checkbox from "components/Checkbox";
+import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { FiDelete } from "react-icons/fi";
+import ReactTooltip from "react-tooltip";
 
 export default function InputPlace({
     keyName,
@@ -13,6 +17,13 @@ export default function InputPlace({
     const [key, setKey] = useState("");
     const [hasInput, setHasInput] = useState(defaultChecked);
     const inputPlaceRef = useRef(null);
+    const [tooltipTextForField, setTooltipTextForField] = useState("");
+    const [tooltipTextForValue, setTooltipTextForValue] = useState("");
+    const environment = useEnvironment();
+
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    }, []);
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
@@ -26,9 +37,14 @@ export default function InputPlace({
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}
+                data-html={true}
+                data-place="bottom"
+                data-tip={tooltipTextForField}
                 onInput={e => {
-                    setKey((e.target as HTMLInputElement).value);
-                    if ((e.target as HTMLInputElement).value !== "") {
+                    let value = (e.target as HTMLInputElement).value;
+                    setKey(value);
+                    defineTooltip(value, environment, setTooltipTextForField);
+                    if (value !== "") {
                         setHasInput(true);
                         setTimeout(() => {
                             formRef.current?.dispatchEvent(
@@ -57,6 +73,13 @@ export default function InputPlace({
                 name={key}
                 placeholder={placeHolderNames[1]}
                 defaultValue={defaultValue?.[1]}
+                data-html={true}
+                data-place="bottom"
+                data-tip={tooltipTextForValue}
+                onInput={e => {
+                    let value = (e.target as HTMLInputElement).value;
+                    defineTooltip(value, environment, setTooltipTextForValue);
+                }}
             />
             <button
                 type="button"

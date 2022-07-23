@@ -1,3 +1,6 @@
+import Mustache from "mustache";
+import { Environments } from "./Env";
+
 export function stringToRegex(s: string): RegExp {
     var m = [];
     return (m = s.match(/^([\/~@;%#'])(.*?)\1([gimsuy]*)$/))
@@ -44,12 +47,59 @@ export function extractFileNameAndTypeFromContentType(
     }
     return ["", ""];
 }
+
 export function extractContentType(contentType) {
     if (contentType) {
         const contentTypeParts = contentType.split(";");
         return contentTypeParts[0];
     }
     return "";
+}
+
+export function defineTooltip(
+    text: String,
+    environment: Environments,
+    setTooltipText: React.Dispatch<React.SetStateAction<String>>
+) {
+    let matchedVars = text.match(/<<(\w*)>>/g);
+
+    if (matchedVars) {
+        let obj = {
+            vars: [],
+            join: function () {
+                return `${this.envName}.${this.variable} = ${this.value}`;
+            },
+        };
+        matchedVars.forEach(match => {
+            let variable = match.replace(/<<|>>/g, "");
+            let envName = "";
+            environment.defaultObject.forEach(env => {
+                env.variables.forEach(v => {
+                    if (v.key === variable) {
+                        envName = env.name;
+                    }
+                });
+            });
+            if (environment.variables[variable]) {
+                obj.vars.push({
+                    envName,
+                    variable,
+                    value: environment.variables[variable],
+                });
+            }
+        });
+        let rendered = Mustache.render(
+            `<pre>Used environment variables:
+    <<#vars>>
+    &DoubleLongRightArrow; <<&join>>
+    <</vars>>
+</pre>`,
+            obj
+        );
+        setTooltipText(rendered);
+    } else {
+        setTooltipText("");
+    }
 }
 
 export { ApiDataContext } from "./ApiData";

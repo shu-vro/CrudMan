@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useHistorySaver } from "@utils/HistorySaver";
 import RequestList from "./RequestList";
 import styles from "@styles/Sidebar.module.scss";
 import { FiDelete } from "react-icons/fi";
-import Tooltip from "components/Tooltip";
+import ReactTooltip from "react-tooltip";
 
 export default function Histories() {
     const listRequestRef = useRef(null);
@@ -21,6 +21,10 @@ export default function Histories() {
             else li[i].style.display = "none";
         }
     }
+
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    }, []);
 
     return (
         <div className={styles.sidebar_histories}>
@@ -46,7 +50,6 @@ export default function Histories() {
                         <RequestList key={h.time} history={h} />
                     ))}
             </ul>
-            <Tooltip />
         </div>
     );
 }

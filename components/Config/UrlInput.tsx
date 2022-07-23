@@ -11,6 +11,7 @@ import { useUrlData } from "@utils/UrlData";
 import { useHistorySaver } from "@utils/HistorySaver";
 import { useTest } from "@utils/Test";
 import { useEnvironment } from "@utils/Env";
+import { defineTooltip } from "@utils/utils";
 
 export default function UrlInput() {
     let { setObject } = useApiData();
@@ -19,12 +20,13 @@ export default function UrlInput() {
     let { object: postBodyObject } = usePostBody();
     let urlData = useUrlData();
     let auth = useAuth();
+    const environment = useEnvironment();
     let { setObject: setHistory } = useHistorySaver();
     let { props: testProps } = useTest();
     const formRef = useRef(null);
     const cancelControllerSource = useRef<any>();
     const [processing, setProcessing] = useState(false);
-    const environment = useEnvironment();
+    const [tooltipText, setTooltipText] = useState("");
 
     useEffect(() => {
         handleInput();
@@ -43,6 +45,7 @@ export default function UrlInput() {
             up = Mustache.render(url[1], environment.variables);
         } catch (error) {}
         let urlParams = Object.fromEntries(new URLSearchParams(up));
+        defineTooltip(baseURL.toString(), environment, setTooltipText);
         urlData.setObject({
             urlParams,
             baseURL: baseURLCopy,
@@ -160,7 +163,10 @@ export default function UrlInput() {
             onSubmit={handleSubmit}
             ref={formRef}
             autoComplete="on"
-            onChange={handleInput}>
+            onInput={handleInput}
+            data-html={true}
+            data-place="bottom"
+            data-tip={tooltipText}>
             <select
                 name="method"
                 value={urlData.object.method}

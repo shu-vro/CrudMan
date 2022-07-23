@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useEnvironment } from "@utils/Env";
 import EnvironmentList from "./EnvironmentList";
 import styles from "@styles/Sidebar.module.scss";
@@ -6,8 +6,8 @@ import ModalStyles from "@styles/ModalForms.module.scss";
 import { v4 } from "uuid";
 import { TbPackgeExport } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
-import Tooltip from "components/Tooltip";
 import NewEnvForm from "./NewEnvForm";
+import ReactTooltip from "react-tooltip";
 
 export default function Environments() {
     const listRequestRef = useRef(null);
@@ -41,6 +41,10 @@ export default function Environments() {
             environment.object[index],
         ]);
     }
+
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    }, []);
 
     return (
         <div className={styles.sidebar_environments}>
@@ -107,7 +111,6 @@ export default function Environments() {
                     <EnvironmentList key={env.name} env={env} />
                 ))}
             </ul>
-            <Tooltip />
             <NewEnvForm id="newEnvForm" defaultEnv={null} />
         </div>
     );

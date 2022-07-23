@@ -31,16 +31,14 @@ export default function Response({
     const isMobile = useDeviceType();
 
     function downloadFile() {
-        () => {
-            var dataStr = `data:${extractContentType(
-                contentType
-            )};base64,${Buffer.from(arrayBuffer).toString("base64")}`;
-            var dlAnchorElem = document.createElement("a");
-            dlAnchorElem.setAttribute("href", dataStr);
-            dlAnchorElem.setAttribute("download", `${v4()}${mimetype}`);
-            dlAnchorElem.click();
-            dlAnchorElem.remove();
-        };
+        var dataStr = `data:${extractContentType(
+            contentType
+        )};base64,${Buffer.from(arrayBuffer).toString("base64")}`;
+        var dlAnchorElem = document.createElement("a");
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", `${v4()}${mimetype}`);
+        dlAnchorElem.click();
+        dlAnchorElem.remove();
     }
 
     useEffect(() => {
@@ -101,16 +99,18 @@ export default function Response({
                     <video src={source}></video>
                 </>
             );
-        } else if (_temp_lang_type === "application") {
-            setPreview(true);
-            setComponent(
-                <>
-                    <iframe
-                        className={styles.previewPanel}
-                        src={source}></iframe>
-                </>
-            );
-        } else {
+        }
+        // else if (_temp_lang_type === "application") {
+        //     setPreview(true);
+        //     setComponent(
+        //         <>
+        //             <iframe
+        //                 className={styles.previewPanel}
+        //                 src={source}></iframe>
+        //         </>
+        //     );
+        // }
+        else {
             setPreview(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

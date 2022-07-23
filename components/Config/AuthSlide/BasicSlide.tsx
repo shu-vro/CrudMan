@@ -4,13 +4,21 @@ import { InputAuth } from ".";
 import { useAuth } from "@utils/Auth";
 import { useHistorySaver } from "@utils/HistorySaver";
 import { useEnvironment } from "@utils/Env";
+import ReactTooltip from "react-tooltip";
+import { defineTooltip } from "@utils/utils";
 
 export default function BasicSlide() {
     const formRef = useRef(null);
     const { setObject } = useAuth();
     const [defaultValue, setDefaultValue] = useState([]);
     const historySaver = useHistorySaver();
+    const [tooltipTextForField, setTooltipTextForField] = useState("");
+    const [tooltipTextForValue, setTooltipTextForValue] = useState("");
     const environment = useEnvironment();
+
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    }, []);
 
     useEffect(() => {
         if (historySaver.defaultObject.authMethod !== "basic") return;
@@ -77,13 +85,26 @@ export default function BasicSlide() {
                 name="basic_username"
                 autoComplete="username"
                 defaultValue={defaultValue?.[0]}
+                data-html={true}
+                data-place="bottom"
+                data-tip={tooltipTextForField}
+                onInput={e => {
+                    let value = (e.target as HTMLInputElement).value;
+                    defineTooltip(value, environment, setTooltipTextForField);
+                }}
             />
             <InputAuth
                 FieldName="Password"
-                type="password"
                 name="basic_password"
                 autoComplete="current-password"
                 defaultValue={defaultValue?.[1]}
+                data-html={true}
+                data-place="bottom"
+                data-tip={tooltipTextForValue}
+                onInput={e => {
+                    let value = (e.target as HTMLInputElement).value;
+                    defineTooltip(value, environment, setTooltipTextForValue);
+                }}
             />
         </form>
     );

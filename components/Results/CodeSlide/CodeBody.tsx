@@ -36,6 +36,8 @@ export default function CodeBody() {
         let copyHeaders = { ...headers, ...authHeaders };
         let queryParamsCopy = { ...queryParams, ...auth.params };
         delete copyHeaders["setObject"];
+        let _url_with_env_vars = urlData?.url;
+        let _baseurl_with_env_vars = urlData?.url;
         try {
             copyHeaders = JSON.parse(
                 Mustache.render(
@@ -52,11 +54,23 @@ export default function CodeBody() {
                     environment.variables
                 )
             );
+            _url_with_env_vars = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(_url_with_env_vars),
+                    environment.variables
+                )
+            );
+            _baseurl_with_env_vars = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(_baseurl_with_env_vars),
+                    environment.variables
+                )
+            );
         } catch (error) {}
 
         let urlRegex =
             /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
-        let urlArray = urlData?.url.split(urlRegex); // 4, 5 and 6 has desired output
+        let urlArray = _url_with_env_vars.split(urlRegex); // 4, 5 and 6 has desired output
         try {
             urlArray = Mustache.render(
                 urlData?.url,
@@ -67,7 +81,7 @@ export default function CodeBody() {
         for (const key in queryParamsCopy) {
             searchParams.append(key, queryParamsCopy[key]);
         }
-        let url = `${urlData.baseURL}?${searchParams.toString()}`;
+        let url = `${_baseurl_with_env_vars}?${searchParams.toString()}`;
 
         let copyBodyString = JSON.stringify(copyBody, null, 2);
         let copyHeaderString = JSON.stringify(copyHeaders, null, 2);

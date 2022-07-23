@@ -21,8 +21,6 @@ export default function Table({ content, header = [], testing = false }) {
                                 testing={testing}
                                 keyName={key}
                                 value={value}
-                                i={i}
-                                arrayLength={object2Array.length - 1}
                             />
                         );
                     })}

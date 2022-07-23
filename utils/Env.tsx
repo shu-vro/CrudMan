@@ -10,7 +10,7 @@ export type EnvironmentType = {
     }>;
 };
 type ArrayEnvironmentType = Array<EnvironmentType>;
-type normalParams = {
+export type Environments = {
     object?: ArrayEnvironmentType;
     setObject?: React.Dispatch<React.SetStateAction<ArrayEnvironmentType>>;
     defaultObject?: ArrayEnvironmentType;
@@ -26,7 +26,7 @@ type normalParams = {
  * @returns object with history, setHistory, defaultHistory, setDefaultHistory
  */
 export function useEnvironment() {
-    const historySaver: normalParams = useContext(Context);
+    const historySaver: Environments = useContext(Context);
 
     return historySaver;
 }
