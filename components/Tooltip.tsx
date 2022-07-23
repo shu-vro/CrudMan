@@ -15,8 +15,7 @@ export default function Tooltip() {
             {ready && (
                 <ReactTooltip
                     place="bottom"
-                    effect="float"
-                    className="zmore"
+                    effect="solid"
                     type={theme === "dark" ? "light" : "dark"}
                 />
             )}

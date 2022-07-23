@@ -9,6 +9,7 @@ import {
     TestContext,
     ThemeContext,
     UrlDataContext,
+    EnvironmentContext,
 } from "@utils/utils";
 import React from "react";
 
@@ -24,7 +25,9 @@ export default function Wrapper({ children }) {
                                     <CodeContext>
                                         <AuthContext>
                                             <HistoryContext>
-                                                {children}
+                                                <EnvironmentContext>
+                                                    {children}
+                                                </EnvironmentContext>
                                             </HistoryContext>
                                         </AuthContext>
                                     </CodeContext>

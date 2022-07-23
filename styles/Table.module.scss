@@ -1,0 +1,36 @@
+.table {
+    width: 90%;
+    margin: 0 auto;
+
+    td {
+        position: relative;
+        width: 50%;
+        padding: 5px 20px;
+        word-break: break-word;
+        overflow-x: hidden;
+
+        span:nth-child(1) {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 13px;
+        }
+
+        button {
+            position: absolute;
+            height: 19px;
+            top: 50%;
+            right: -25px;
+            transform: translateY(-50%);
+            background: none;
+            color: inherit;
+            transition: right 0.15s ease;
+        }
+
+        &:hover {
+            button {
+                right: 0px;
+            }
+        }
+    }
+}

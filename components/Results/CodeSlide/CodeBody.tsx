@@ -1,7 +1,5 @@
-import dynamic from "next/dynamic";
-
 import { useState, useEffect } from "react";
-import { useTheme } from "@utils/Theme";
+import Mustache from "mustache";
 import { useCode } from "@utils/Code";
 import { useParams } from "@utils/Params";
 import { useHeaders } from "@utils/Headers";
@@ -9,15 +7,18 @@ import { useAuth } from "@utils/Auth";
 import { useUrlData } from "@utils/UrlData";
 import { usePostBody } from "@utils/Body";
 import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
+import AceCodeEditor from "components/Editors/AceCodeEditor";
+import useDeviceType from "hooks/useDeviceType";
+import { useEnvironment } from "@utils/Env";
 
 export default function CodeBody() {
     const { selectCode, setObject } = useCode();
-    const { value: theme } = useTheme();
-    let { object: headers } = useHeaders();
+    const { object: headers } = useHeaders();
     const { object: queryParams } = useParams();
     let auth = useAuth();
-    let { object: urlData } = useUrlData();
-    let { object: body } = usePostBody();
+    const environment = useEnvironment();
+    const { object: urlData } = useUrlData();
+    const { object: body } = usePostBody();
     const [config, setConfig] = useState({
         boilerplate: "",
         mode: "",
@@ -33,28 +34,57 @@ export default function CodeBody() {
         delete copyBody["setObject"];
         let authHeaders = auth.headers;
         let copyHeaders = { ...headers, ...authHeaders };
+        let queryParamsCopy = { ...queryParams, ...auth.params };
         delete copyHeaders["setObject"];
+        let _url_with_env_vars = urlData?.url;
+        let _baseurl_with_env_vars = urlData?.url;
+        try {
+            copyHeaders = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(copyHeaders),
+                    environment.variables
+                )
+            );
+            copyBody = JSON.parse(
+                Mustache.render(JSON.stringify(copyBody), environment.variables)
+            );
+            queryParamsCopy = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(queryParamsCopy),
+                    environment.variables
+                )
+            );
+            _url_with_env_vars = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(_url_with_env_vars),
+                    environment.variables
+                )
+            );
+            _baseurl_with_env_vars = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(_baseurl_with_env_vars),
+                    environment.variables
+                )
+            );
+        } catch (error) {}
 
         let urlRegex =
             /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
-        let urlArray = urlData?.url.split(urlRegex); // 4, 5 and 6 has desired output
+        let urlArray = _url_with_env_vars.split(urlRegex); // 4, 5 and 6 has desired output
+        try {
+            urlArray = Mustache.render(
+                urlData?.url,
+                environment.variables
+            ).split(urlRegex);
+        } catch (error) {}
         let searchParams = new URLSearchParams(urlArray?.[6]);
-        for (const key in queryParams) {
-            searchParams.append(key, queryParams[key]);
+        for (const key in queryParamsCopy) {
+            searchParams.append(key, queryParamsCopy[key]);
         }
-        for (const key in auth.params) {
-            if (Object.prototype.hasOwnProperty.call(auth.params, key)) {
-                const value = auth.params[key];
-                searchParams.append(key, value);
-            }
-        }
-        // let url = `${urlArray?.[1]}//${urlArray?.[4]}${
-        //     urlArray?.[5]
-        // }?${searchParams.toString()}`;
-        let url = `${urlData.baseURL}?${searchParams.toString()}`;
+        let url = `${_baseurl_with_env_vars}?${searchParams.toString()}`;
 
-        let copyBodyString = JSON.stringify(copyBody, null, 4);
-        let copyHeaderString = JSON.stringify(copyHeaders, null, 4);
+        let copyBodyString = JSON.stringify(copyBody, null, 2);
+        let copyHeaderString = JSON.stringify(copyHeaders, null, 2);
         let methodString = urlData.method.toUpperCase();
         if (selectCode === "C# HttpClient") {
             let headerString = Object.entries(copyHeaders)
@@ -106,7 +136,7 @@ let bodyContent = JSON.stringify(${copyBodyString});
 let reqOptions = {
     method: '${urlData.method}',
     url: '${url}',
-    headers: headerList,
+    headers: headersList,
     data: bodyContent,
 }
 
@@ -130,20 +160,17 @@ fetch("${url}", {
 })`;
             setConfig({ mode: "javascript", boilerplate });
         } else if (selectCode === "Python Http.client") {
-            let urlRegex =
-                /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
-            let urlArray = url.split(urlRegex); // 4, 5 and 6 has desired output
             let boilerplate = `import http.client
 import json
 
-conn = http.client.HTTPSConnection("${urlArray?.[4]}")
+conn = http.client.HTTPSConnection("${urlArray?.[4] ? urlArray?.[4] : ""}")
 
 headersList = ${copyHeaderString.replaceAll("true", "True")}
 
 payload = json.dumps(${copyBodyString.replaceAll("true", "True")})
 
-conn.request("${methodString}", "${urlArray?.[5]}${
-                urlArray?.[6]
+conn.request("${methodString}", "${urlArray?.[5] ? urlArray?.[5] : ""}${
+                urlArray?.[6] ? urlArray?.[6] : ""
             }", payload, headersList)
 response = conn.getresponse()
 result = response.read()
@@ -201,12 +228,26 @@ $response | ConvertTo-Json`;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectCode, headers, body, urlData, auth, queryParams]);
+    const isMobile = useDeviceType();
 
     return (
-        <MonacoCodeEditor
-            value={config.boilerplate}
-            readOnly={true}
-            language={config.mode}
-        />
+        // <MonacoCodeEditor
+        //     value={config.boilerplate}
+        //     readOnly={true}
+        //     language={config.mode}
+        // />
+        isMobile === "mobile" ? (
+            <AceCodeEditor
+                mode={config.mode}
+                readOnly
+                value={config.boilerplate}
+            />
+        ) : (
+            <MonacoCodeEditor
+                value={config.boilerplate}
+                readOnly
+                language={config.mode}
+            />
+        )
     );
 }

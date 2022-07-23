@@ -10,6 +10,7 @@ export default function TestSlide() {
     const historySaver = useHistorySaver();
     let setObject = test.setObject;
     const [props, setProps] = useState([]);
+
     type FieldsType = Array<{
         id: string;
         entry?: {
@@ -30,58 +31,9 @@ export default function TestSlide() {
         setFields(prev => prev.filter(field => field.id !== keyName));
     }
 
-    // useEffect(() => {
-    //     console.log(test);
-    // }, [test]);
-
     useEffect(() => {
         setObject({ props, setObject });
     }, [props, setObject]);
-
-    useEffect(() => {
-        /**
-         * @type {HTMLFormElement}
-         */
-        let form = formRef.current;
-        form.addEventListener("input", () => {
-            let inputPlaces = form.querySelectorAll(".input-place");
-            setProps([]);
-
-            for (let i = 0; i < inputPlaces.length; i++) {
-                const place = inputPlaces[i];
-                let isPresent =
-                    place.childNodes[0].querySelector("input").checked;
-
-                if (!isPresent) continue;
-
-                let section = place.childNodes[1].querySelector("select").value;
-                let key = place.childNodes[1].querySelector("input").value;
-                let operation = place.childNodes[2].value;
-                let value = place.childNodes[3].querySelector(
-                    ".select-container input"
-                ).value;
-
-                if (!isNaN(value)) {
-                    value = Number(value);
-                } else if (value === "true") {
-                    value = true;
-                } else if (value === "false") {
-                    value = false;
-                }
-
-                let o = {
-                    section,
-                    key,
-                    operation,
-                    value,
-                };
-                setProps(prop => {
-                    return [...prop, o];
-                });
-            }
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         let entries = Object.keys(historySaver.defaultObject.tests);
@@ -113,7 +65,50 @@ export default function TestSlide() {
 
     return (
         <>
-            <form className="slide Test" id="config-test-slide" ref={formRef}>
+            <form
+                className="slide Test"
+                id="config-test-slide"
+                ref={formRef}
+                onInput={() => {
+                    let inputPlaces =
+                        formRef.current.querySelectorAll(".input-place");
+                    setProps([]);
+
+                    for (let i = 0; i < inputPlaces.length; i++) {
+                        const place = inputPlaces[i];
+                        let isPresent =
+                            place.childNodes[0].querySelector("input").checked;
+
+                        if (!isPresent) continue;
+
+                        let section =
+                            place.childNodes[1].querySelector("select").value;
+                        let key =
+                            place.childNodes[1].querySelector("input").value;
+                        let operation = place.childNodes[2].value;
+                        let value = place.childNodes[3].querySelector(
+                            ".select-container input"
+                        ).value;
+
+                        if (!isNaN(value)) {
+                            value = Number(value);
+                        } else if (value === "true") {
+                            value = true;
+                        } else if (value === "false") {
+                            value = false;
+                        }
+
+                        let o = {
+                            section,
+                            key,
+                            operation,
+                            value,
+                        };
+                        setProps(prop => {
+                            return [...prop, o];
+                        });
+                    }
+                }}>
                 <h2>Test Api</h2>
                 {fields.map(field => (
                     <TestInput

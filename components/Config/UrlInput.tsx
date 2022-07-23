@@ -1,6 +1,7 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
-import styles from "@styles/App.module.scss";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import Mustache from "mustache";
+import styles from "@styles/App.module.scss";
 import { useApiData } from "@utils/ApiData";
 import { useHeaders } from "@utils/Headers";
 import { useAuth } from "@utils/Auth";
@@ -9,6 +10,8 @@ import { usePostBody } from "@utils/Body";
 import { useUrlData } from "@utils/UrlData";
 import { useHistorySaver } from "@utils/HistorySaver";
 import { useTest } from "@utils/Test";
+import { useEnvironment } from "@utils/Env";
+import { defineTooltip } from "@utils/utils";
 
 export default function UrlInput() {
     let { setObject } = useApiData();
@@ -17,11 +20,14 @@ export default function UrlInput() {
     let { object: postBodyObject } = usePostBody();
     let urlData = useUrlData();
     let auth = useAuth();
+    const environment = useEnvironment();
     let { setObject: setHistory } = useHistorySaver();
     let { props: testProps } = useTest();
     const formRef = useRef(null);
     const cancelControllerSource = useRef<any>();
     const [processing, setProcessing] = useState(false);
+    const [tooltipText, setTooltipText] = useState("");
+
     useEffect(() => {
         handleInput();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,7 +39,13 @@ export default function UrlInput() {
         let { baseURL, method } = Object.fromEntries(formData.entries());
         let url = (baseURL as string).split("?");
         let baseURLCopy = url[0];
-        let urlParams = Object.fromEntries(new URLSearchParams(url[1]));
+        let up = url[1];
+        try {
+            Mustache.tags = ["<<", ">>"];
+            up = Mustache.render(url[1], environment.variables);
+        } catch (error) {}
+        let urlParams = Object.fromEntries(new URLSearchParams(up));
+        defineTooltip(baseURL.toString(), environment, setTooltipText);
         urlData.setObject({
             urlParams,
             baseURL: baseURLCopy,
@@ -49,16 +61,44 @@ export default function UrlInput() {
         let formData = new FormData(form);
         let entries = Object.fromEntries(formData.entries());
         setObject(prev => ({ ...prev, isFinished: false }));
+        let baseURL_with_env_vars = entries.baseURL.toString();
+        let paramsObjectCopy = { ...paramsObject, ...auth.params };
+        let headersObjectCopy = { ...headersObject, ...auth.headers };
+        let postBodyObjectCopy = { ...postBodyObject };
+        try {
+            baseURL_with_env_vars = Mustache.render(
+                baseURL_with_env_vars,
+                environment.variables
+            );
+            paramsObjectCopy = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(paramsObjectCopy),
+                    environment.variables
+                )
+            );
+            headersObjectCopy = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(headersObjectCopy),
+                    environment.variables
+                )
+            );
+            postBodyObjectCopy = JSON.parse(
+                Mustache.render(
+                    JSON.stringify(postBodyObjectCopy),
+                    environment.variables
+                )
+            );
+        } catch (error) {}
 
         try {
             cancelControllerSource.current = axios.CancelToken.source();
             let { data: res } = await axios.get("/api/headerParser", {
                 cancelToken: cancelControllerSource.current.token,
                 params: {
-                    params: { ...paramsObject, ...auth.params },
-                    headers: { ...headersObject, ...auth.headers },
-                    body: postBodyObject,
-                    url: entries.baseURL,
+                    params: paramsObjectCopy,
+                    headers: headersObjectCopy,
+                    body: postBodyObjectCopy,
+                    url: baseURL_with_env_vars,
                     method: entries.method,
                 },
             });
@@ -123,7 +163,10 @@ export default function UrlInput() {
             onSubmit={handleSubmit}
             ref={formRef}
             autoComplete="on"
-            onChange={handleInput}>
+            onInput={handleInput}
+            data-html={true}
+            data-place="bottom"
+            data-tip={tooltipText}>
             <select
                 name="method"
                 value={urlData.object.method}

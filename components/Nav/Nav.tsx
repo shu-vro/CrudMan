@@ -1,14 +1,12 @@
 import styles from "@styles/App.module.scss";
+import SideStyles from "@styles/Sidebar.module.scss";
 import { useTheme } from "@utils/Theme";
 import { useState, useEffect } from "react";
-import {
-    BarSvg,
-    InstallSvg,
-    LogoSvg,
-    MoonSvg,
-    OrientationSvg,
-    SunSvg,
-} from "./ButtonSvg";
+import { LogoSvg } from "./ButtonSvg";
+import { FaBars } from "react-icons/fa";
+import { BsWindowSidebar, BsMoonStars } from "react-icons/bs";
+import { FiSun } from "react-icons/fi";
+import { GoDesktopDownload } from "react-icons/go";
 
 export default function Nav({ setVertical, setToggleVertical }) {
     let themeManager = useTheme();
@@ -43,7 +41,7 @@ export default function Nav({ setVertical, setToggleVertical }) {
                             }
                         }
                     }}>
-                    {deferredPrompt && <InstallSvg />}
+                    {deferredPrompt && <GoDesktopDownload />}
                 </button>
                 <button
                     type="button"
@@ -71,7 +69,11 @@ export default function Nav({ setVertical, setToggleVertical }) {
                             );
                         }
                     }}>
-                    {themeManager.value === "light" ? <MoonSvg /> : <SunSvg />}
+                    {themeManager.value === "light" ? (
+                        <BsMoonStars />
+                    ) : (
+                        <FiSun />
+                    )}
                 </button>
                 <button
                     type="button"
@@ -81,16 +83,21 @@ export default function Nav({ setVertical, setToggleVertical }) {
                         setToggleVertical(prev => !prev);
                         setVertical(prev => (prev.state > 786 ? 785 : 787));
                     }}>
-                    <OrientationSvg />
+                    <BsWindowSidebar />
                 </button>
                 <button
                     type="button"
                     onClick={() => {
                         document
-                            .querySelector(`.${styles.sidebar}`)
+                            .querySelector(`.${SideStyles.sidebar}`)
                             .classList.remove("inactive");
+
+                        document.querySelector(
+                            `.${SideStyles.overlay}`
+                            // @ts-ignore
+                        ).style.display = "block";
                     }}>
-                    <BarSvg />
+                    <FaBars />
                 </button>
             </div>
         </nav>

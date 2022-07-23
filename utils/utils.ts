@@ -1,3 +1,6 @@
+import Mustache from "mustache";
+import { Environments } from "./Env";
+
 export function stringToRegex(s: string): RegExp {
     var m = [];
     return (m = s.match(/^([\/~@;%#'])(.*?)\1([gimsuy]*)$/))
@@ -28,13 +31,75 @@ export function checkRegexKeyInResponse(o: any[] | object, r: RegExp) {
         .filter(el => el)
         .some(el => el);
 }
-export function extractFileNameFromContentType(contentType) {
+
+/**
+ *
+ * @param contentType Content-Type header
+ * @returns {Array} file category and type
+ */
+export function extractFileNameAndTypeFromContentType(
+    contentType
+): [String, String] {
     if (contentType) {
         const contentTypeParts = contentType.split(";");
-        const fileName = contentTypeParts[0].split("/")[1];
+        const fileName = contentTypeParts[0].split("/");
         return fileName;
     }
+    return ["", ""];
+}
+
+export function extractContentType(contentType) {
+    if (contentType) {
+        const contentTypeParts = contentType.split(";");
+        return contentTypeParts[0];
+    }
     return "";
+}
+
+export function defineTooltip(
+    text: String,
+    environment: Environments,
+    setTooltipText: React.Dispatch<React.SetStateAction<String>>
+) {
+    let matchedVars = text.match(/<<(\w*)>>/g);
+
+    if (matchedVars) {
+        let obj = {
+            vars: [],
+            join: function () {
+                return `${this.envName}.${this.variable} = ${this.value}`;
+            },
+        };
+        matchedVars.forEach(match => {
+            let variable = match.replace(/<<|>>/g, "");
+            let envName = "";
+            environment.defaultObject.forEach(env => {
+                env.variables.forEach(v => {
+                    if (v.key === variable) {
+                        envName = env.name;
+                    }
+                });
+            });
+            if (environment.variables[variable]) {
+                obj.vars.push({
+                    envName,
+                    variable,
+                    value: environment.variables[variable],
+                });
+            }
+        });
+        let rendered = Mustache.render(
+            `<pre>Used environment variables:
+    <<#vars>>
+    &DoubleLongRightArrow; <<&join>>
+    <</vars>>
+</pre>`,
+            obj
+        );
+        setTooltipText(rendered);
+    } else {
+        setTooltipText("");
+    }
 }
 
 export { ApiDataContext } from "./ApiData";
@@ -47,3 +112,4 @@ export { CodeContext } from "./Code";
 export { PostBodyContext } from "./Body";
 export { AuthContext } from "./Auth";
 export { TestContext } from "./Test";
+export { EnvironmentContext } from "./Env";

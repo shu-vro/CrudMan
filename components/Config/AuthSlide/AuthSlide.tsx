@@ -13,7 +13,13 @@ export default function AuthSlide() {
     const auth = useAuth();
     const selectRef = useRef(null);
     const historySaver = useHistorySaver();
-    let lists = ["None", "Basic", "Bearer", "APIKey", "OAuth2"];
+    let lists = [
+        "None",
+        "Basic",
+        "Bearer",
+        "APIKey",
+        // "OAuth2"
+    ];
     const [component, setComponent] = useState(null);
 
     useEffect(() => {
@@ -32,6 +38,12 @@ export default function AuthSlide() {
                 })
             );
         }, 100);
+        auth.setObject(prev => ({
+            ...prev,
+            headers: historySaver.defaultObject.auth.headers,
+            params: historySaver.defaultObject.auth.params,
+            methodFromAuthSlide: historySaver.defaultObject.authMethod,
+        }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [historySaver.defaultObject]);
 
@@ -42,9 +54,11 @@ export default function AuthSlide() {
             setComponent(<BearerSlide />);
         } else if (e.target.value === "APIKey") {
             setComponent(<APIKeySlide />);
-        } else if (e.target.value === "OAuth2") {
-            setComponent(<OAuth2Slide />);
-        } else {
+        }
+        //  else if (e.target.value === "OAuth2") {
+        //     setComponent(<OAuth2Slide />);
+        // }
+        else {
             setComponent(<NoneSlide />);
             auth.setObject(prev => ({
                 ...prev,

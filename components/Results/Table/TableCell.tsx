@@ -1,13 +1,12 @@
-import Tooltip from "components/Tooltip";
+import { useEffect } from "react";
+import ReactTooltip from "react-tooltip";
 import CopyButton from "../CopyButton";
 
-export default function TableCell({
-    testing = false,
-    keyName,
-    value,
-    i,
-    arrayLength,
-}) {
+export default function TableCell({ testing = false, keyName, value }) {
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    }, []);
+
     return (
         <tr>
             <td>{keyName}</td>
@@ -27,7 +26,6 @@ export default function TableCell({
                 <td>
                     {value}
                     <CopyButton data={value} />
-                    {i === arrayLength && <Tooltip />}
                 </td>
             )}
         </tr>

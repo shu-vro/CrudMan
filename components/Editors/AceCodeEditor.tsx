@@ -1,5 +1,5 @@
 import React from "react";
-// import { IAceEditorProps } from "react-ace";
+import { IAceEditorProps } from "react-ace";
 import dynamic from "next/dynamic";
 import { useTheme } from "@utils/Theme";
 import Loader from "components/Results/Loader";
@@ -31,14 +31,14 @@ const AceEditor = dynamic(
     }
 );
 
-export default function AceCodeEditor({ value, ...rest }) {
+export default function AceCodeEditor({ value, ...rest }: IAceEditorProps) {
     const { value: theme } = useTheme();
     return (
         <AceEditor
             placeholder="Type code."
             mode="json"
             theme={theme === "dark" ? "dracula" : "xcode"}
-            fontSize={13}
+            fontSize={14}
             width="100%"
             height="calc(100% - 100px)"
             showPrintMargin={true}
@@ -48,7 +48,7 @@ export default function AceCodeEditor({ value, ...rest }) {
             setOptions={{
                 showLineNumbers: true,
                 useWorker: false,
-                tabSize: 4,
+                tabSize: 2,
                 enableBasicAutocompletion: true,
                 enableLiveAutocompletion: true,
                 enableSnippets: true,

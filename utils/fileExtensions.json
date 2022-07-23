@@ -1,0 +1,120 @@
+[
+    { "label": ".aac", "contentType": ["audio/aac"] },
+    { "label": ".abw", "contentType": ["application/x-abiword"] },
+    { "label": ".arc", "contentType": ["application/x-freearc"] },
+    { "label": ".avif", "contentType": ["image/avif"] },
+    { "label": ".avi", "contentType": ["video/x-msvideo"] },
+    { "label": ".azw", "contentType": ["application/vnd.amazon.ebook"] },
+    { "label": ".bin", "contentType": ["application/octet-stream"] },
+    { "label": ".bmp", "contentType": ["image/bmp"] },
+    { "label": ".bz", "contentType": ["application/x-bzip"] },
+    { "label": ".bz2", "contentType": ["application/x-bzip2"] },
+    { "label": ".cda", "contentType": ["application/x-cdf"] },
+    { "label": ".csh", "contentType": ["application/x-csh"] },
+    { "label": ".css", "contentType": ["text/css"] },
+    { "label": ".csv", "contentType": ["text/csv"] },
+    { "label": ".doc", "contentType": ["application/msword"] },
+    {
+        "label": ".docx",
+        "contentType": [
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ]
+    },
+    { "label": ".eot", "contentType": ["application/vnd.ms-fontobject"] },
+    { "label": ".epub", "contentType": ["application/epub+zip"] },
+    { "label": ".gz", "contentType": ["application/gzip"] },
+    { "label": ".gif", "contentType": ["image/gif"] },
+    { "label": ".html", "contentType": ["text/html"] },
+    {
+        "label": ".ico",
+        "contentType": ["image/vnd.microsoft.icon", "image/x-icon"]
+    },
+    { "label": ".ics", "contentType": ["text/calendar"] },
+    { "label": ".jar", "contentType": ["application/java-archive"] },
+    { "label": ".jpeg", "contentType": ["image/jpeg"] },
+    {
+        "label": ".js",
+        "contentType": ["text/javascript", "application/javascript"]
+    },
+    { "label": ".json", "contentType": ["application/json"] },
+    { "label": ".jsonld", "contentType": ["application/ld+json"] },
+    { "label": ".mid", "contentType": ["audio/midi", "audio/x-midi"] },
+    {
+        "label": ".mjs",
+        "contentType": ["text/javascript", "application/javascript"]
+    },
+    { "label": ".mp3", "contentType": ["audio/mpeg"] },
+    { "label": ".mp4", "contentType": ["video/mp4"] },
+    { "label": ".mpeg", "contentType": ["video/mpeg"] },
+    {
+        "label": ".mpkg",
+        "contentType": ["application/vnd.apple.installer+xml"]
+    },
+    {
+        "label": ".odp",
+        "contentType": ["application/vnd.oasis.opendocument.presentation"]
+    },
+    {
+        "label": ".ods",
+        "contentType": ["application/vnd.oasis.opendocument.spreadsheet"]
+    },
+    {
+        "label": ".odt",
+        "contentType": ["application/vnd.oasis.opendocument.text"]
+    },
+    { "label": ".oga", "contentType": ["audio/ogg"] },
+    { "label": ".ogv", "contentType": ["video/ogg"] },
+    { "label": ".ogx", "contentType": ["application/ogg"] },
+    { "label": ".opus", "contentType": ["audio/opus"] },
+    { "label": ".otf", "contentType": ["font/otf"] },
+    { "label": ".png", "contentType": ["image/png"] },
+    { "label": ".pdf", "contentType": ["application/pdf"] },
+    { "label": ".php", "contentType": ["application/x-httpd-php"] },
+    { "label": ".ppt", "contentType": ["application/vnd.ms-powerpoint"] },
+    {
+        "label": ".pptx",
+        "contentType": [
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        ]
+    },
+    { "label": ".rar", "contentType": ["application/vnd.rar"] },
+    { "label": ".rtf", "contentType": ["application/rtf"] },
+    { "label": ".sh", "contentType": ["application/x-sh"] },
+    { "label": ".svg", "contentType": ["image/svg+xml"] },
+    { "label": ".swf", "contentType": ["application/x-shockwave-flash"] },
+    { "label": ".tar", "contentType": ["application/x-tar"] },
+    { "label": ".tif", "contentType": ["image/tiff"] },
+    { "label": ".ts", "contentType": ["video/mp2t"] },
+    { "label": ".ttf", "contentType": ["font/ttf"] },
+    { "label": ".txt", "contentType": ["text/plain"] },
+    { "label": ".vsd", "contentType": ["application/vnd.visio"] },
+    { "label": ".wav", "contentType": ["audio/wav"] },
+    { "label": ".weba", "contentType": ["audio/webm"] },
+    { "label": ".webm", "contentType": ["video/webm"] },
+    { "label": ".webp", "contentType": ["image/webp"] },
+    { "label": ".woff", "contentType": ["font/woff"] },
+    { "label": ".woff2", "contentType": ["font/woff2"] },
+    { "label": ".xhtml", "contentType": ["application/xhtml+xml"] },
+    { "label": ".xls", "contentType": ["application/vnd.ms-excel"] },
+    {
+        "label": ".xlsx",
+        "contentType": [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        ]
+    },
+    {
+        "label": ".xml",
+        "contentType": [
+            "application/xml",
+            "text/xml",
+            ".xml",
+            "application/atom+xml",
+            "application/xml"
+        ]
+    },
+    { "label": ".xul", "contentType": ["application/vnd.mozilla.xul+xml"] },
+    { "label": ".zip", "contentType": ["application/zip"] },
+    { "label": ".3gp", "contentType": ["video/3gpp", "audio/3gpp"] },
+    { "label": ".3g2", "contentType": ["video/3gpp2", "audio/3gpp2"] },
+    { "label": ".7z", "contentType": ["application/x-7z-compressed"] }
+]

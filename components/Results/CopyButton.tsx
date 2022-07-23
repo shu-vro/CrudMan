@@ -1,5 +1,6 @@
-import { CopySvg, CorrectSvg } from "components/Nav/ButtonSvg";
 import { useState } from "react";
+import { IoCopyOutline } from "react-icons/io5";
+import { TiTick } from "react-icons/ti";
 
 export default function CopyButton({ data }) {
     const [copied, setCopied] = useState(false);
@@ -22,7 +23,7 @@ export default function CopyButton({ data }) {
                     );
                 }
             }}>
-            {copied ? <CorrectSvg /> : <CopySvg />}
+            {copied ? <TiTick /> : <IoCopyOutline />}
         </button>
     );
 }

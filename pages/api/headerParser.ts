@@ -16,7 +16,7 @@ export default async function handler(req, res: NextApiResponse) {
         method,
     }: queryType = req.query;
 
-    console.log("processing...");
+    process.env.NODE_ENV === "development" && console.log("processing...");
     let start = Date.now();
     try {
         if (
@@ -47,6 +47,7 @@ export default async function handler(req, res: NextApiResponse) {
                 headers,
                 params,
                 data,
+                responseType: "arraybuffer",
             });
         } else {
             response = await axios({
@@ -54,18 +55,20 @@ export default async function handler(req, res: NextApiResponse) {
                 baseURL: url,
                 headers,
                 params,
+                responseType: "arraybuffer",
             });
         }
         let elapsedTime = Date.now() - start;
         res.status(200).json({
-            data: response.data,
+            data: new TextDecoder("utf-8").decode(response.data),
+            arrayBuffer: response.data,
             headers: response.headers,
             status: response.status,
             statusText: response.statusText,
             size: JSON.stringify(response.data || {}, null, 0).length,
             elapsedTime,
         });
-        console.log("sent!");
+        process.env.NODE_ENV === "development" && console.log("sent!");
     } catch (error) {
         let elapsedTime = Date.now() - start;
         if (error.response) {
@@ -85,6 +88,6 @@ export default async function handler(req, res: NextApiResponse) {
                 elapsedTime,
             });
         }
-        console.log("error!");
+        process.env.NODE_ENV === "development" && console.log("error!");
     }
 }
