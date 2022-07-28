@@ -42,21 +42,21 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
         return environment.defaultObject.some(({ name }) => name === envName);
     }
 
-    function selectEnv() {
-        if (env.name !== "global") {
-            const select = document.getElementById(
-                styles.select_button
-            ) as HTMLSelectElement;
-            let index = environment.object.findIndex(
-                ({ name }) => name === env.name
-            );
-            select.selectedIndex = index;
-            environment.setDefaultObject([
-                environment.object.find(({ name }) => name === "global"),
-                env,
-            ]);
-        }
-    }
+    // function selectEnv() {
+    //     if (env.name !== "global") {
+    //         const select = document.getElementById(
+    //             styles.select_button
+    //         ) as HTMLSelectElement;
+    //         let index = environment.object.findIndex(
+    //             ({ name }) => name === env.name
+    //         );
+    //         select.selectedIndex = index;
+    //         environment.setDefaultObject([
+    //             environment.object.find(({ name }) => name === "global"),
+    //             env,
+    //         ]);
+    //     }
+    // }
     return (
         <li>
             <span className={styles.iconSvg}>
@@ -66,7 +66,7 @@ export default function EnvironmentList({ env }: { env: EnvironmentType }) {
                 style={{
                     margin: `5px 0 10px`,
                 }}
-                onClick={selectEnv}>
+                onClick={editEnv}>
                 {env.name}
             </h4>
             <span

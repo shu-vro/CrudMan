@@ -17,16 +17,9 @@ export default function Results() {
     useEffect(() => {
         let responseNum = 0;
         let headersNum = Object.keys(apiData.headers || {}).length;
-        let cookiesNum = 0;
         let resultsNum = props.length;
         let codeNum = 0;
-        setListBullets([
-            responseNum,
-            headersNum,
-            cookiesNum,
-            resultsNum,
-            codeNum,
-        ]);
+        setListBullets([responseNum, headersNum, resultsNum, codeNum]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiData]);
     return (
@@ -38,7 +31,7 @@ export default function Results() {
                 time={apiData.elapsedTime}
             />
             <CommonSliderAssets
-                lists={["Response", "Headers", "Cookies", "Results", "Code"]}
+                lists={["Response", "Headers", "Results", "Code"]}
                 listBullets={listBullets}
                 defaultCheck="Response">
                 <Response
@@ -52,10 +45,6 @@ export default function Results() {
                     arrayBuffer={apiData?.arrayBuffer}
                 />
                 <Headers headers={apiData?.headers || {}} />
-                <div className="slide Cookies">
-                    <h2>Cookies</h2>
-                    <p>No cookies found</p>
-                </div>
                 <TestResults />
                 <Code />
             </CommonSliderAssets>

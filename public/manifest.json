@@ -16,7 +16,11 @@
             "name": "Test Api",
             "url": "/",
             "description": "An Online Ecosystem For Building And Testing RESTful API",
-            "icon": "icons/icon_x96.png"
+            "icon": {
+                "src": "icons/icon_x96.png",
+                "sizes": "96x96",
+                "type": "image/png"
+            }
         }
     ],
     "screenshots": [

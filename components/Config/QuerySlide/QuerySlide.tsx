@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
 import { useHistorySaver } from "@utils/HistorySaver";
-import { useEnvironment } from "@utils/Env";
+import { defaultEnv, useEnvironment } from "@utils/Env";
 import { useParams } from "@utils/Params";
 import { useUrlData } from "@utils/UrlData";
 import InputPlace from "./InputPlace";
@@ -45,8 +45,12 @@ export default function QuerySlide() {
         historySaver.setObject(
             JSON.parse(localStorage.getItem("history") || "[]")
         );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
         if (!localStorage.getItem("env")) {
             localStorage.setItem("env", JSON.stringify([]));
+            environment.setDefaultObject([defaultEnv]);
             return;
         }
         environment.setObject(JSON.parse(localStorage.getItem("env") || "[]"));
@@ -65,14 +69,16 @@ export default function QuerySlide() {
     useEffect(() => {
         let envVars = {};
         environment.defaultObject.forEach(env => {
-            env.variables.forEach(variable => {
+            env?.variables.forEach(variable => {
                 envVars[variable.key] = variable.value;
             });
         });
         environment.setVariables(envVars);
-        console.log(environment.defaultObject);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [environment.defaultObject]);
+
+    // These lines should be in `historySaver` and `environment` file, but due to bugs, we are migrating these codes in here!
+    //  -----------------------------------------------------
 
     function setParamsFollowingObject(object: object) {
         let entries = Object.entries(object);
@@ -101,7 +107,17 @@ export default function QuerySlide() {
     }
 
     useEffect(() => {
-        setParamsFollowingObject(historySaver.defaultObject.params);
+        let neededParam = historySaver.defaultObject.params;
+        setParamsFollowingObject(neededParam);
+        if (
+            neededParam.hasOwnProperty("query") &&
+            urlData.object.url.includes("graphql")
+        ) {
+            setGraphqlEnabled(true);
+        } else {
+            setGraphqlEnabled(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [historySaver.defaultObject]);
 
     // Setting params through props

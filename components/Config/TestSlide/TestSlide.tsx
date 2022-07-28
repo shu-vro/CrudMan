@@ -63,52 +63,50 @@ export default function TestSlide() {
         }, 500);
     }, [historySaver.defaultObject]);
 
+    function handleInput() {
+        let inputPlaces = formRef.current.querySelectorAll(".input-place");
+        setProps([]);
+
+        for (let i = 0; i < inputPlaces.length; i++) {
+            const place = inputPlaces[i];
+            let isPresent = place.childNodes[0].querySelector("input").checked;
+
+            if (!isPresent) continue;
+
+            let section = place.childNodes[1].querySelector("select").value;
+            let key = place.childNodes[1].querySelector("input").value;
+            let operation = place.childNodes[2].value;
+            let value = place.childNodes[3].querySelector(
+                ".select-container input"
+            ).value;
+
+            if (!isNaN(value)) {
+                value = Number(value);
+            } else if (value === "true") {
+                value = true;
+            } else if (value === "false") {
+                value = false;
+            }
+
+            let o = {
+                section,
+                key,
+                operation,
+                value,
+            };
+            setProps(prop => {
+                return [...prop, o];
+            });
+        }
+    }
+
     return (
         <>
             <form
                 className="slide Test"
                 id="config-test-slide"
                 ref={formRef}
-                onInput={() => {
-                    let inputPlaces =
-                        formRef.current.querySelectorAll(".input-place");
-                    setProps([]);
-
-                    for (let i = 0; i < inputPlaces.length; i++) {
-                        const place = inputPlaces[i];
-                        let isPresent =
-                            place.childNodes[0].querySelector("input").checked;
-
-                        if (!isPresent) continue;
-
-                        let section =
-                            place.childNodes[1].querySelector("select").value;
-                        let key =
-                            place.childNodes[1].querySelector("input").value;
-                        let operation = place.childNodes[2].value;
-                        let value = place.childNodes[3].querySelector(
-                            ".select-container input"
-                        ).value;
-
-                        if (!isNaN(value)) {
-                            value = Number(value);
-                        } else if (value === "true") {
-                            value = true;
-                        } else if (value === "false") {
-                            value = false;
-                        }
-
-                        let o = {
-                            section,
-                            key,
-                            operation,
-                            value,
-                        };
-                        setProps(prop => {
-                            return [...prop, o];
-                        });
-                    }
-                }}>
+                onInput={handleInput}>
                 <h2>Test Api</h2>
                 {fields.map(field => (
                     <TestInput

@@ -13,8 +13,7 @@
         "start": "next start",
         "lint": "next lint",
         "tsc": "clear && tsc",
-        "prettify": "prettier --config .prettierrc --ignore-path .prettierignore ./",
-        "changelog": "changelog generate"
+        "prettify": "prettier --config .prettierrc --ignore-path .prettierignore ./"
     },
     "dependencies": {
         "@monaco-editor/react": "^4.4.5",
@@ -28,6 +27,7 @@
         "react-ace": "^10.1.0",
         "react-dom": "18.1.0",
         "react-icons": "^4.4.0",
+        "react-select": "^5.4.0",
         "react-tooltip": "^4.2.21",
         "uuid": "^8.3.2"
     },
@@ -37,7 +37,6 @@
         "@types/uuid": "^8.3.4",
         "eslint": "8.14.0",
         "eslint-config-next": "12.1.5",
-        "generate-changelog": "^1.8.0",
         "prettier": "^2.7.1",
         "sass": "^1.53.0"
     }

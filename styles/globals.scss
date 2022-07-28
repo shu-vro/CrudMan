@@ -273,6 +273,12 @@ li.selected button {
             &.none {
                 display: none;
             }
+
+            &.focused,
+            &:hover {
+                background: var(--thin-border-color);
+                color: white;
+            }
         }
 
         &::-webkit-scrollbar {

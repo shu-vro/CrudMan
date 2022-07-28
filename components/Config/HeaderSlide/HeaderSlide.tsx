@@ -58,37 +58,36 @@ export default function QuerySlide() {
         }, 500);
     }, [historySaver.defaultObject]);
 
+    function handleInput() {
+        let inputPlace = formRef.current.querySelectorAll(".input-place");
+        setProps({});
+        for (let i = 0; i < inputPlace.length; i++) {
+            const place = inputPlace[i];
+            let isChecked = place.childNodes[0].querySelector("input").checked;
+            if (isChecked !== true) continue;
+            let key = place.childNodes[1].querySelector("input").value;
+            let value = place.childNodes[2].value;
+            if (!isNaN(Number(value))) {
+                value = Number(value);
+            } else if (value === "true") {
+                value = true;
+            } else if (value === "false") {
+                value = false;
+            }
+            let o = {
+                [key]: value,
+            };
+            setProps(prop => ({ ...prop, ...o }));
+        }
+    }
+
     return (
         <>
             <form
                 className="slide Header"
                 id="config-header-slide"
                 ref={formRef}
-                onInput={() => {
-                    let inputPlace =
-                        formRef.current.querySelectorAll(".input-place");
-                    setProps({});
-                    for (let i = 0; i < inputPlace.length; i++) {
-                        const place = inputPlace[i];
-                        let isChecked =
-                            place.childNodes[0].querySelector("input").checked;
-                        if (isChecked !== true) continue;
-                        let key =
-                            place.childNodes[1].querySelector("input").value;
-                        let value = place.childNodes[2].value;
-                        if (!isNaN(Number(value))) {
-                            value = Number(value);
-                        } else if (value === "true") {
-                            value = true;
-                        } else if (value === "false") {
-                            value = false;
-                        }
-                        let o = {
-                            [key]: value,
-                        };
-                        setProps(prop => ({ ...prop, ...o }));
-                    }
-                }}>
+                onInput={handleInput}>
                 <h2>HTTP Headers</h2>
                 {fields.map(field => (
                     <HeaderInput

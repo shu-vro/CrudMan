@@ -59,8 +59,12 @@ export default async function handler(req, res: NextApiResponse) {
             });
         }
         let elapsedTime = Date.now() - start;
+        let formattedData = new TextDecoder("utf-8").decode(response.data);
+        try {
+            formattedData = JSON.parse(response.data);
+        } catch (error) {}
         res.status(200).json({
-            data: new TextDecoder("utf-8").decode(response.data),
+            data: formattedData,
             arrayBuffer: response.data,
             headers: response.headers,
             status: response.status,

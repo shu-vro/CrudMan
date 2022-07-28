@@ -55,7 +55,7 @@ export default function TestInput({
                 setSectionValueParent={setSectionValueParent}
                 defaultValue={entry.key}
                 data-html={true}
-                data-place="bottom"
+                data-place="top"
                 data-tip={tooltipTextForField}
                 optionDefaultValue={
                     entry.section === "" ? entry.key : entry.section
@@ -85,7 +85,7 @@ export default function TestInput({
                 placeholder={placeHolderNames[1]}
                 defaultValue={entry.value}
                 data-html={true}
-                data-place="bottom"
+                data-place="top"
                 data-tip={tooltipTextForValue}
                 onInput={e => {
                     let value = (e.target as HTMLInputElement).value;

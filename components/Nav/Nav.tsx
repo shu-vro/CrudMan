@@ -20,14 +20,14 @@ export default function Nav({ setVertical, setToggleVertical }) {
 
     return (
         <nav className={styles.nav}>
-            <div className="logo-section">
+            <a href="./" className={styles.__logo_section}>
                 <LogoSvg />
 
                 <h1>
                     <span>CRUD</span>
                     <span>MAN</span>
                 </h1>
-            </div>
+            </a>
             <div className={styles.button_section}>
                 <button
                     type="button"

@@ -7,12 +7,11 @@
 
 ### Features added on last commit:
 
--   Added some svg buttons
--   Added icons
--   Added tooltip
--   Styled checkbox added
--   Icons updated
--   Added slide options buttons
+-   Deleted Cookies tab
+-   Bug fixed in **UrlInput**, **QuerySlide**, **CodeBody**
+-   Edit `env` on click. Removed feature: clicking `envName` will select environment.
+-   Added _option control_ to `custom select`
+-   Prettify headerParser data if possible
 -   Few bugs fixed
 
 ## [View App](https://crudman.netlify.app/)

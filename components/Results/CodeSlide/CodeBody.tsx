@@ -37,7 +37,7 @@ export default function CodeBody() {
         let queryParamsCopy = { ...queryParams, ...auth.params };
         delete copyHeaders["setObject"];
         let _url_with_env_vars = urlData?.url;
-        let _baseurl_with_env_vars = urlData?.url;
+        let _baseurl_with_env_vars = urlData?.baseURL;
         try {
             copyHeaders = JSON.parse(
                 Mustache.render(
@@ -45,21 +45,29 @@ export default function CodeBody() {
                     environment.variables
                 )
             );
+        } catch (error) {}
+        try {
             copyBody = JSON.parse(
                 Mustache.render(JSON.stringify(copyBody), environment.variables)
             );
+        } catch (error) {}
+        try {
             queryParamsCopy = JSON.parse(
                 Mustache.render(
                     JSON.stringify(queryParamsCopy),
                     environment.variables
                 )
             );
+        } catch (error) {}
+        try {
             _url_with_env_vars = JSON.parse(
                 Mustache.render(
                     JSON.stringify(_url_with_env_vars),
                     environment.variables
                 )
             );
+        } catch (error) {}
+        try {
             _baseurl_with_env_vars = JSON.parse(
                 Mustache.render(
                     JSON.stringify(_baseurl_with_env_vars),
@@ -67,6 +75,8 @@ export default function CodeBody() {
                 )
             );
         } catch (error) {}
+
+        console.log(_baseurl_with_env_vars, _url_with_env_vars);
 
         let urlRegex =
             /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
@@ -136,8 +146,9 @@ let bodyContent = JSON.stringify(${copyBodyString});
 let reqOptions = {
     method: '${urlData.method}',
     url: '${url}',
-    headers: headersList,
-    data: bodyContent,
+    headers: headersList,${
+        methodString.match(/PUT|POST/) ? "\n\t\tbody: bodyContent," : ""
+    }
 }
 
 axios(reqOptions).then(function (response) {
@@ -151,8 +162,9 @@ let bodyContent = JSON.stringify(${copyBodyString});
 
 fetch("${url}", { 
     method: "${methodString}",
-    body: bodyContent,
-    headers: headersList
+    headers: headersList,${
+        methodString.match(/PUT|POST/) ? "\n\t\tbody: bodyContent," : ""
+    }
 }).then(function(response) {
     return response.text();
 }).then(function(data) {
@@ -230,24 +242,13 @@ $response | ConvertTo-Json`;
     }, [selectCode, headers, body, urlData, auth, queryParams]);
     const isMobile = useDeviceType();
 
-    return (
-        // <MonacoCodeEditor
-        //     value={config.boilerplate}
-        //     readOnly={true}
-        //     language={config.mode}
-        // />
-        isMobile === "mobile" ? (
-            <AceCodeEditor
-                mode={config.mode}
-                readOnly
-                value={config.boilerplate}
-            />
-        ) : (
-            <MonacoCodeEditor
-                value={config.boilerplate}
-                readOnly
-                language={config.mode}
-            />
-        )
+    return isMobile === "mobile" ? (
+        <AceCodeEditor mode={config.mode} readOnly value={config.boilerplate} />
+    ) : (
+        <MonacoCodeEditor
+            value={config.boilerplate}
+            readOnly
+            language={config.mode}
+        />
     );
 }

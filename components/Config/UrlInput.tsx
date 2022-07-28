@@ -70,18 +70,24 @@ export default function UrlInput() {
                 baseURL_with_env_vars,
                 environment.variables
             );
+        } catch (error) {}
+        try {
             paramsObjectCopy = JSON.parse(
                 Mustache.render(
                     JSON.stringify(paramsObjectCopy),
                     environment.variables
                 )
             );
+        } catch (error) {}
+        try {
             headersObjectCopy = JSON.parse(
                 Mustache.render(
                     JSON.stringify(headersObjectCopy),
                     environment.variables
                 )
             );
+        } catch (error) {}
+        try {
             postBodyObjectCopy = JSON.parse(
                 Mustache.render(
                     JSON.stringify(postBodyObjectCopy),

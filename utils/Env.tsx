@@ -31,16 +31,16 @@ export function useEnvironment() {
     return historySaver;
 }
 
+export const defaultEnv = {
+    name: "global",
+    variables: [
+        {
+            key: "Variable",
+            value: "Value",
+        },
+    ],
+};
 export function EnvironmentContext({ children }) {
-    const defaultEnv = {
-        name: "global",
-        variables: [
-            {
-                key: "Variable",
-                value: "Value",
-            },
-        ],
-    };
     const [object, setObject] = useState<ArrayEnvironmentType>([defaultEnv]);
     const [defaultObject, setDefaultObject] = useState<ArrayEnvironmentType>(
         []

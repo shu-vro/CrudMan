@@ -40,7 +40,7 @@ export default function HeaderInput({
                 placeholder={placeHolderNames[0]}
                 defaultValue={defaultValue?.[0]}
                 data-html={true}
-                data-place="bottom"
+                data-place="top"
                 data-tip={tooltipTextForField}
                 onInput={e => {
                     let value = (e.target as HTMLInputElement).value;

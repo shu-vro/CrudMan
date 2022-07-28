@@ -74,7 +74,7 @@ export function defineTooltip(
             let variable = match.replace(/<<|>>/g, "");
             let envName = "";
             environment.defaultObject.forEach(env => {
-                env.variables.forEach(v => {
+                env?.variables.forEach(v => {
                     if (v.key === variable) {
                         envName = env.name;
                     }
