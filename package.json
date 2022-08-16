@@ -27,13 +27,15 @@
         "react-ace": "^10.1.0",
         "react-dom": "18.1.0",
         "react-icons": "^4.4.0",
-        "react-select": "^5.4.0",
+        "react-sortablejs": "^6.1.4",
         "react-tooltip": "^4.2.21",
+        "sortablejs": "^1.15.0",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@types/numeral": "^2.0.2",
         "@types/react": "^18.0.14",
+        "@types/sortablejs": "^1.13.0",
         "@types/uuid": "^8.3.4",
         "eslint": "8.14.0",
         "eslint-config-next": "12.1.5",

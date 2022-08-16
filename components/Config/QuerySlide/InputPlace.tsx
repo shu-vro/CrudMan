@@ -1,10 +1,11 @@
-import { useEnvironment } from "@utils/Env";
-import { defineTooltip } from "@utils/utils";
-import Checkbox from "components/Checkbox";
 import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { FiDelete } from "react-icons/fi";
+import { TbGripVertical } from "react-icons/tb";
 import ReactTooltip from "react-tooltip";
+import { useEnvironment } from "@utils/Env";
+import { defineTooltip } from "@utils/utils";
+import Checkbox from "components/Checkbox";
 
 export default function InputPlace({
     keyName,
@@ -27,6 +28,7 @@ export default function InputPlace({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
+            <TbGripVertical className="handle" />
             <Checkbox
                 type="checkbox"
                 checked={hasInput}
@@ -40,6 +42,9 @@ export default function InputPlace({
                 data-html={true}
                 data-place="bottom"
                 data-tip={tooltipTextForField}
+                style={{
+                    width: "35%",
+                }}
                 onInput={e => {
                     let value = (e.target as HTMLInputElement).value;
                     setKey(value);
@@ -76,6 +81,9 @@ export default function InputPlace({
                 data-html={true}
                 data-place="bottom"
                 data-tip={tooltipTextForValue}
+                style={{
+                    width: "35%",
+                }}
                 onInput={e => {
                     let value = (e.target as HTMLInputElement).value;
                     defineTooltip(value, environment, setTooltipTextForValue);

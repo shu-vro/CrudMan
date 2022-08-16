@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { v4 } from "uuid";
+import { ReactSortable } from "react-sortablejs";
 import { useHistorySaver } from "@utils/HistorySaver";
 import { defaultEnv, useEnvironment } from "@utils/Env";
 import { useParams } from "@utils/Params";
@@ -137,6 +138,21 @@ export default function QuerySlide() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [graphqlEnabled]);
 
+    function handleInput() {
+        let inputPlace = formRef.current.querySelectorAll(".input-place");
+        setProps({});
+        for (let i = 0; i < inputPlace.length; i++) {
+            const place = inputPlace[i];
+            let isChecked = place.childNodes[1].querySelector("input").checked;
+            if (isChecked !== true) continue;
+            let key = place.childNodes[2].value;
+            let value = place.childNodes[3].value;
+            let o = {
+                [key]: value,
+            };
+            setProps(prop => ({ ...prop, ...o }));
+        }
+    }
     return graphqlEnabled ? (
         <>
             <div className="slide Query slide-selected">
@@ -161,23 +177,7 @@ export default function QuerySlide() {
                 className="slide Query slide-selected"
                 id="config-query-slide"
                 ref={formRef}
-                onInput={() => {
-                    let inputPlace =
-                        formRef.current.querySelectorAll(".input-place");
-                    setProps({});
-                    for (let i = 0; i < inputPlace.length; i++) {
-                        const place = inputPlace[i];
-                        let isChecked =
-                            place.childNodes[0].querySelector("input").checked;
-                        if (isChecked !== true) continue;
-                        let key = place.childNodes[1].value;
-                        let value = place.childNodes[2].value;
-                        let o = {
-                            [key]: value,
-                        };
-                        setProps(prop => ({ ...prop, ...o }));
-                    }
-                }}>
+                onInput={handleInput}>
                 <Checkbox
                     type="checkbox"
                     label="Enable Graphql"
@@ -187,17 +187,33 @@ export default function QuerySlide() {
                 />
 
                 <h2>{graphqlEnabled ? "GraphQl Query" : "Query Parameters"}</h2>
-                {fields.map(field => (
-                    <InputPlace
-                        key={field.id}
-                        keyName={field.id}
-                        formRef={formRef}
-                        placeHolderNames={["parameter", "value"]}
-                        defaultValue={field.entry}
-                        removeField={removeField}
-                        defaultChecked={field.defaultChecked}
-                    />
-                ))}
+                <ReactSortable
+                    list={fields}
+                    setList={setFields}
+                    handle=".handle"
+                    animation={150}
+                    group="shared"
+                    onEnd={() => {
+                        setTimeout(() => {
+                            formRef.current?.dispatchEvent(
+                                new Event("input", {
+                                    bubbles: true,
+                                })
+                            );
+                        }, 0);
+                    }}>
+                    {fields.map(field => (
+                        <InputPlace
+                            key={field.id}
+                            keyName={field.id}
+                            formRef={formRef}
+                            placeHolderNames={["parameter", "value"]}
+                            defaultValue={field.entry}
+                            removeField={removeField}
+                            defaultChecked={field.defaultChecked}
+                        />
+                    ))}
+                </ReactSortable>
 
                 <button
                     type="button"

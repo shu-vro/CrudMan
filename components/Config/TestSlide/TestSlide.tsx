@@ -19,7 +19,6 @@ export default function TestSlide() {
             operation?: string;
             value?: string;
         };
-        defaultChecked?: boolean;
     }>;
     const [fields, setFields] = useState<FieldsType>([]);
 
@@ -47,7 +46,6 @@ export default function TestSlide() {
                         entry: {
                             ...historySaver.defaultObject.tests[data],
                         },
-                        defaultChecked: true,
                     },
                 ]);
             });
@@ -69,14 +67,14 @@ export default function TestSlide() {
 
         for (let i = 0; i < inputPlaces.length; i++) {
             const place = inputPlaces[i];
-            let isPresent = place.childNodes[0].querySelector("input").checked;
+            let section = place.childNodes[0].querySelector("select").value;
+            if (section === "") continue;
 
-            if (!isPresent) continue;
-
-            let section = place.childNodes[1].querySelector("select").value;
-            let key = place.childNodes[1].querySelector("input").value;
-            let operation = place.childNodes[2].value;
-            let value = place.childNodes[3].querySelector(
+            let key = place.childNodes[0].querySelector("input").value;
+            if (section === "Headers" && key === "") continue;
+            if (section === "Headers" && key === "") continue;
+            let operation = place.childNodes[1].value;
+            let value = place.childNodes[2].querySelector(
                 ".select-container input"
             ).value;
 
@@ -115,7 +113,6 @@ export default function TestSlide() {
                         formRef={formRef}
                         placeHolderNames={["Test Header", "value"]}
                         removeField={removeField}
-                        defaultChecked={field.defaultChecked}
                         entry={field.entry}
                     />
                 ))}

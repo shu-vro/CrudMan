@@ -124,7 +124,7 @@ export default function SelectHeaderButton({ allHeaders, ...rest }) {
             <div className="options" ref={optionsRef}>
                 {allHeaders.map(el => (
                     <div
-                        key={el.label.toLowerCase()}
+                        key={el.description.toLowerCase()}
                         className="option"
                         data-text={`${el.description}`}>
                         {el.label.toLowerCase()}

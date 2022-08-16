@@ -135,6 +135,10 @@ li.selected button {
         padding: 10px 0;
         transition: 0.25s;
 
+        .handle {
+            margin-right: 10px;
+        }
+
         &:hover {
             background: var(--input-place-hover-bg);
         }

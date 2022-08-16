@@ -76,8 +76,6 @@ export default function CodeBody() {
             );
         } catch (error) {}
 
-        console.log(_baseurl_with_env_vars, _url_with_env_vars);
-
         let urlRegex =
             /(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/gi;
         let urlArray = _url_with_env_vars.split(urlRegex); // 4, 5 and 6 has desired output

@@ -123,14 +123,14 @@ export default function SelectButton({
             } else if (e.key === "Escape" && input.value === "") {
                 section.selectedIndex = 0;
                 setInputDisabled(prev => !prev);
-                input.value = lists?.[selectedIndex].textContent || "";
+                input.value = lists?.[selectedIndex]?.textContent || "";
                 let eventInitDict: eventInitDictParams = {
                     bubbles: true,
                     target: { value: input.value },
                 };
                 input.dispatchEvent(new Event("input", eventInitDict));
                 options.style.display = "none";
-                tip.textContent = (lists?.[selectedIndex]).dataset.text;
+                tip.textContent = "";
                 tip.style.display = "block";
                 input.focus();
                 lists.forEach(b => {

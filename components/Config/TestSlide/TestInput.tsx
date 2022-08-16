@@ -3,7 +3,6 @@ import SelectButton from "./SelectButton";
 import SelectButtonValue from "./SelectButtonValue";
 import mimes from "@utils/mime.json";
 import statuses from "@utils/status.json";
-import Checkbox from "components/Checkbox";
 import { FiDelete } from "react-icons/fi";
 import { useEnvironment } from "@utils/Env";
 import ReactTooltip from "react-tooltip";
@@ -14,7 +13,6 @@ export default function TestInput({
     placeHolderNames,
     removeField,
     keyName,
-    defaultChecked,
     entry,
 }) {
     const inputPlaceRef = useRef(null);
@@ -47,10 +45,6 @@ export default function TestInput({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <Checkbox
-                type="checkbox"
-                defaultChecked={defaultChecked || false}
-            />
             <SelectButton
                 setSectionValueParent={setSectionValueParent}
                 defaultValue={entry.key}
