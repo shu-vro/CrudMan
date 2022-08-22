@@ -900,7 +900,7 @@ export default function TestResults() {
                         if (propName.substring(0, 4) !== "json") {
                             throw new Error();
                         }
-                        answer = eval(propName);
+                        answer = "eval(propName)";
                     } catch (error) {
                         setTests(tests => ({
                             ...tests,
