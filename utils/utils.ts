@@ -48,12 +48,57 @@ export function extractFileNameAndTypeFromContentType(
     return ["", ""];
 }
 
-export function extractContentType(contentType) {
+export function extractContentType(contentType: string) {
     if (contentType) {
         const contentTypeParts = contentType.split(";");
         return contentTypeParts[0];
     }
     return "";
+}
+
+/**
+ * Gets `Json-Query` answer from `json` object
+ * 
+ * used in `TestResults.tsx` file
+ * @example
+ * ```
+ * let json = [
+        {
+            name: {
+                firstName: ["John", "Jane"],
+                lastName: "Doe",
+            },
+        },
+    ];
+
+    let string = `json[0].name.firstName[1]`;
+    console.log(getJsonQueryAnswer(json, string));  // Jane
+ * ```
+ * @param json JSON object
+ * @param string
+ * @param prefix Prefix for `json` object. 
+ * @default undefined
+ * @returns result of query or undefined
+ */
+export function getJsonQueryAnswer(
+    json: Array<any>,
+    string: String,
+    prefix = "json"
+) {
+    let answer = string
+        .split(".")
+        .map(x => x.split("[").map(y => y.split("]")))
+        .flat(Infinity)
+        .filter(x => x);
+
+    if (answer[0] === prefix) {
+        let ans = json;
+        for (let i = 1; i < answer.length; i++) {
+            ans = ans[answer[i] as string];
+        }
+        return ans as unknown as any;
+    }
+    return undefined;
 }
 
 export function defineTooltip(
