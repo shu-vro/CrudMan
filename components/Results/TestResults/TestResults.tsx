@@ -4,7 +4,11 @@ import Table from "../Table/Table";
 import { useTest } from "@utils/Test";
 import { useApiData } from "@utils/ApiData";
 import { useEnvironment } from "@utils/Env";
-import { stringToRegex, checkRegexKeyInResponse } from "@utils/utils";
+import {
+    stringToRegex,
+    checkRegexKeyInResponse,
+    getJsonQueryAnswer,
+} from "@utils/utils";
 
 export default function TestResults() {
     const [tests, setTests] = useState({});
@@ -894,20 +898,7 @@ export default function TestResults() {
                     break;
 
                 case "Json-Query":
-                    let json = apiData?.data;
-                    var answer;
-                    try {
-                        if (propName.substring(0, 4) !== "json") {
-                            throw new Error();
-                        }
-                        answer = "eval(propName)";
-                    } catch (error) {
-                        setTests(tests => ({
-                            ...tests,
-                            [text + " - Not a valid operation"]: "failed",
-                        }));
-                        break;
-                    }
+                    let answer = getJsonQueryAnswer(apiData?.data, propName);
                     switch (operation) {
                         case "equals to":
                             if (answer === value) {
