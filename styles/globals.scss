@@ -135,6 +135,13 @@ li.selected button {
         padding: 10px 0;
         transition: 0.25s;
 
+        .bind-handle-and-checkbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
         .handle {
             margin-right: 10px;
         }

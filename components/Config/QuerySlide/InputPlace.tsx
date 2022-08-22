@@ -28,23 +28,22 @@ export default function InputPlace({
 
     return (
         <div className="input-place" ref={inputPlaceRef}>
-            <TbGripVertical className="handle" />
-            <Checkbox
-                type="checkbox"
-                checked={hasInput}
-                onChange={() => {
-                    setHasInput(!hasInput);
-                }}
-            />
+            <div className="bind-handle-and-checkbox">
+                <TbGripVertical className="handle" />
+                <Checkbox
+                    type="checkbox"
+                    checked={hasInput}
+                    onChange={() => {
+                        setHasInput(!hasInput);
+                    }}
+                />
+            </div>
             <input
                 type="text"
                 placeholder={placeHolderNames[0]}
                 data-html={true}
                 data-place="bottom"
                 data-tip={tooltipTextForField}
-                style={{
-                    width: "35%",
-                }}
                 onInput={e => {
                     let value = (e.target as HTMLInputElement).value;
                     setKey(value);
@@ -81,9 +80,6 @@ export default function InputPlace({
                 data-html={true}
                 data-place="bottom"
                 data-tip={tooltipTextForValue}
-                style={{
-                    width: "35%",
-                }}
                 onInput={e => {
                     let value = (e.target as HTMLInputElement).value;
                     defineTooltip(value, environment, setTooltipTextForValue);
