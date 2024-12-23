@@ -87,6 +87,7 @@ export default function InputPlace({
             />
             <button
                 type="button"
+                title="Delete"
                 onClick={() => {
                     removeField(keyName);
                     setTimeout(() => {

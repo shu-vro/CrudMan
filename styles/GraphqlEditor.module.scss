@@ -1,0 +1,38 @@
+.tab-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: fit-content;
+
+    input {
+        appearance: none;
+        width: 0;
+        height: 0;
+    }
+
+    label {
+        display: inline-block;
+        padding: 10px 20px;
+        color: var(--button-text-color);
+        font-size: 1.2rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.25s;
+        margin: 0 10px;
+        position: relative;
+        text-align: center;
+
+        .underline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--button-text-color);
+            margin-top: 5px;
+            transition: 0.25s;
+        }
+    }
+}

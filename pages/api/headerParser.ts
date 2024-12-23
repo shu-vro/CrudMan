@@ -35,6 +35,7 @@ export default async function handler(req, res: NextApiResponse) {
                 size: 0,
                 elapsedTime: 0,
             });
+            return;
         }
         let params = JSON.parse(paramsString);
         let headers = JSON.parse(headersString);

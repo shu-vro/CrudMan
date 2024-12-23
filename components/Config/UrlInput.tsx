@@ -101,9 +101,9 @@ export default function UrlInput() {
             let { data: res } = await axios.get("/api/headerParser", {
                 cancelToken: cancelControllerSource.current.token,
                 params: {
-                    params: paramsObjectCopy,
-                    headers: headersObjectCopy,
-                    body: postBodyObjectCopy,
+                    params: JSON.stringify(paramsObjectCopy),
+                    headers: JSON.stringify(headersObjectCopy),
+                    body: JSON.stringify(postBodyObjectCopy),
                     url: baseURL_with_env_vars,
                     method: entries.method,
                 },
@@ -174,6 +174,7 @@ export default function UrlInput() {
             data-place="bottom"
             data-tip={tooltipText}>
             <select
+                title="Select a method"
                 name="method"
                 value={urlData.object.method}
                 onChange={() => true}>

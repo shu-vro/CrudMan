@@ -3,32 +3,96 @@ import AceCodeEditor from "components/Editors/AceCodeEditor";
 import MonacoCodeEditor from "components/Editors/MonacoCodeEditor";
 import useDeviceType from "hooks/useDeviceType";
 import { useState } from "react";
+import styles from "@styles/GraphqlEditor.module.scss";
 
 export default function GraphQlEditor() {
     const param = useParams();
-    const [value, setValue] = useState(``);
+    const [queryValue, setQueryValue] = useState(``);
+    const [variablesValue, setVariablesValue] = useState(``);
     const isMobile = useDeviceType();
+    const [tab, setTab] = useState("query");
 
     return (
         <>
             <h2>GraphQl Query</h2>
-            {isMobile === "mobile" ? (
+            <div className={styles["tab-container"]}>
+                <input
+                    type="radio"
+                    name="select-query"
+                    id="gql-query"
+                    title="query"
+                    defaultChecked
+                    onClick={() => {
+                        setTab("query");
+                    }}
+                />
+                <input
+                    type="radio"
+                    name="select-query"
+                    id="gql-variables"
+                    title="variables"
+                    onClick={() => {
+                        setTab("variables");
+                    }}
+                />
+                <label htmlFor="gql-query">
+                    Query
+                    {tab === "query" && <div className={styles.underline} />}
+                </label>
+                <label htmlFor="gql-variables">
+                    Variables
+                    {tab === "variables" && (
+                        <div className={styles.underline} />
+                    )}
+                </label>
+            </div>
+            {tab === "query" ? (
+                isMobile === "mobile" ? (
+                    <AceCodeEditor
+                        value={queryValue}
+                        mode="puppet"
+                        onChange={value => {
+                            setQueryValue(value);
+                            param.setObject(prev => ({
+                                query: value,
+                                variables: prev?.variables || "",
+                            }));
+                        }}
+                    />
+                ) : (
+                    <MonacoCodeEditor
+                        language="graphql"
+                        onChange={value => {
+                            setQueryValue(value);
+                            param.setObject(prev => ({
+                                query: value,
+                                variables: prev?.variables || "",
+                            }));
+                        }}
+                        value={queryValue}
+                    />
+                )
+            ) : isMobile === "mobile" ? (
                 <AceCodeEditor
-                    value={value}
-                    mode="puppet"
+                    value={variablesValue}
                     onChange={value => {
-                        setValue(value);
-                        param.setObject(prev => ({ query: value }));
+                        setVariablesValue(value);
+                        param.setObject(prev => ({
+                            variables: value,
+                            query: prev?.query || "",
+                        }));
                     }}
                 />
             ) : (
                 <MonacoCodeEditor
-                    language="graphql"
                     onChange={value => {
-                        setValue(value);
-                        param.setObject(prev => ({ query: value }));
+                        setVariablesValue(value);
+                        param.setObject(prev => ({
+                            variables: value,
+                            query: prev?.query || "",
+                        }));
                     }}
-                    value={value}
+                    value={variablesValue}
                 />
             )}
         </>
