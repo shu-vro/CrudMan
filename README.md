@@ -16,7 +16,7 @@
 
 ## [View App](https://crudman.netlify.app/)
 
-![Netlify](https://img.shields.io/netlify/41f88d82-29b7-478b-80d4-a26cfd5d010a)
+![Netlify](https://img.shields.io/netlify/512534c4-2aee-4ee1-9107-a53c5eb4c713)
 
 ## Preview
 
