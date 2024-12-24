@@ -88,7 +88,7 @@ export default function SelectButton({
             if (lists.length === 0) return;
             if (index > -1 && index < lists.length) {
                 let top = 0;
-                lists.forEach((list: HTMLElement, i: Number) => {
+                lists.forEach((list: HTMLElement, i: number) => {
                     if (i < index) {
                         top += list.getBoundingClientRect().height;
                     }
